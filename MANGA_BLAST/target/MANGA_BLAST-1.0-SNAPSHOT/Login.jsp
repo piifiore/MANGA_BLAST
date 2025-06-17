@@ -23,14 +23,22 @@
 
     <form method="post" id="LoginForm" action="LoginServlet">
 
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username" required>
+            <label for="email">Email:</label>
+            <input type="email" name="username" id="email" required>
+
 
             <label for="password">Password:</label>
             <input type="password" name="password" id="password" required>
 
             <button type="submit">Accedi</button>
 
+        <p>Non hai un account? <a href="signup.jsp">Registrati qui</a></p>
+
+        <p id="errorMessage">
+            <c:if test="${not empty errorMessage}">
+                ${errorMessage}
+            </c:if>
+        </p>
     </form>
 
 </div>
