@@ -1,8 +1,9 @@
 package Model;
+
 import java.sql.*;
 
+public class UserDAO {
 
-    public class UserDAO {
+}
 
-    }
 
