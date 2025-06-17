@@ -7,13 +7,13 @@ import java.sql.SQLException;
 public class MyJDBC {
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://127.0.0.1:3306/progettotsw_db",
+                "jdbc:mysql://localhost:3306/progettotsw_db",
                 "root",
                 "password"
         );
 
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM utenti");
 
         while (resultSet.next()){
             System.out.print("email: ");
