@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>MANGA_BALST</artifactId>
+  <artifactId>MANGA_BLAST</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>MANGA_BALST</name>
+  <name>MANGA_BLAST</name>
   <packaging>war</packaging>
 
   <properties>
@@ -18,7 +18,14 @@
   </properties>
 
   <dependencies>
-<dependency>
+
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>8.0.33</version>
+      </dependency>
+
+      <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
       <version>6.1.0</version>
