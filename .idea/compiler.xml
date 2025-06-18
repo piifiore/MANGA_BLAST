@@ -7,7 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="MANGA_BALST" />
+        <module name="MANGA_BLAST" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="MANGA_BLAST (1)" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
