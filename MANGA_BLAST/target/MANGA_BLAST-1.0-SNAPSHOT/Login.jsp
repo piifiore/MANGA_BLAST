@@ -12,11 +12,10 @@
 <head>
     <title>Login</title>
 
-
-
 </head>
-<body>
 
+
+<body>
 <div id="Log-in">
 
     <h2>Aceedi al tuo account</h2>
