@@ -17,14 +17,11 @@
     <junit.version>5.11.0-M2</junit.version>
   </properties>
 
-  <dependencies>
-
       <dependency>
           <groupId>mysql</groupId>
           <artifactId>mysql-connector-java</artifactId>
           <version>8.0.33</version>
       </dependency>
-
       <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
@@ -41,6 +38,8 @@
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
         <version>${junit.version}</version>
+
+          <packaging>war</packaging>
         <scope>test</scope>
       </dependency>  </dependencies>
 

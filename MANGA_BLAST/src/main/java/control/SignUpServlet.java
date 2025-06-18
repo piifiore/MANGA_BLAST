@@ -7,8 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.UserDAO;
 import java.io.IOException;
-public class SignUpServlet extends HttpServlet {
 
+@WebServlet("/SignUpServlet")
+
+public class SignUpServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
