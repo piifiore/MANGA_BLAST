@@ -27,7 +27,7 @@ public class UserDAO {
     //Metodo che registra l'utente nel DB
     public void registerUser(String email, String password) {
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("INSERT INTO utenti (email, password) VALUES (?, ?)")) {
+             PreparedStatement stmt = conn.prepareStatement("INSERT INTO utenti (password, email) VALUES (?, ?)")) {
 
             stmt.setString(1, email);
             stmt.setString(2, password);
