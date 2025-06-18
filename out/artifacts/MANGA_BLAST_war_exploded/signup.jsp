@@ -15,7 +15,7 @@
 <body>
 <h2>Registrazione nuovo utente</h2>
 
-<form method="post" action="SignUpServlet" id="signupForm">
+<form method="post" action="SignUpServlet">
     <label for="email">Email:</label>
     <input type="email" name="email" id="email" required>
 
