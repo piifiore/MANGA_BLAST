@@ -12,7 +12,7 @@ import java.sql.*;
 
 public class UserDAO {
     public boolean emailExists(String email) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/progettotsw_db", "root", "password");
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT * FROM utenti WHERE email = ?")) {
 
             stmt.setString(1, email);
@@ -26,7 +26,7 @@ public class UserDAO {
 
     //Metodo che registra l'utente nel DB
     public void registerUser(String email, String password) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/progettotsw_db", "root", "password");
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO utenti (email, password) VALUES (?, ?)")) {
 
             stmt.setString(1, email);
