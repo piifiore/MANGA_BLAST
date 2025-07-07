@@ -52,14 +52,13 @@ public class UserDAO {
     }
 
     // Registra un nuovo utente nel database
-    public void registerUser(String email, String username, String password) {
-        String query = "INSERT INTO utenti (email, username, password) VALUES (?, ?, ?)";
+    public void registerUser(String email, String password) {
+        String query = "INSERT INTO utenti (email, password) VALUES (?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, email);
-            stmt.setString(2, username);
-            stmt.setString(3, password);
+            stmt.setString(2, password);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
