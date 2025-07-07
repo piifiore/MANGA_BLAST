@@ -11,6 +11,12 @@
 
 <a href="signup.jsp">Hello JSP</a>
 
+<form id="LogoutUserServlet" method="get">
+  <button type="submit">Logout</button>
+</form>
+
+
+
 </body>
 </html>
 
