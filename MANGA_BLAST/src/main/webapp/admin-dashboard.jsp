@@ -16,7 +16,7 @@
       return;
     }
   %>
-  <h2>Benvenuto nella dashboard amministratore</h2>
+  <h2>Benvenuto nella dashboard i nani</h2>
 
 
   <form id="LogoutAdminServlet" method="get">
