@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel ="stylesheet" href="Style/loginStyle.css">
-<script src="Scripts/login.js"></script>
+<link rel ="stylesheet" href="style/loginStyle.css">
+<script src="scripts/login.js"></script>
 <html>
 <head>
     <title>Login</title>
