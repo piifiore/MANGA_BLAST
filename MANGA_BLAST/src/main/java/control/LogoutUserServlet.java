@@ -5,7 +5,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 
 
-@SuppressWarnings("/LogoutUserServlet")
+@SuppressWarnings("/Logout")
 public class LogoutUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -19,7 +19,7 @@
   <h2>Benvenuto nella dashboard i nani</h2>
 
 
-  <form id="LogoutAdminServlet" method="get">
+  <form id="Logout" method="get">
     <button type="submit">Logout Admin</button>
   </form>
 
