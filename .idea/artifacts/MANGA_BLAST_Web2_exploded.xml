@@ -7,7 +7,11 @@
         <element id="directory" name="classes">
           <element id="module-output" name="MANGA_BLAST" />
         </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/lib/mysql-connector-j-9.3.0.jar" />
+        </element>
       </element>
+      <element id="javaee-facet-resources" facet="MANGA_BLAST/web/Web" />
     </root>
   </artifact>
 </component>
