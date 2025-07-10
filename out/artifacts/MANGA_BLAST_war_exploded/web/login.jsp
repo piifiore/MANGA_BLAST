@@ -20,7 +20,7 @@
 
     <h2>Aceedi al tuo account</h2>
 
-    <form method="post" id="LoginForm" action="LoginServlet">
+    <form method="post" id="LoginForm" action="${pageContext.request.contextPath}/login">
 
             <label for="email">Email:</label>
             <input type="email" name="username" id="email" required>

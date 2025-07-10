@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<form method="post" action="SignUpServlet">
+<form method="post" id="SignUpForm" action="${pageContext.request.contextPath}/signup">
     <label for="email">Email:</label>
     <input type="email" name="email" id="email" required>
 
