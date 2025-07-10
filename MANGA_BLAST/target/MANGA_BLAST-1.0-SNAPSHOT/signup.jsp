@@ -6,16 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" href="style/singnup.css">
-<script src="scripts/signup.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/style/signup.css">
+<script src="../scripts/signup.js"></script>
 <html>
 <head>
     <title>Sign-up</title>
 </head>
 <body>
-<h2>Registrazione nuovo utente</h2>
 
-<form method="post" action="SignUpServlet">
+<form method="post" id="SignUpForm" action="${pageContext.request.contextPath}/signup">
     <label for="email">Email:</label>
     <input type="email" name="email" id="email" required>
 

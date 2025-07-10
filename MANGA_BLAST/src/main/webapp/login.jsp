@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel ="stylesheet" href="Style/loginStyle.css">
-<script src="Scripts/login.js"></script>
+<link rel ="stylesheet" href="${pageContext.request.contextPath}/style/loginStyle.css">
+<script src="../scripts/login.js"></script>
 <html>
 <head>
     <title>Login</title>
@@ -20,10 +20,10 @@
 
     <h2>Aceedi al tuo account</h2>
 
-    <form method="post" id="LoginForm" action="LoginServlet">
+    <form method="post" id="LoginForm" action="${pageContext.request.contextPath}/login">
 
             <label for="email">Email:</label>
-            <input type="email" name="username" id="email" required>
+            <input type="email" name="email" id="email" required>
 
 
             <label for="password">Password:</label>
