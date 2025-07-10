@@ -10,13 +10,13 @@ import model.UserDAO;
 
 import java.io.IOException;
 
-@WebServlet("/LoginForm")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String email = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         UserDAO dao = new UserDAO();
