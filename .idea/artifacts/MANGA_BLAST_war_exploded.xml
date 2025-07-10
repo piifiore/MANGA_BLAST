@@ -12,6 +12,12 @@
         </element>
       </element>
       <element id="javaee-facet-resources" facet="MANGA_BLAST/web/Web" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/web/index.jsp" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/web/login.jsp" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/web/signup.jsp" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/web/admin-dashboard.jsp" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/WEB-INF/web.xml" />
+      <element id="dir-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/style" />
     </root>
   </artifact>
 </component>
