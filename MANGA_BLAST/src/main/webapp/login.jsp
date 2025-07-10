@@ -1,48 +1,53 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Pino
-  Date: 16/06/2025
-  Time: 16:43
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel ="stylesheet" href="${pageContext.request.contextPath}/style/loginStyle.css">
-<script src="../scripts/login.js"></script>
 <html>
 <head>
     <title>Login</title>
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/loginStyle.css">
+    <script src="../scripts/login.js"></script>
+    <style>
+        #successMessage {
+            color: green;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        #errorMessage {
+            color: red;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+    </style>
 </head>
-
-
 <body>
 <div id="Log-in">
 
-    <h2>Aceedi al tuo account</h2>
+    <h2>Accedi al tuo account</h2>
+
+    <% String success = request.getParameter("signupSuccess");
+        if ("true".equals(success)) { %>
+    <div id="successMessage">Registrazione effettuata con successo!</div>
+    <% } %>
 
     <form method="post" id="LoginForm" action="${pageContext.request.contextPath}/login">
 
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" required>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
 
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
 
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required>
-
-            <button type="submit">Accedi</button>
+        <button type="submit">Accedi</button>
 
         <p>Non hai un account? <a href="signup.jsp">Registrati qui</a></p>
 
-        <p id="errorMessage">
-            <c:if test="${not empty errorMessage}">
-                ${errorMessage}
-            </c:if>
-        </p>
+        <% String errorMessage = (String) request.getAttribute("errorMessage");
+            if (errorMessage != null) { %>
+        <p id="errorMessage"><%= errorMessage %></p>
+        <% } %>
     </form>
 
 </div>
-
-
-
 </body>
 </html>
