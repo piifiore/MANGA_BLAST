@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" href="style/signup.css">
-<script src="scripts/signup.js"></script>
+<link rel="stylesheet" href="../style/signup.css">
+<script src="../scripts/signup.js"></script>
 <html>
 <head>
     <title>Sign-up</title>
