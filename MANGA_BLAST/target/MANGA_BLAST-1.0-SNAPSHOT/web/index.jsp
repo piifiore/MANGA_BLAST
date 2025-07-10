@@ -1,3 +1,4 @@
+
 <%@ page import="java.util.List" %>
 <%@ page import="model.ProdottoDAO" %>
 <%@ page import="model.Prodotto" %>
@@ -13,7 +14,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Home - E-Commerce</title>
-  <link rel="stylesheet" href="../style/index.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css">
 </head>
 <body>
 <%--<%@ include file="includes/header.jsp" %>--%>
