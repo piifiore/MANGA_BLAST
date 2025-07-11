@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MANGA_BLAST/MANGA_BLAST.iml" filepath="$PROJECT_DIR$/MANGA_BLAST/MANGA_BLAST.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MANGA_BLAST.iml" filepath="$PROJECT_DIR$/MANGA_BLAST.iml" />
     </modules>
   </component>
 </project>
