@@ -1,26 +1,28 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: roman
-  Date: 17/06/2025
-  Time: 21:51
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" href="style/singnup.css">
-<script src="scripts/signup.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/style/signup.css?v=<%= System.currentTimeMillis() %>">
+<script src="../scripts/signup.js"></script>
 <html>
 <head>
     <title>Sign-up</title>
 </head>
 <body>
-<h2>Registrazione nuovo utente</h2>
 
-<form method="post" action="SignUpServlet">
+<form method="post" id="SignUpForm" action="${pageContext.request.contextPath}/signup">
     <label for="email">Email:</label>
     <input type="email" name="email" id="email" required>
 
     <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
+    <input type="password" name="password" id="password" minlength="8" required>
+
+    <div id="password-feedback">
+        <ul>
+            <li id="length">Minimo 8 caratteri</li>
+            <li id="lowercase">Almeno una minuscola</li>
+            <li id="uppercase">Almeno una MAIUSCOLA</li>
+            <li id="number">Almeno un numero</li>
+            <li id="special">Almeno un carattere speciale</li>
+        </ul>
+    </div>
 
     <button type="submit">Registrati</button>
 
@@ -29,5 +31,61 @@
     </p>
 
 </form>
+
+<script>
+    window.addEventListener("load", function () {
+        const passwordField = document.getElementById("password");
+        const form = document.getElementById("SignUpForm");
+
+        const feedbackItems = {
+            length: document.getElementById("length"),
+            lowercase: document.getElementById("lowercase"),
+            uppercase: document.getElementById("uppercase"),
+            number: document.getElementById("number"),
+            special: document.getElementById("special")
+        };
+
+        const checkPasswordRequirements = () => {
+            const password = passwordField.value;
+
+            return {
+                length: password.length >= 8,
+                lowercase: /[a-z]/.test(password),
+                uppercase: /[A-Z]/.test(password),
+                number: /[0-9]/.test(password),
+                special: /[^A-Za-z0-9]/.test(password)
+            };
+        };
+
+        passwordField.addEventListener("input", function () {
+            const checks = checkPasswordRequirements();
+            let allValid = true;
+
+            for (const [key, isValid] of Object.entries(checks)) {
+                const item = feedbackItems[key];
+                if (isValid) {
+                    item.classList.add("valid");
+                } else {
+                    item.classList.remove("valid");
+                    allValid = false;
+                }
+            }
+
+            passwordField.classList.toggle("valid", allValid);
+            passwordField.classList.toggle("invalid", !allValid);
+        });
+
+        form.addEventListener("submit", function (e) {
+            const checks = checkPasswordRequirements();
+            const allValid = Object.values(checks).every(Boolean);
+
+            if (!allValid) {
+                e.preventDefault(); // blocca l'invio del form
+                alert("La password non soddisfa tutti i requisiti. Per favore, controlla il feedback.");
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
