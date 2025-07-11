@@ -12,6 +12,7 @@ public class ProdottoDAO {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
+
             while (rs.next()) {
                 Prodotto p = new Prodotto();
                 p.setId(rs.getInt("id"));
@@ -43,5 +44,4 @@ public class ProdottoDAO {
         }
     }
 
-    // Metodi per update, delete e findById possono essere aggiunti con facilità
 }
