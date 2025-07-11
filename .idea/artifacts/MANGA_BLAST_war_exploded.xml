@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="MANGA_BLAST:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="MANGA_BLAST" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="MANGA_BLAST/web/Web" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/style/index.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/style/loginStyle.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/style/signup.css" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/index.jsp" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/signup.jsp" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/login.jsp" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-dashboard.jsp" />
+      <element id="dir-copy" path="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp" />
+      <element id="file-copy" path="$PROJECT_DIR$/MANGA_BLAST/pom.xml" />
+    </root>
+  </artifact>
+</component>
