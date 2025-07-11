@@ -35,6 +35,8 @@
 <script>
     window.addEventListener("load", function () {
         const passwordField = document.getElementById("password");
+        const form = document.getElementById("SignUpForm");
+
         const feedbackItems = {
             length: document.getElementById("length"),
             lowercase: document.getElementById("lowercase"),
@@ -42,19 +44,21 @@
             number: document.getElementById("number"),
             special: document.getElementById("special")
         };
-        const feedbackContainer = document.getElementById("password-feedback");
 
-        passwordField.addEventListener("input", function () {
+        const checkPasswordRequirements = () => {
             const password = passwordField.value;
 
-            const checks = {
+            return {
                 length: password.length >= 8,
                 lowercase: /[a-z]/.test(password),
                 uppercase: /[A-Z]/.test(password),
                 number: /[0-9]/.test(password),
                 special: /[^A-Za-z0-9]/.test(password)
             };
+        };
 
+        passwordField.addEventListener("input", function () {
+            const checks = checkPasswordRequirements();
             let allValid = true;
 
             for (const [key, isValid] of Object.entries(checks)) {
@@ -69,8 +73,16 @@
 
             passwordField.classList.toggle("valid", allValid);
             passwordField.classList.toggle("invalid", !allValid);
-            feedbackContainer.classList.toggle("valid", allValid);
-            feedbackContainer.classList.toggle("invalid", !allValid);
+        });
+
+        form.addEventListener("submit", function (e) {
+            const checks = checkPasswordRequirements();
+            const allValid = Object.values(checks).every(Boolean);
+
+            if (!allValid) {
+                e.preventDefault(); // blocca l'invio del form
+                alert("La password non soddisfa tutti i requisiti. Per favore, controlla il feedback.");
+            }
         });
     });
 </script>
