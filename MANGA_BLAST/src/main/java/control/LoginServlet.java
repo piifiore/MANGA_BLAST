@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("admin-dashboard.jsp");
         } else if (dao.isUser(email, password)) {
             session.setAttribute("user", email);
-            response.sendRedirect("home.jsp");
+            response.sendRedirect("index.jsp");
         } else {
             request.setAttribute("errorMessage", "Credenziali non valide!");
             request.getRequestDispatcher("login.jsp").forward(request, response);

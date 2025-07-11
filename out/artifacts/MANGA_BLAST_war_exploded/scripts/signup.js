@@ -1,4 +1,4 @@
-document.getElementById("signupForm").addEventListener("submit", function(event) {
+document.getElementById("SignUpForm").addEventListener("submit", function(event) {
     let email = document.getElementById("email").value.trim();
     let password = document.getElementById("password").value.trim();
     let msg = document.getElementById("signupMessage");

@@ -19,7 +19,6 @@ public class SignUpServlet extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
 
-
         UserDAO userDAO = new UserDAO();
 
         if (userDAO.emailExists(email))

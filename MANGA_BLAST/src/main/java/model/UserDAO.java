@@ -6,7 +6,7 @@ public class UserDAO {
 
     // Verifica se esiste un utente normale con email e password
     public boolean isUser(String email, String password) {
-        String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+        String query = "SELECT * FROM utenti WHERE email = ? AND password = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -53,7 +53,7 @@ public class UserDAO {
 
     // Registra un nuovo utente nel database
     public void registerUser(String email, String password) {
-        String query = "INSERT INTO users (password, email) VALUES (?, ?)";
+        String query = "INSERT INTO utenti (password, email) VALUES (?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 

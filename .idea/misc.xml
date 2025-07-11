@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/web/WEB-INF/web.xml" />
+    <file type="web" url="file://$PROJECT_DIR$/MANGA_BLAST/target/MANGA_BLAST-1.0-SNAPSHOT/WEB-INF/web.xml" />
+    <file type="web" url="file://$PROJECT_DIR$/MANGA_BLAST/target/MANGA_BLAST-1.0-SNAPSHOT/web/WEB-INF/web.xml" />
+    <file type="web" url="file://$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/web.xml" />
+    <file type="web" url="file://$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/web/WEB-INF/web.xml" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_23" project-jdk-name="openjdk-23" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

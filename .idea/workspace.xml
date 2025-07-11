@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="MANGA_BLAST:Web2 exploded" />
+      <artifact name="MANGA_BLAST:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,13 +10,75 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59d0fee7-8b38-490a-a119-844c26fc7d74" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/AggiungiFunkoServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/AggiungiMangaServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/EliminaFunkoServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/EliminaMangaServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/ModificaFunkoServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/ModificaMangaServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/Funko.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/FunkoDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/Manga.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/MangaDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-prodotti.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/modifica-funko.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/modifica-manga.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/SignUpServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/SignUpServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/img/onepiece_v1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/style/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/style/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/scripts/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/scripts/signup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/MyJDBC.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/control/LoginServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/control/LogoutUserServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/control/SignUpServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/model/AdminDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/model/CarrelloDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/model/DBConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/model/Ordine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/model/OrdineDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/model/Prodotto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/model/ProdottoCarrello.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/model/ProdottoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/target/classes/model/UserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/MyJDBC.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/MyJDBC.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/LoginServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/LogoutUserServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/LogoutUserServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/SignUpServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/SignUpServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/AdminDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/AdminDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/CarrelloDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/CarrelloDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/DBConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/DBConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/Ordine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/Ordine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/OrdineDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/OrdineDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/Prodotto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/Prodotto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/ProdottoCarrello.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/ProdottoCarrello.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/ProdottoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/ProdottoDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/UserDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/scripts/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/scripts/signup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/style/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/style/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/LoginServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/SignUpServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/SignUpServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/UserDAO.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Jsp File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -27,12 +89,12 @@
     &quot;assignee&quot;: &quot;Cicciopasticcio9&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/piifiore/MANGA_BLAST.git&quot;,
-    &quot;accountId&quot;: &quot;ea23a094-2ec9-48a2-9b49-887efde53c51&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/piifiore/MANGA_BLAST.git",
+    "accountId": "e371b1f3-2db2-4ec5-9fbb-aa7bda36b5ea"
   }
-}</component>
+}]]></component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -48,65 +110,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.MyJDBC.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;StatusDashboardGroupingRule&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.28.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.index.jsp.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.signup.jsp (1).executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.signup.jsp.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.applicationServers&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.MyJDBC.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "StatusDashboardGroupingRule": "true",
+    "Tomcat Server.Tomcat 10.1.28.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.43.executor": "Run",
+    "Tomcat Server.index.jsp.executor": "Run",
+    "Tomcat Server.signup.jsp (1).executor": "Run",
+    "Tomcat Server.signup.jsp.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/xampp/tomcat/lib/servlet-api.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.applicationServers",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunDashboard">
-    <option name="hiddenConfigurations">
-      <map>
-        <entry key="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
-          <value>
-            <set>
-              <option value="index.jsp" />
-              <option value="signup.jsp" />
-            </set>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.28">
-    <configuration name="MyJDBC" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MyJDBC" />
-      <module name="MANGA_BLAST" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="index.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="ahahahahhahaahhah" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
-      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Tomcat 10.1.43" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.43" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/MANGA_BLAST/index.jsp" />
+      <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="MANGA_BLAST:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/MANGA_BLAST_war_exploded" />
+            <option name="CONTEXT_PATH" value="/MANGA_BLAST" />
           </settings>
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="4dff8349-d91b-432e-9a83-07d6912bf0ae" />
+        <option name="BASE_DIRECTORY_NAME" value="2dc6fb5f-ed55-4ac3-a7f6-b0ee92f2de3e" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -114,7 +159,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="51549" />
+        <option name="DEBUG_PORT" value="51796" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -178,68 +223,21 @@
       </ConfigurationWrapper>
       <method v="2">
         <option name="Make" enabled="true" />
-        <option name="BuildArtifacts" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="MANGA_BLAST:war exploded" />
+        </option>
       </method>
     </configuration>
-    <configuration name="signup.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="ahahahahhahaahhah" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/signup.jsp" />
-      <deployment>
-        <artifact name="MANGA_BLAST:war exploded">
-          <settings>
-            <option name="CONTEXT_PATH" value="/MANGA_BLAST_war_exploded" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="0e01de29-804f-4ce9-a9df-0cfe0612007d" />
-      </server-settings>
-      <predefined_log_file enabled="true" id="Tomcat" />
-      <predefined_log_file enabled="true" id="Tomcat Catalina" />
-      <predefined_log_file id="Tomcat Manager" />
-      <predefined_log_file id="Tomcat Host Manager" />
-      <predefined_log_file id="Tomcat Localhost Access" />
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="BuildArtifacts" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="Application.MyJDBC" />
-      <item itemvalue="Tomcat Server.Tomcat 10.1.28" />
-      <item itemvalue="Tomcat Server.index.jsp" />
-      <item itemvalue="Tomcat Server.signup.jsp" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Tomcat Server.index.jsp" />
-        <item itemvalue="Application.MyJDBC" />
-        <item itemvalue="Tomcat Server.signup.jsp" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
-        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
       </set>
     </attachedChunks>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="StructureViewState">
     <option name="selectedTab" value="JSP" />
   </component>
@@ -275,6 +273,7 @@
       <workItem from="1752163687524" duration="710000" />
       <workItem from="1752165779591" duration="75000" />
       <workItem from="1752245941668" duration="6794000" />
+      <workItem from="1752253146548" duration="8155000" />
     </task>
     <task id="LOCAL-00001" summary="test1">
       <option name="closed" value="true" />
