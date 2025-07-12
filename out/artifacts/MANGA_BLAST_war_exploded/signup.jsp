@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="navbar.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/signup.css?v=<%= System.currentTimeMillis() %>">
 <script src="../scripts/signup.js"></script>
 
@@ -13,7 +14,7 @@
     </a>
 </header>
 
-<h2>📝 Registrazione Utente</h2>
+<h2>Registrazione Utente</h2>
 
 <%
     String errore = (String) request.getAttribute("errore");

@@ -1,9 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.MangaDAO" %>
 <%@ page import="model.FunkoDAO" %>
 <%@ page import="model.Manga" %>
 <%@ page import="model.Funko" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="navbar.jsp" %>
 
 <%
   String emailUser = (String) session.getAttribute("user");

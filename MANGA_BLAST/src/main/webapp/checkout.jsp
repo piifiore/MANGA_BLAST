@@ -8,20 +8,27 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>🛒 Il Tuo Carrello</title>
-  <link rel="stylesheet" href="style/carrello.css">
+  <title>✅ Checkout</title>
+  <link rel="stylesheet" href="style/checkout.css">
 </head>
 <body>
 
-<h1>🛍️ Carrello</h1>
+<h1>📦 Riepilogo Ordine</h1>
 
 <%
+  String emailUser = (String) session.getAttribute("user");
+  if (emailUser == null) {
+    response.sendRedirect("login.jsp");
+    return;
+  }
+
   List<ItemCarrello> carrello = (List<ItemCarrello>) session.getAttribute("carrello");
   BigDecimal totale = BigDecimal.ZERO;
 
   if (carrello == null || carrello.isEmpty()) {
 %>
-<p>Il tuo carrello è vuoto 😢</p>
+<p>⚠️ Il carrello è vuoto. Non puoi completare l'ordine.</p>
+<a href="index.jsp">⬅️ Torna allo shop</a>
 <%
 } else {
 %>
@@ -52,10 +59,10 @@
   </tbody>
 </table>
 
-<h3>💸 Totale: <%= totale %>€</h3>
+<h3>💰 Totale ordine: <%= totale %>€</h3>
 
-<form action="checkout.jsp" method="get">
-  <button type="submit">✅ Procedi al Checkout</button>
+<form action="ConfermaOrdineServlet" method="post">
+  <button type="submit">📬 Conferma Ordine</button>
 </form>
 <%
   }

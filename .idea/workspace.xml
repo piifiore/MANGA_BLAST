@@ -10,19 +10,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59d0fee7-8b38-490a-a119-844c26fc7d74" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/ConfermaOrdineServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/OrdineDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/checkout.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/navbar.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/ordini-utente.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/style/navbar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/AggiungiAlCarrelloServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/AggiungiAlCarrelloServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/AggiungiFunkoServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/AggiungiFunkoServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/AggiungiMangaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/AggiungiMangaServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/AggiornaStatoOrdineServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/AggiornaStatoOrdineServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/OrderManagementServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/OrderManagementServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/Order.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/OrderDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/OrderItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/Ordine.java" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/Ordine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/Carrello.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/Carrello.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-dashboard.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-ordini.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-ordini.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-prodotti.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-prodotti.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/area-profilo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/area-profilo.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/AggiungiFunkoServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/AggiungiFunkoServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/AggiungiMangaServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/AggiungiMangaServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/logout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/logout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/modifica-funko.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/modifica-funko.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/modifica-manga.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/modifica-manga.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/signup.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/Carrello.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/Carrello.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/AggiornaStatoOrdineServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/AggiornaStatoOrdineServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/OrderManagementServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/OrderManagementServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/OrderDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/OrderItem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/Ordine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/Ordine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-ordini.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-ordini.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-prodotti.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-prodotti.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/area-profilo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/area-profilo.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/AggiungiFunkoServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/AggiungiFunkoServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/AggiungiMangaServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/AggiungiMangaServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/logout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/logout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/modifica-funko.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/modifica-funko.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/modifica-manga.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/modifica-manga.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/signup.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/AggiornaStatoOrdineServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/AggiornaStatoOrdineServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/OrderManagementServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/OrderManagementServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/OrderDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/OrderItem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/Ordine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/Ordine.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +67,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
-        <option value="Jsp File" />
         <option value="Class" />
+        <option value="Jsp File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -233,7 +268,7 @@
       <workItem from="1752165779591" duration="75000" />
       <workItem from="1752245941668" duration="6794000" />
       <workItem from="1752253146548" duration="8155000" />
-      <workItem from="1752314713879" duration="12868000" />
+      <workItem from="1752314713879" duration="15195000" />
     </task>
     <task id="LOCAL-00001" summary="test1">
       <option name="closed" value="true" />

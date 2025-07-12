@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="navbar.jsp" %>
 <%@ page import="model.UserDAO" %>
 <%@ page import="model.User" %>
 <%
@@ -47,6 +48,8 @@
 
   <input type="submit" value="💾 Salva Modifiche">
 </form>
+
+<a href="ordini-utente.jsp" class="btn">📦 I miei ordini</a>
 
 <p><a href="index.jsp">🔙 Torna alla Home</a></p>
 
