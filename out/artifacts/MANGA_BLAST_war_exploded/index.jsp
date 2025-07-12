@@ -4,7 +4,7 @@
 <%@ page import="model.FunkoDAO" %>
 <%@ page import="model.Manga" %>
 <%@ page import="model.Funko" %>
-<%@ include file="navbar.jsp" %>
+<jsp:include page="navbar.jsp" />
 
 <%
   String emailUser = (String) session.getAttribute("user");
@@ -31,19 +31,7 @@
 <body>
 
 <header class="header">
-  <div class="logo">
-    <a href="index.jsp" style="text-decoration:none;">🛍️ <strong>MangaBlast</strong></a>
-  </div>
-  <nav class="nav">
-    <a href="Carrello.jsp">Carrello</a>
-    <% if (emailUser == null) { %>
-    <a href="login.jsp">Login</a>
-    <a href="signup.jsp">Registrati</a>
-    <% } else { %>
-    <a href="area-profilo.jsp">👤 <%= nomeUser %></a>
-    <a href="logout.jsp">Logout</a>
-    <% } %>
-  </nav>
+  
 </header>
 
 <% if (emailUser != null) { %>

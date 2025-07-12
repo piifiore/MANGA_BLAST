@@ -1,6 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="navbar.jsp" %>
-<%@ page import="jakarta.servlet.http.*,jakarta.servlet.*" %>
 
 <%
   String utente = (String) session.getAttribute("user");
@@ -17,7 +15,7 @@
   <a href="login.jsp">🔑 Login</a>
   <% } %>
 
-  <% if ("admin@example.com".equals(utente)) { %>
+  <% if (utente != null && "admin@example.com".equals(utente)) { %>
   <a href="admin-dashboard.jsp">🛠️ Dashboard Admin</a>
   <a href="admin-ordini.jsp">📋 Gestione Ordini</a>
   <% } %>

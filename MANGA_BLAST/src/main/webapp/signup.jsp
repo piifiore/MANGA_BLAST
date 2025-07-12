@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="navbar.jsp" %>
+<jsp:include page="navbar.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/signup.css?v=<%= System.currentTimeMillis() %>">
 <script src="../scripts/signup.js"></script>
 

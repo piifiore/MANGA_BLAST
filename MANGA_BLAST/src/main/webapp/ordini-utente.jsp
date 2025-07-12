@@ -6,10 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ include file="navbar.jsp" %>
 <%@ page import="model.OrdineDAO" %>
 <%@ page import="model.Ordine" %>
 <%@ page import="java.util.List" %>
+<jsp:include page="navbar.jsp" />
 
 <%
   String emailUser = (String) session.getAttribute("user");

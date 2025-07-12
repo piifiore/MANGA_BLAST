@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="navbar.jsp" %>
 <%@ page import="model.MangaDAO" %>
 <%@ page import="model.Manga" %>
+<jsp:include page="navbar.jsp" />
 
 <%
     String isbnParam = request.getParameter("ISBN");

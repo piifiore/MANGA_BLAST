@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="navbar.jsp" %>
 <%@ page import="model.Ordine" %>
 <%@ page import="model.ItemCarrello" %>
 <%@ page import="java.util.*" %>
+<jsp:include page="navbar.jsp" />
 <%
     String emailAdmin = (String) session.getAttribute("admin");
     if (emailAdmin == null) {

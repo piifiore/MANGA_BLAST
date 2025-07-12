@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ include file="navbar.jsp" %>
 <%@ page import="java.util.*" %>
 <%@ page import="model.ItemCarrello" %>
 <%@ page import="java.math.BigDecimal" %>
+<jsp:include page="navbar.jsp" />
 
 <!DOCTYPE html>
 <html lang="it">
