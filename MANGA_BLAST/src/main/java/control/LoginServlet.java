@@ -2,13 +2,13 @@ package control;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import model.UserDAO;
+import model.CarrelloDAO;
+import model.ItemCarrello;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -26,13 +26,22 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("admin", email);
             response.sendRedirect("admin-dashboard.jsp");
         } else if (dao.isUser(email, password)) {
-            session.setAttribute("user", email);
+            session.setAttribute("user", email); // ✅ sessione coerente
+
+            // 🔁 Merge carrello anonimo → persistente
+            List<ItemCarrello> carrelloAnonimo = (List<ItemCarrello>) session.getAttribute("carrello");
+            if (carrelloAnonimo != null && !carrelloAnonimo.isEmpty()) {
+                CarrelloDAO carrelloDAO = new CarrelloDAO();
+                for (ItemCarrello item : carrelloAnonimo) {
+                    carrelloDAO.aggiungiItem(email, item.getTipo(), item.getIdProdotto(), item.getQuantita());
+                }
+                session.removeAttribute("carrello"); // pulizia post-merge
+            }
+
             response.sendRedirect("index.jsp");
         } else {
             request.setAttribute("errorMessage", "Credenziali non valide!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
-
-
 }

@@ -8,6 +8,7 @@ public class Manga {
     private String descrizione;
     private BigDecimal prezzo;
     private String immagine;
+    private int quantita;
 
     // Getters & Setters
     public long getISBN() { return ISBN; }
@@ -24,4 +25,7 @@ public class Manga {
 
     public String getImmagine() { return immagine; }
     public void setImmagine(String immagine) { this.immagine = immagine; }
+
+    public int getQuantita() { return quantita; }
+    public void setQuantita(int q) { quantita = q; }
 }

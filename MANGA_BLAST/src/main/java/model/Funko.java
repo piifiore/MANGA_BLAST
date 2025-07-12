@@ -8,6 +8,7 @@ public class Funko {
     private String descrizione;
     private BigDecimal prezzo;
     private String immagine;
+    private int quantita;
 
     public String getNumeroSerie() { return numeroSerie; }
     public void setNumeroSerie(String numeroSerie) { this.numeroSerie = numeroSerie; }
@@ -23,4 +24,7 @@ public class Funko {
 
     public String getImmagine() { return immagine; }
     public void setImmagine(String immagine) { this.immagine = immagine; }
+
+    public int getQuantita() { return quantita; }
+    public void setQuantita(int quantita) { this.quantita = quantita; }
 }

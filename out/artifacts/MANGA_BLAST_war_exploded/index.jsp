@@ -1,11 +1,11 @@
 <%@ page import="java.util.List" %>
-<%@ page import="model.ProdottoDAO" %>
-<%@ page import="model.Prodotto" %>
+<%@ page import="model.MangaDAO" %>
+<%@ page import="model.FunkoDAO" %>
+<%@ page import="model.Manga" %>
+<%@ page import="model.Funko" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-  ProdottoDAO dao = new ProdottoDAO();
-  List<Prodotto> prodotti = dao.getAllProdotti();
 
+<%
   String emailUser = (String) session.getAttribute("user");
   String nomeUser = "";
 
@@ -23,24 +23,27 @@
 </head>
 
 <body>
-<%--<%@ include file="includes/header.jsp" %>--%>
+
 <header class="header">
-  <div class="logo">🛍️ E-Shop</div>
+  <div class="logo">
+    <a href="index.jsp" style="text-decoration:none;">🛍️ <strong>MangaBlast</strong></a>
+  </div>
   <nav class="nav">
     <a href="index.jsp">Home</a>
-    <a href="carrello.jsp">Carrello</a>
+    <a href="Carrello.jsp">Carrello</a>
+
     <% if (emailUser == null) { %>
     <a href="login.jsp">Login</a>
     <a href="signup.jsp">Registrati</a>
     <% } else { %>
-    <span>👤 <%= emailUser %></span>
-    <a href="LogoutUserServlet">Logout</a>
+    <a href="area-profilo.jsp">👤 <%= nomeUser %></a>
+    <a href="logout.jsp">Logout</a>
     <% } %>
   </nav>
 </header>
 
-<%-- 🔔 Messaggio di benvenuto solo dopo login --%>
-<% if (nomeUser != null && !nomeUser.isEmpty()) { %>
+<%-- 🔔 Messaggio di benvenuto solo se loggato --%>
+<% if (emailUser != null) { %>
 <div class="welcome-message">
   <h2>👋 Ciao <%= nomeUser %>, benvenuto su MangaBlast!</h2>
 </div>
@@ -48,6 +51,7 @@
 
 <hr><hr><hr>
 
-<%--<%@ include file="includes/footer.jsp" %>--%>
+<%-- Qui puoi continuare con la visualizzazione prodotti o altre sezioni --%>
+
 </body>
 </html>
