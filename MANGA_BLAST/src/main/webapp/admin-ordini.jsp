@@ -2,7 +2,7 @@
 <%@ page import="model.Ordine" %>
 <%@ page import="model.ItemCarrello" %>
 <%@ page import="java.util.*" %>
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp" />
 <%
     String emailAdmin = (String) session.getAttribute("admin");
     if (emailAdmin == null) {

@@ -2,7 +2,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="model.ItemCarrello" %>
 <%@ page import="java.math.BigDecimal" %>
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp" />
 
 <!DOCTYPE html>
 <html lang="it">

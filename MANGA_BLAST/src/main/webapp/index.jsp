@@ -4,7 +4,7 @@
 <%@ page import="model.FunkoDAO" %>
 <%@ page import="model.Manga" %>
 <%@ page import="model.Funko" %>
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp" />
 
 <%
   String emailUser = (String) session.getAttribute("user");

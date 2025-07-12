@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp" />
 <html>
 <head>
     <title>Login</title>

@@ -9,7 +9,7 @@
 <%@ page import="model.OrdineDAO" %>
 <%@ page import="model.Ordine" %>
 <%@ page import="java.util.List" %>
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp" />
 
 <%
   String emailUser = (String) session.getAttribute("user");
