@@ -20,6 +20,9 @@
     </style>
 </head>
 <body>
+<a href="admin-dashboard.jsp" style="display:inline-block; margin-bottom:20px; padding:10px 16px; background:#333; color:#fff; text-decoration:none; border-radius:5px;">
+    Torna alla Dashboard
+</a>
 
 <h1>🔧 Pannello di Gestione Prodotti</h1>
 

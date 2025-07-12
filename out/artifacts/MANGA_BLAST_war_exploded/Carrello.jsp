@@ -15,10 +15,10 @@
   BigDecimal totale = BigDecimal.ZERO;
 %>
 
-<h2>🛒 Il tuo Carrello</h2>
+<h2>Il tuo Carrello</h2>
 
 <% if (carrello == null || carrello.isEmpty()) { %>
-<p>Il carrello è vuoto. <a href="index.jsp">🔙 Torna al catalogo</a></p>
+<p>Il carrello sembra essere vuoto... <a href="index.jsp">Torna al catalogo</a></p>
 <% } else { %>
 <table border="1" cellpadding="8" cellspacing="0">
   <tr>

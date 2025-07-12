@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="css/admin-ordini.css">
 </head>
 <body>
+<a href="admin-dashboard.jsp" style="display:inline-block; margin-bottom:20px; padding:10px 16px; background:#333; color:#fff; text-decoration:none; border-radius:5px;">
+    Torna alla Dashboard
+</a>
 
 <h1>📦 Gestione Ordini</h1>
 

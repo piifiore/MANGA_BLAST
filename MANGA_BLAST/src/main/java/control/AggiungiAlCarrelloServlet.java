@@ -39,6 +39,7 @@ public class AggiungiAlCarrelloServlet extends HttpServlet {
         }
 
         session.setAttribute("carrello", carrello);
-        response.sendRedirect("Carrello.jsp");
+        response.setContentType("text/plain");
+        response.getWriter().write("aggiunto");
     }
 }
