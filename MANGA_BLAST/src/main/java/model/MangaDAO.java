@@ -31,6 +31,33 @@ public class MangaDAO {
         return list;
     }
 
+    public List<Manga> searchByName(String nome) {
+        List<Manga> risultati = new ArrayList<>();
+        String query = "SELECT * FROM manga WHERE nome LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, "%" + nome + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Manga m = new Manga();
+                m.setISBN(rs.getLong("ISBN"));
+                m.setNome(rs.getString("nome"));
+                m.setDescrizione(rs.getString("descrizione"));
+                m.setPrezzo(rs.getBigDecimal("prezzo"));
+                m.setImmagine(rs.getString("immagine"));
+                risultati.add(m);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return risultati;
+    }
+
     public void addManga(Manga manga) {
         String query = "INSERT INTO manga (ISBN, nome, descrizione, prezzo, immagine) VALUES (?, ?, ?, ?, ?)";
 
@@ -81,5 +108,61 @@ public class MangaDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Manga> searchByNomeDescrizioneOrIsbn(String query) {
+        List<Manga> risultati = new ArrayList<>();
+        String sql = "SELECT * FROM manga WHERE nome LIKE ? OR descrizione LIKE ? OR CAST(ISBN AS CHAR) LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            String like = "%" + query + "%";
+            stmt.setString(1, like);
+            stmt.setString(2, like);
+            stmt.setString(3, like);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Manga m = new Manga();
+                m.setISBN(rs.getLong("ISBN"));
+                m.setNome(rs.getString("nome"));
+                m.setDescrizione(rs.getString("descrizione"));
+                m.setPrezzo(rs.getBigDecimal("prezzo"));
+                m.setImmagine(rs.getString("immagine"));
+                risultati.add(m);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return risultati;
+    }
+
+    public List<Manga> searchByNomeOrIsbn(String query) {
+        List<Manga> risultati = new ArrayList<>();
+        String sql = "SELECT * FROM manga WHERE nome LIKE ? OR CAST(ISBN AS CHAR) LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            String likeQuery = "%" + query + "%";
+            stmt.setString(1, likeQuery);
+            stmt.setString(2, likeQuery);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Manga m = new Manga();
+                m.setISBN(rs.getLong("ISBN"));
+                m.setNome(rs.getString("nome"));
+                m.setDescrizione(rs.getString("descrizione"));
+                m.setPrezzo(rs.getBigDecimal("prezzo"));
+                m.setImmagine(rs.getString("immagine"));
+                risultati.add(m);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return risultati;
     }
 }
