@@ -18,35 +18,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard Amministratore</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-    }
-
-    .welcome {
-      font-size: 22px;
-      margin-bottom: 30px;
-    }
-
-    .btn-area {
-      margin-top: 20px;
-    }
-
-    .admin-btn {
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .admin-btn:hover {
-      background-color: #005fa3;
-    }
-  </style>
+  <link rel="stylesheet" href="css/admin-dashboard.css">
 </head>
 <body>
 
@@ -57,6 +29,9 @@
 <div class="btn-area">
   <form action="admin-prodotti.jsp" method="get">
     <input type="submit" value="🛒 Gestione Prodotti" class="admin-btn">
+  </form>
+  <form action="admin-ordini.jsp" method="get">
+    <input type="submit" value="📦 Gestione Ordini" class="admin-btn">
   </form>
 </div>
 

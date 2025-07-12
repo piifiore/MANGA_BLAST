@@ -10,16 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59d0fee7-8b38-490a-a119-844c26fc7d74" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/CercaProdottiServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/AggiornaStatoOrdineServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/control/OrderManagementServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/OrderDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/OrderItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-odrini.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/style/admin-dashboard.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/style/admin-odrini.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/FunkoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/FunkoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/MangaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/java/model/MangaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-prodotti.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-prodotti.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/FunkoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/FunkoDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/MangaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/MangaDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-prodotti.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-prodotti.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/FunkoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/FunkoDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/MangaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/MangaDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/admin-dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-dashboard.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +31,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jsp File" />
+        <option value="CSS File" />
         <option value="Class" />
       </list>
     </option>
@@ -64,35 +66,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.MyJDBC.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;StatusDashboardGroupingRule&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.28.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.43.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.index.jsp.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.signup.jsp (1).executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.signup.jsp.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/tomcat/lib/servlet-api.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.applicationServers&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.MyJDBC.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "StatusDashboardGroupingRule": "true",
+    "Tomcat Server.Tomcat 10.1.28.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.43.executor": "Run",
+    "Tomcat Server.index.jsp.executor": "Run",
+    "Tomcat Server.signup.jsp (1).executor": "Run",
+    "Tomcat Server.signup.jsp.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/xampp/tomcat/lib/servlet-api.jar",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.applicationServers",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Tomcat 10.1.43" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.43" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/MANGA_BLAST/index.jsp" />
@@ -228,7 +231,7 @@
       <workItem from="1752165779591" duration="75000" />
       <workItem from="1752245941668" duration="6794000" />
       <workItem from="1752253146548" duration="8155000" />
-      <workItem from="1752314713879" duration="2956000" />
+      <workItem from="1752314713879" duration="3589000" />
     </task>
     <task id="LOCAL-00001" summary="test1">
       <option name="closed" value="true" />
