@@ -46,27 +46,43 @@
   <br>
 
 
-  <div style="display:flex; justify-content: space-between; text-align: center; border:3px solid yellow;">
+      <div style="display:flex; justify-content: space-between; text-align: center; border:3px solid yellow;"> <%-- div superiore--%>
 
-       <div style="border: 5px solid red; width:250px; height: 300px;"> <%-- div1 --%>
-          <img src="img/onepiece_v1" alt="no">
-       </div>
+               <div style="border: 5px solid red; width:250px; height: 300px;"> <%-- div1 --%>
+                  <img src="img/onepiece_v1" alt="no">
+               </div>
 
-       <div style="border: 5px solid orange; width:250px; height: 300px;">      <%-- div2 --%>
-          <p>PRODOTTO1</p>
-       </div>
+               <div style="border: 5px solid orange; width:250px; height: 300px;">      <%-- div2 --%>
+                  <p>PRODOTTO1</p>
+               </div>
 
-       <div  style="border: 5px solid purple; width:250px; height: 300px;">       <%-- div3--%>
-          <p>PRODOTTO2</p>
-       </div>
+               <div  style="border: 5px solid purple; width:250px; height: 300px;">       <%-- div3--%>
+                  <p>PRODOTTO2</p>
+               </div>
+      </div>
 
-      <div  style="border: 5px solid green; width:250px; height: 300px;">       <%-- div3--%>
-        <p>PRODOTTO2</p>
+    <br>
+    <br>
+    <br>
+    <br>
+
+      <div style="display:flex; justify-content: space-between; text-align: center; border:7px solid cyan;">
+                <div  style="border: 5px solid brown; width:250px; height: 300px;">       <%-- div4--%>
+                    <p>PRODOTTO3</p>
+                </div>
+
+                <div  style="border: 5px solid pink; width:250px; height: 300px;">       <%-- div4--%>
+                    <p>PRODOTTO4</p>
+                </div>
+
+                <div  style="border: 5px solid violet; width:250px; height: 300px;">       <%-- div4--%>
+                    <p>PRODOTTO5</p>
+                </div>
       </div>
 
 
 
-  </div>
+
 
 
 
