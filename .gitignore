@@ -1,1 +1,19 @@
-.idea/
+# --- IntelliJ IDEA ----------------------------------
+# Tutto .idea, tranne ciò che è utile a tutti
+.idea/*
+# file da condividere (rimuovi il * davanti se TI servono)
+!.idea/misc.xml
+!.idea/modules.xml
+!.idea/*.iml
+!.idea/vcs.xml
+!.idea/inspectionProfiles
+!.idea/runConfigurations
+!.idea/artifacts
+
+# Escludi sempre quelli che creano problemi
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.*
+.idea/**/dictionaries
+.idea/**/shelf/
+*.iws          # vecchio formato “project” di IDEA
