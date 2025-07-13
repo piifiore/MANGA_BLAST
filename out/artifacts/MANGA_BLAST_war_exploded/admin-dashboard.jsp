@@ -1,31 +1,40 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: roman
-  Date: 07/07/2025
-  Time: 18:35
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<jsp:include page="navbar.jsp" />
+<%
+  String emailAdmin = (String) session.getAttribute("admin");
+  String nomeAdmin = "";
+
+  if (emailAdmin == null) {
+    response.sendRedirect("login.jsp");
+    return;
+  }
+
+  if (emailAdmin.contains("@")) {
+    nomeAdmin = emailAdmin.substring(0, emailAdmin.indexOf("@"));
+  }
+%>
+
+<!DOCTYPE html>
+<html lang="it">
 <head>
-    <title>Admin Dashboard</title>
-
-  <%
-    if (session.getAttribute("admin") == null) {
-      response.sendRedirect("login.jsp");
-      return;
-    }
-  %>
-  <h2>Benvenuto nella dashboard i nani</h2>
-
-
-  <form id="Logout" method="get">
-    <button type="submit">Logout Admin</button>
-  </form>
-
-
+  <meta charset="UTF-8">
+  <title>Dashboard Amministratore</title>
+  <link rel="stylesheet" href="css/admin-dashboard.css">
 </head>
 <body>
+
+<div class="welcome">
+  👋 Ciao <strong><%= nomeAdmin %></strong>, benvenuto nella tua dashboard da amministratore!
+</div>
+
+<div class="btn-area">
+  <form action="admin-prodotti.jsp" method="get">
+    <input type="submit" value="🛒 Gestione Prodotti" class="admin-btn">
+  </form>
+  <form action="admin-ordini.jsp" method="get">
+    <input type="submit" value="📦 Gestione Ordini" class="admin-btn">
+  </form>
+</div>
 
 </body>
 </html>

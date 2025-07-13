@@ -10,7 +10,58 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59d0fee7-8b38-490a-a119-844c26fc7d74" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/MANGA_BLAST_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/MANGA_BLAST_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/servlet_api.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/LoginServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/SignUpServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/control/SignUpServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/CarrelloDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/CarrelloDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/Ordine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/Ordine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/OrdineDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/OrdineDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/classes/model/UserDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/admin-dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/scripts/Logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/scripts/Logout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/scripts/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/scripts/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/scripts/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/scripts/signup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/signup.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/style/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/style/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/style/loginStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/style/loginStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/style/signup.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/style/signup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/web/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/MyJDBC.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/LoginServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/LogoutUserServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/control/SignUpServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/AdminDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/CarrelloDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/DBConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/Ordine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/OrdineDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/Prodotto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/ProdottoCarrello.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/ProdottoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MANGA_BLAST/model/UserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MyJDBC.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/control/LoginServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/control/LogoutUserServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/control/SignUpServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/AdminDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/CarrelloDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/DBConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Ordine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/OrdineDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Prodotto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/ProdottoCarrello.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/ProdottoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/UserDAO.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,34 +101,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.MyJDBC.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;StatusDashboardGroupingRule&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.28.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.index.jsp.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.signup.jsp (1).executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.signup.jsp.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.130762&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.applicationServers&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.MyJDBC.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "StatusDashboardGroupingRule": "true",
+    "Tomcat Server.Tomcat 10.1.28.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.39.executor": "Run",
+    "Tomcat Server.admin-ordini.jsp.executor": "Run",
+    "Tomcat Server.index.jsp.executor": "Run",
+    "Tomcat Server.signup.jsp (1).executor": "Run",
+    "Tomcat Server.signup.jsp.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.22988506",
+    "settings.editor.selected.configurable": "preferences.applicationServers",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.28">
+}]]></component>
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.39">
     <configuration name="MyJDBC" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MyJDBC" />
       <module name="MANGA_BLAST" />
@@ -85,17 +138,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tomcat 10.1.28" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.28" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration name="Tomcat 10.1.39" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.39" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="openjdk-24" nameIsGenerated="true">
+      <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="MANGA_BLAST:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/MANGA_BLAST" />
+            <option name="CONTEXT_PATH" value="/MANGA_BLAST_war_exploded" />
           </settings>
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="9070f009-f8e1-4c43-933a-9822aa56238f" />
+        <option name="BASE_DIRECTORY_NAME" value="ccb9f19d-6ae7-42df-93d8-fb4fa1f76450" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -103,7 +157,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="60970" />
+        <option name="DEBUG_PORT" value="52292" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -174,7 +228,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.MyJDBC" />
-      <item itemvalue="Tomcat Server.Tomcat 10.1.28" />
+      <item itemvalue="Tomcat Server.Tomcat 10.1.39" />
     </list>
     <recent_temporary>
       <list>
@@ -229,6 +283,7 @@
       <workItem from="1752254010367" duration="3120000" />
       <workItem from="1752418776644" duration="2394000" />
       <workItem from="1752421209287" duration="33000" />
+      <workItem from="1752424079977" duration="1170000" />
     </task>
     <task id="LOCAL-00001" summary="test1">
       <option name="closed" value="true" />

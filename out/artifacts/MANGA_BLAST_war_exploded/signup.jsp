@@ -1,11 +1,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="navbar.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/style/signup.css?v=<%= System.currentTimeMillis() %>">
 <script src="../scripts/signup.js"></script>
+
 <html>
 <head>
     <title>Sign-up</title>
 </head>
 <body>
+<header style="display:flex; align-items:center; padding:10px;">
+    <a href="index.jsp">
+        <img src="img/logo.png" alt="Logo del sito" style="height:50px;">
+    </a>
+</header>
+
+<h2>Registrazione Utente</h2>
+
+<%
+    String errore = (String) request.getAttribute("errore");
+    String successo = request.getParameter("signupSuccess");
+
+    if (errore != null) {
+%>
+<div style="color: red; font-weight: bold;">⚠️ <%= errore %></div>
+<%
+} else if ("true".equals(successo)) {
+%>
+<div style="color: green; font-weight: bold;">✅ Registrazione completata! Effettua il login.</div>
+<%
+    }
+%>
 
 <form method="post" id="SignUpForm" action="${pageContext.request.contextPath}/signup">
     <label for="email">Email:</label>
@@ -25,11 +49,7 @@
     </div>
 
     <button type="submit">Registrati</button>
-
-    <p id="signupMessage">
-        <c:if test="${not empty signupMessage}">${signupMessage}</c:if>
-    </p>
-
+    <p>Hai già un account? <a href="login.jsp">Vai al login</a></p>
 </form>
 
 <script>
@@ -80,7 +100,7 @@
             const allValid = Object.values(checks).every(Boolean);
 
             if (!allValid) {
-                e.preventDefault(); // blocca l'invio del form
+                e.preventDefault();
                 alert("La password non soddisfa tutti i requisiti. Per favore, controlla il feedback.");
             }
         });

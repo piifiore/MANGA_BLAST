@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="navbar.jsp" />
 <html>
 <head>
     <title>Login</title>
@@ -21,6 +22,11 @@
     </style>
 </head>
 <body>
+<header style="display:flex; align-items:center; padding:10px;">
+    <a href="index.jsp">
+        <img src="img/logo.png" alt="Logo del sito" style="height:50px;">
+    </a>
+</header>
 <div id="Log-in">
 
     <h2>Accedi al tuo account</h2>
