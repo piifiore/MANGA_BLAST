@@ -10,7 +10,7 @@
   <% if (utente != null) { %>
   <a href="area-profilo.jsp">👤 Profilo</a>
   <a href="ordini-utente.jsp">📦 I miei ordini</a>
-  <a href="LogoutServlet">🔓 Logout</a>
+  <a href="logout.jsp">🔓 Logout</a>
   <% } else { %>
   <a href="login.jsp">🔑 Login</a>
   <% } %>
