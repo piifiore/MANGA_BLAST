@@ -11,8 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="59d0fee7-8b38-490a-a119-844c26fc7d74" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/MANGA_BLAST/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MANGA_BLAST_war_exploded/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +227,8 @@
       <workItem from="1752245941668" duration="6794000" />
       <workItem from="1752252945906" duration="1045000" />
       <workItem from="1752254010367" duration="3120000" />
-      <workItem from="1752418776644" duration="2319000" />
+      <workItem from="1752418776644" duration="2394000" />
+      <workItem from="1752421209287" duration="33000" />
     </task>
     <task id="LOCAL-00001" summary="test1">
       <option name="closed" value="true" />
