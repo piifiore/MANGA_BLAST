@@ -1,0 +1,102 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 350px;
+}
+
+label {
+    display: block;
+    margin: 1rem 0 0.3rem;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+button {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 1rem;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #388e3c;
+}
+
+#signupMessage {
+    color: red;
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Password feedback dinamico */
+#password-feedback {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: left;
+}
+
+#password-feedback ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0.5rem 0 0;
+}
+
+#password-feedback li {
+    color: red;
+}
+
+#password-feedback li::before {
+    content: "❌ ";
+    color: red;
+}
+
+#password-feedback li.valid {
+    color: green;
+}
+
+#password-feedback li.valid::before {
+    content: "✅ ";
+    color: green;
+}
+
+#password-feedback.valid {
+    color: green;
+}
+
+#password-feedback.invalid {
+    color: red;
+}
+
+/* Input border feedback */
+input.invalid {
+    border: 2px solid red;
+}
+
+input.valid {
+    border: 2px solid green;
+}
