@@ -14,13 +14,11 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-<<<<<<< HEAD
+
   <title>MangaBlast</title>
   <link rel="stylesheet" href="style/index.css">
-=======
   <title>Home - E-Commerce</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css">
->>>>>>> e27b6ac1f3c34f01eff73874799bc5feebafa450
 </head>
 
 
@@ -28,7 +26,6 @@
 <body>
 <%--<%@ include file="includes/header.jsp" %>--%>
   <header class="header">
-    <div class="logo">🛍️ E-Shop</div>
     <nav class="nav">
       <a href="index.jsp">Home</a>
       <a href="carrello.jsp">Carrello</a>
@@ -42,10 +39,34 @@
     </nav>
   </header>
 
-  <hr>
-  <hr>
-  <hr>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
+
+  <div style="display:flex; justify-content: space-between; text-align: center; border:3px solid yellow;">
+
+       <div style="border: 5px solid red; width:250px; height: 300px;"> <%-- div1 --%>
+          <img src="img/onepiece_v1" alt="no">
+       </div>
+
+       <div style="border: 5px solid orange; width:250px; height: 300px;">      <%-- div2 --%>
+          <p>PRODOTTO1</p>
+       </div>
+
+       <div  style="border: 5px solid purple; width:250px; height: 300px;">       <%-- div3--%>
+          <p>PRODOTTO2</p>
+       </div>
+
+      <div  style="border: 5px solid green; width:250px; height: 300px;">       <%-- div4--%>
+        <p>PRODOTTO2</p>
+      </div>
+
+
+
+  </div>
 
 
 

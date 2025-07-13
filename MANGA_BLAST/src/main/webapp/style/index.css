@@ -1,16 +1,14 @@
-<<<<<<< HEAD
-=======
+
  body {
     margin: 0;
     font-family: sans-serif;
-    background-color: #f6f6f6;
 }
 
-.main-header {
+.header {
     display: flex;
     justify-content: space-between;
-    background-color: #232323;
-    color: white;
+    text-align: center;
+    color: violet;
     padding: 1rem;
     align-items: center;
 }
@@ -22,20 +20,11 @@
     font-weight: bold;
 }
 
-.prodotti-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    padding: 2rem;
-    justify-content: center;
-}
-
 .prodotto-card {
     background: white;
     border-radius: 5px;
     padding: 1rem;
     width: 250px;
-    box-shadow: 0 0 6px rgba(0,0,0,0.1);
 }
 
 .btn {
@@ -47,4 +36,4 @@
     border-radius: 3px;
     margin-top: 0.5rem;
 }
->>>>>>> e27b6ac1f3c34f01eff73874799bc5feebafa450
+

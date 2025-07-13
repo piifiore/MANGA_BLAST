@@ -9,44 +9,66 @@
 
   String utente = (String) session.getAttribute("user");
 %>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
+
+  <title>MangaBlast</title>
+  <link rel="stylesheet" href="style/index.css">
   <title>Home - E-Commerce</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css">
 </head>
+
+
+
 <body>
 <%--<%@ include file="includes/header.jsp" %>--%>
+  <header class="header">
+    <nav class="nav">
+      <a href="index.jsp">Home</a>
+      <a href="carrello.jsp">Carrello</a>
+      <% if (utente == null) { %>
+      <a href="login.jsp">Login</a>
+      <a href="signup.jsp">Registrati</a>
+      <% } else { %>
+      <span>👤 <%= utente %></span>
+      <a href="LogoutUserServlet">Logout</a>
+      <% } %>
+    </nav>
+  </header>
 
-<header class="main-header">
-  <div class="logo">🛍️ E-Shop</div>
-  <nav class="nav">
-    <a href="index.jsp">Home</a>
-    <a href="carrello.jsp">Carrello</a>
-    <% if (utente == null) { %>
-    <a href="login.jsp">Login</a>
-    <a href="signup.jsp">Registrati</a>
-    <% } else { %>
-    <span>👤 <%= utente %></span>
-    <a href="LogoutUserServlet">Logout</a>
-    <% } %>
-  </nav>
-</header>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
-<main>
-  <h2>Catalogo Prodotti</h2>
-  <div class="prodotti-grid">
-    <% for (Prodotto p : prodotti) { %>
-    <div class="prodotto-card">
-      <h3><%= p.getNome() %></h3>
-      <p><%= p.getDescrizione() %></p>
-      <p><strong>€ <%= p.getPrezzo() %></strong></p>
-      <a class="btn" href="prodotto.jsp?id=<%= p.getId() %>">Vedi Dettagli</a>
-    </div>
-    <% } %>
+
+  <div style="display:flex; justify-content: space-between; text-align: center; border:3px solid yellow;">
+
+       <div style="border: 5px solid red; width:250px; height: 300px;"> <%-- div1 --%>
+          <img src="img/onepiece_v1" alt="no">
+       </div>
+
+       <div style="border: 5px solid orange; width:250px; height: 300px;">      <%-- div2 --%>
+          <p>PRODOTTO1</p>
+       </div>
+
+       <div  style="border: 5px solid purple; width:250px; height: 300px;">       <%-- div3--%>
+          <p>PRODOTTO2</p>
+       </div>
+
+      <div  style="border: 5px solid green; width:250px; height: 300px;">       <%-- div3--%>
+        <p>PRODOTTO2</p>
+      </div>
+
+
+
   </div>
-</main>
+
+
 
 <%--<%@ include file="includes/footer.jsp" %>--%>
 </body>
