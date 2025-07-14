@@ -40,6 +40,7 @@
 <hr>
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <h2 style="text-align:center;">📚 Manga disponibili</h2>
 <div class="product-grid">
   <% for (Manga m : listaManga) { %>
@@ -70,6 +71,11 @@
 
 <hr>
 
+=======
+
+<hr>
+
+>>>>>>> Stashed changes
 <h2 style="text-align:center;">🧸 Funko disponibili</h2>e
   <div>
     <% for (Funko f : listaFunko) { %>
@@ -82,6 +88,9 @@
       </button>
     </div>
     <% } %>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   </div>
 
