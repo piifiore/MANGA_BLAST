@@ -49,7 +49,9 @@
     <p><strong>Descrizione:</strong> <%= descrizione %></p>
     <p><strong>Prezzo:</strong> <%= prezzo %> €</p>
 
+
     <button onclick="aggiungiCarrello('<%= id %>', '<%= tipo %>', '<%= nome %>', '<%= prezzo %>')">🛒 Aggiungi al carrello</button>
+
 
     <% if (emailUser != null) { %>
     <button onclick="aggiungiPreferiti('<%= id %>', '<%= tipo %>')">❤️ Aggiungi ai preferiti</button>
@@ -60,6 +62,7 @@
 </div>
 
 
+<jsp:include page="footer.jsp"></jsp:include>
 
 </body>
 </html>

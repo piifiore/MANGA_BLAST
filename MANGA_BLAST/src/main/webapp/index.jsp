@@ -4,7 +4,7 @@
 <%@ page import="model.FunkoDAO" %>
 <%@ page import="model.Manga" %>
 <%@ page import="model.Funko" %>
-<jsp:include page="header.jsp" />
+
 
 <%
   String emailUser = (String) session.getAttribute("user");
@@ -27,9 +27,15 @@
   <title>MangaBlast</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css">
   <script src="scripts/index.js."></script>
+  <script src="scripts/scheda-prodotto.js"></script>
+  <script src="scripts/preferiti.js"></script>
 </head>
 
 <body>
+
+<header>
+  <jsp:include page="header.jsp" />
+</header>
 
 <% if (emailUser != null) { %>
 <div class="welcome-message">
@@ -83,7 +89,7 @@
   <% } %>
 </div>
 
-
+<jsp:include page="footer.jsp"></jsp:include>
 
 </body>
 </html>

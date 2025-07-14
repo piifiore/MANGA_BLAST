@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="header.jsp" />
+
 <html>
 <head>
     <title>Login</title>
@@ -9,9 +9,7 @@
 </head>
 <body>
 <header style="display:flex; align-items:center; padding:10px;">
-    <a href="index.jsp">
-        <img src="img/logo.png" alt="Logo del sito" style="height:50px;">
-    </a>
+ <jsp:include page="header.jsp"></jsp:include>
 </header>
 <div id="Log-in">
 
@@ -39,6 +37,8 @@
         <p id="errorMessage"><%= errorMessage %></p>
         <% } %>
     </form>
+
+    <jsp:include page="footer.jsp"></jsp:include>
 
 </div>
 </body>

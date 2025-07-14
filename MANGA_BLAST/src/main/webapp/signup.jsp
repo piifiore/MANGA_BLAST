@@ -52,7 +52,7 @@
     <p>Hai già un account? <a href="login.jsp">Vai al login</a></p>
 </form>
 
-
+<jsp:include page="footer.jsp"></jsp:include>
 
 </body>
 </html>

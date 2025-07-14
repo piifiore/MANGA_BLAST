@@ -8,6 +8,9 @@
   boolean isAdmin = admin != null;
 %>
 
+
+<link rel="stylesheet" href="style/header.css">
+
 <div class="navbar">
 
   <% if (isUser) { %>
@@ -16,16 +19,17 @@
   <a href="preferiti.jsp">Preferiti</a>
   <a href="area-profilo.jsp">Profilo</a>
   <a href="ordini-utente.jsp">I miei ordini</a>
-  <a href="logout.jsp">🔓 Logout</a>
+  <a href="logout.jsp"> Logout</a>
 
   <% } else if (isAdmin) { %>
   <a href="admin-dashboard.jsp">Dashboard Admin</a>
   <a href="admin-ordini.jsp">Gestione Ordini</a>
-  <a href="logout.jsp">🔓 Logout</a>
+  <a href="logout.jsp"> Logout</a>
 
   <% } else { %>
   <a href="index.jsp">Home</a>
-  <a href="login.jsp">🔑 Login</a>
+  <a href="login.jsp"> Login</a>
+  <a href="signup.jsp">Sign Up</a>
   <% } %>
 
 </div>
