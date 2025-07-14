@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: progettotsw_db
 -- ------------------------------------------------------
--- Server version	8.0.42
+-- Server version	9.3.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,7 +35,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES ('admin1@example.com','adminpass'),('admin2@example.com','supersecure');
+INSERT INTO `admin` VALUES ('admin1@mangablast.it','admin'),('admin2@mangablast.it','admin');
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +59,6 @@ CREATE TABLE `carrelli` (
 
 LOCK TABLES `carrelli` WRITE;
 /*!40000 ALTER TABLE `carrelli` DISABLE KEYS */;
-INSERT INTO `carrelli` VALUES ('fiorello@example.com');
 /*!40000 ALTER TABLE `carrelli` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +86,6 @@ CREATE TABLE `carrello_contiene_funko` (
 
 LOCK TABLES `carrello_contiene_funko` WRITE;
 /*!40000 ALTER TABLE `carrello_contiene_funko` DISABLE KEYS */;
-INSERT INTO `carrello_contiene_funko` VALUES ('fiorello@example.com','FNK002',1);
 /*!40000 ALTER TABLE `carrello_contiene_funko` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +113,6 @@ CREATE TABLE `carrello_contiene_manga` (
 
 LOCK TABLES `carrello_contiene_manga` WRITE;
 /*!40000 ALTER TABLE `carrello_contiene_manga` DISABLE KEYS */;
-INSERT INTO `carrello_contiene_manga` VALUES ('fiorello@example.com',9781234567890,2);
 /*!40000 ALTER TABLE `carrello_contiene_manga` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +139,6 @@ CREATE TABLE `funko` (
 
 LOCK TABLES `funko` WRITE;
 /*!40000 ALTER TABLE `funko` DISABLE KEYS */;
-INSERT INTO `funko` VALUES ('FNK001',14.99,'funko1.jpg','Funko Pop Spider-Man','Edizione limitata di Spider-Man'),('FNK002',19.99,'funko2.jpg','Funko Pop Iron Man','Versione speciale con armatura dorata');
 /*!40000 ALTER TABLE `funko` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +165,7 @@ CREATE TABLE `manga` (
 
 LOCK TABLES `manga` WRITE;
 /*!40000 ALTER TABLE `manga` DISABLE KEYS */;
-INSERT INTO `manga` VALUES (9780987654321,12.50,'manga2.jpg','Attack on Titan Vol. 5','Battaglia epica tra umani e giganti'),(9781234567890,9.99,'manga1.jpg','One Piece Vol. 1','Primo volume della saga di One Piece');
+INSERT INTO `manga` VALUES (9788864201795,5.20,'images/daf2b20d-71ed-42c7-80ff-aa7488aa75bf_opvol1.jpeg','One Piece vol.1','Presso il porto di un piccolo villaggio di mare è attraccata una nave dall\'aspetto minaccioso. Le sue vele sono ammainate ma sull\'albero maestro sventola fiero il vessillo dei pirati: il Jolly Roger! Un ragazzino del villaggio è disposto a tutto pur di salire a bordo e intraprendere l\'appassionante carriera del bucaniere, ma ancora non sa cosa lo aspetta al largo delle coste familiari della sua isola...');
 /*!40000 ALTER TABLE `manga` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,7 +192,6 @@ CREATE TABLE `ordine_include_funko` (
 
 LOCK TABLES `ordine_include_funko` WRITE;
 /*!40000 ALTER TABLE `ordine_include_funko` DISABLE KEYS */;
-INSERT INTO `ordine_include_funko` VALUES (1,'FNK001'),(1,'FNK002');
 /*!40000 ALTER TABLE `ordine_include_funko` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,7 +218,6 @@ CREATE TABLE `ordine_include_manga` (
 
 LOCK TABLES `ordine_include_manga` WRITE;
 /*!40000 ALTER TABLE `ordine_include_manga` DISABLE KEYS */;
-INSERT INTO `ordine_include_manga` VALUES (2,9780987654321),(2,9781234567890);
 /*!40000 ALTER TABLE `ordine_include_manga` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,8 +245,33 @@ CREATE TABLE `ordini` (
 
 LOCK TABLES `ordini` WRITE;
 /*!40000 ALTER TABLE `ordini` DISABLE KEYS */;
-INSERT INTO `ordini` VALUES (1,'luigi@example.com',34.98,'2025-06-17 18:30:00'),(2,'ciccio@example.com',22.49,'2025-06-17 19:00:00');
 /*!40000 ALTER TABLE `ordini` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `preferiti`
+--
+
+DROP TABLE IF EXISTS `preferiti`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `preferiti` (
+  `email_utente` varchar(100) NOT NULL,
+  `tipo` varchar(20) NOT NULL,
+  `id_prodotto` varchar(50) NOT NULL,
+  PRIMARY KEY (`email_utente`,`id_prodotto`,`tipo`),
+  CONSTRAINT `preferiti_ibfk_1` FOREIGN KEY (`email_utente`) REFERENCES `utenti` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `preferiti`
+--
+
+LOCK TABLES `preferiti` WRITE;
+/*!40000 ALTER TABLE `preferiti` DISABLE KEYS */;
+INSERT INTO `preferiti` VALUES ('rotondoluigi0@gmail.com','manga','9788864201795');
+/*!40000 ALTER TABLE `preferiti` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -265,6 +284,7 @@ DROP TABLE IF EXISTS `utenti`;
 CREATE TABLE `utenti` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `indirizzo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -275,7 +295,7 @@ CREATE TABLE `utenti` (
 
 LOCK TABLES `utenti` WRITE;
 /*!40000 ALTER TABLE `utenti` DISABLE KEYS */;
-INSERT INTO `utenti` VALUES ('ciccio@example.com','securepass'),('fiorello@example.com','mypassword'),('luigi@example.com','password123');
+INSERT INTO `utenti` VALUES ('rotondoluigi0@gmail.com','Password1@','ciao, sono bello ciao, ciaso\r\n');
 /*!40000 ALTER TABLE `utenti` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -288,4 +308,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-17 18:56:51
+-- Dump completed on 2025-07-14 15:27:00
