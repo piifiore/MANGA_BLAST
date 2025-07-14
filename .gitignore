@@ -1,27 +1,60 @@
-# --- IntelliJ IDEA ----------------------------------
-# Tutto .idea, tranne ciò che è utile a tutti
-.idea/*
-# file da condividere (rimuovi il * davanti se TI servono)
-!.idea/misc.xml
-!.idea/modules.xml
-!.idea/*.iml
-!.idea/vcs.xml
-!.idea/inspectionProfiles
-!.idea/runConfigurations
-!.idea/artifacts
+# ===================== #
+# IntelliJ IDEA Specific
+# ===================== #
+.idea/                      # Tutto il contenuto della cartella .idea
+*.iml                       # File progetto IntelliJ
+*.iws                       # File progetto vecchi
 
-# Escludi sempre quelli che creano problemi
+# Plugin IntelliJ temporanei
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.*
 .idea/**/dictionaries
 .idea/**/shelf/
-*.iws          # vecchio formato “project” di IDEA
-/.idea/
+
+# Run configs (puoi tenerli se servono al team)
+.idea/runConfigurations/
+
+# ===================== #
+# Build output
+# ===================== #
 /out/
-/out/artifacts/MANGA_BLAST_war_exploded
-.idea/workspace.xml
-/.idea
-/out/production/MANGA_BLAST/control
-/out/production/MANGA_BLAST/model
-/out/production/MANGA_BLAST/control
+build/
+target/
+
+# ===================== #
+# Compiled Java classes
+# ===================== #
+*.class
+
+# ===================== #
+# Logs / temp files
+# ===================== #
+*.log
+*.tmp
+*.swp
+*.bak
+
+# ===================== #
+# OS Specific
+# ===================== #
+.DS_Store     # macOS
+Thumbs.db     # Windows
+ehthumbs.db   # Windows
+
+# ===================== #
+# JetBrains Code With Me
+# ===================== #
+.idea/.codeWithMe/
+
+# ===================== #
+# Eclipse / NetBeans (se usi altri IDE)
+# ===================== #
+*.launch
+.settings/
+.nb-gradle/
+
+# ===================== #
+# Git
+# ===================== #
+.git/
