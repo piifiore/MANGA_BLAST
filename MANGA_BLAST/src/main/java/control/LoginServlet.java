@@ -22,23 +22,27 @@ public class LoginServlet extends HttpServlet {
         UserDAO dao = new UserDAO();
         HttpSession session = request.getSession();
 
+        session.removeAttribute("user");
+        session.removeAttribute("admin");
+
         if (dao.isAdmin(email, password)) {
             session.setAttribute("admin", email);
             response.sendRedirect("admin-dashboard.jsp");
-        } else if (dao.isUser(email, password)) {
-            session.setAttribute("user", email); // ✅ sessione coerente
 
-            // 🔁 Merge carrello anonimo → persistente
+        } else if (dao.isUser(email, password)) {
+            session.setAttribute("user", email);
+
             List<ItemCarrello> carrelloAnonimo = (List<ItemCarrello>) session.getAttribute("carrello");
             if (carrelloAnonimo != null && !carrelloAnonimo.isEmpty()) {
                 CarrelloDAO carrelloDAO = new CarrelloDAO();
                 for (ItemCarrello item : carrelloAnonimo) {
                     carrelloDAO.aggiungiItem(email, item.getTipo(), item.getIdProdotto(), item.getQuantita());
                 }
-                session.removeAttribute("carrello"); // pulizia post-merge
+                session.removeAttribute("carrello");
             }
 
             response.sendRedirect("index.jsp");
+
         } else {
             request.setAttribute("errorMessage", "Credenziali non valide!");
             request.getRequestDispatcher("login.jsp").forward(request, response);

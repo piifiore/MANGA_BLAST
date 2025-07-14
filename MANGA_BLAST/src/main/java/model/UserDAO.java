@@ -54,8 +54,8 @@ public class UserDAO {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, password);
-            stmt.setString(2, email);
+            stmt.setString(1, email);
+            stmt.setString(2, password);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,6 +89,7 @@ public class UserDAO {
         String query = "UPDATE utenti SET password = ? WHERE email = ?";
         try (Connection conn = ConPool.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
+
             stmt.setString(1, nuovaPassword);
             stmt.setString(2, email);
             stmt.executeUpdate();
@@ -104,10 +105,9 @@ public class UserDAO {
 
             stmt.setString(1, nuovoIndirizzo);
             stmt.setString(2, email);
-
-            int rows = stmt.executeUpdate();
-
+            stmt.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -136,6 +136,17 @@ public class UserDAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    // (Facoltativo) Ottieni tutti gli admin
+    public ResultSet getAllAdmins() {
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement()) {
+            return stmt.executeQuery("SELECT * FROM admin");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

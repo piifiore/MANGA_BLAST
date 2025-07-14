@@ -2,21 +2,28 @@
 
 <%
   String utente = (String) session.getAttribute("user");
+  String admin = (String) session.getAttribute("admin");
+
+  boolean isUser = utente != null;
+  boolean isAdmin = admin != null;
 %>
 
 <div class="navbar">
-  <a href="index.jsp">🏠 Home</a>
 
-  <% if (utente != null) { %>
-  <a href="area-profilo.jsp">👤 Profilo</a>
-  <a href="ordini-utente.jsp">📦 I miei ordini</a>
+  <% if (isUser) { %>
+  <a href="index.jsp">Home</a>
+  <a href="area-profilo.jsp">Profilo</a>
+  <a href="ordini-utente.jsp">I miei ordini</a>
   <a href="logout.jsp">🔓 Logout</a>
+
+  <% } else if (isAdmin) { %>
+  <a href="admin-dashboard.jsp">Dashboard Admin</a>
+  <a href="admin-ordini.jsp">Gestione Ordini</a>
+  <a href="logout.jsp">🔓 Logout</a>
+
   <% } else { %>
+  <a href="index.jsp">Home</a>
   <a href="login.jsp">🔑 Login</a>
   <% } %>
 
-  <% if (utente != null && "admin@example.com".equals(utente)) { %>
-  <a href="admin-dashboard.jsp">🛠️ Dashboard Admin</a>
-  <a href="admin-ordini.jsp">📋 Gestione Ordini</a>
-  <% } %>
 </div>
