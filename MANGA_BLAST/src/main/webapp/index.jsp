@@ -38,7 +38,7 @@
 
 <hr>
 
-<h2 style="text-align:center;">📚 Manga disponibili</h2>
+<h2 style="text-align:center;">Manga disponibili</h2>
 <div class="product-grid">
   <% for (Manga m : listaManga) { %>
   <div class="product-card">
@@ -61,7 +61,7 @@
 
 <hr>
 
-<h2 style="text-align:center;">🧸 Funko disponibili</h2>
+<h2 style="text-align:center;">Funko disponibili</h2>
 <div class="product-grid">
   <% for (Funko f : listaFunko) { %>
   <div class="product-card">
