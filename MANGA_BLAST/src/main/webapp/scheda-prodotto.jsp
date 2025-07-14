@@ -34,12 +34,6 @@
 
 <jsp:include page="navbar.jsp" />
 
-<div class="breadcrumb">
-    <a href="${pageContext.request.contextPath}/index.jsp">Home</a> &raquo;
-    <a href="${pageContext.request.contextPath}/index.jsp#<%= tipo %>">Prodotti <%= tipo %></a> &raquo;
-    <span>Scheda</span>
-</div>
-
 <div class="scheda">
     <% if (errore != null) { %>
     <p style="color:red;">🚫 Errore: <%= errore %></p>
@@ -54,30 +48,31 @@
     <p><strong>Descrizione:</strong> <%= descrizione %></p>
     <p><strong>Prezzo:</strong> <%= prezzo %> €</p>
 
-    <form action="AggiungiAlCarrelloServlet" method="post">
-        <input type="hidden" name="id" value="<%= id %>">
-        <input type="hidden" name="tipo" value="<%= tipo %>">
-        <input type="hidden" name="titolo" value="<%= nome %>">
-        <input type="hidden" name="prezzo" value="<%= prezzo %>">
-        <button type="submit">🛒 Aggiungi al carrello</button>
-    </form>
+    <button onclick="aggiungiCarrello('<%= id %>', '<%= tipo %>', '<%= nome %>', '<%= prezzo %>')">🛒 Aggiungi al carrello</button>
 
     <% if (emailUser != null) { %>
     <button onclick="aggiungiPreferiti('<%= id %>', '<%= tipo %>')">❤️ Aggiungi ai preferiti</button>
     <% } %>
-
-    <div class="contatto">
-        <p>❓ Domande su questo prodotto?</p>
-        <a href="mailto:info@mangablast.it?subject=Richiesta informazioni su <%= nome %>" class="contattaci-btn">
-            ✉️ Contattaci
-        </a>
-    </div>
     <% } else { %>
     <p style="color:red;">🚫 Prodotto non trovato</p>
     <% } %>
 </div>
 
 <script>
+    function aggiungiCarrello(id, tipo, titolo, prezzo) {
+        fetch('AggiungiAlCarrelloServlet', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ id, tipo, titolo, prezzo })
+        })
+            .then(res => res.text())
+            .then(text => {
+                if (text.trim() === "aggiunto") {
+                    mostraBanner("✅ Aggiunto al carrello!");
+                }
+            });
+    }
+
     function aggiungiPreferiti(idProdotto, tipo) {
         fetch('AggiungiPreferitoServlet', {
             method: 'POST',
@@ -100,7 +95,7 @@
         banner.style.position = 'fixed';
         banner.style.top = '10px';
         banner.style.right = '10px';
-        banner.style.background = msg.includes("⚠️") ? '#FFC107' : '#E91E63';
+        banner.style.background = msg.includes("⚠️") ? '#FFC107' : msg.includes("✅") ? '#4CAF50' : '#E91E63';
         banner.style.color = '#fff';
         banner.style.padding = '10px 20px';
         banner.style.fontWeight = 'bold';

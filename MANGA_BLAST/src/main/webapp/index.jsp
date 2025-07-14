@@ -51,13 +51,7 @@
       <img src="${pageContext.request.contextPath}/<%= m.getImmagine() %>" alt="Copertina manga" />
     </a>
     <p>Prezzo: <strong><%= m.getPrezzo() %>€</strong></p>
-    <form action="AggiungiAlCarrelloServlet" method="post">
-      <input type="hidden" name="id" value="<%= m.getISBN() %>">
-      <input type="hidden" name="tipo" value="manga">
-      <input type="hidden" name="titolo" value="<%= m.getNome() %>">
-      <input type="hidden" name="prezzo" value="<%= m.getPrezzo() %>">
-      <button type="submit">🛒 Aggiungi</button>
-    </form>
+    <button onclick="aggiungiCarrello('<%= m.getISBN() %>', 'manga', '<%= m.getNome() %>', '<%= m.getPrezzo() %>')">🛒 Aggiungi</button>
     <% if (emailUser != null) { %>
     <button onclick="aggiungiPreferiti('<%= m.getISBN() %>', 'manga')">❤️ Preferiti</button>
     <% } %>
@@ -80,13 +74,7 @@
       <img src="${pageContext.request.contextPath}/<%= f.getImmagine() %>" alt="Copertina funko" />
     </a>
     <p>Prezzo: <strong><%= f.getPrezzo() %>€</strong></p>
-    <form action="AggiungiAlCarrelloServlet" method="post">
-      <input type="hidden" name="id" value="<%= f.getNumeroSerie() %>">
-      <input type="hidden" name="tipo" value="funko">
-      <input type="hidden" name="titolo" value="<%= f.getNome() %>">
-      <input type="hidden" name="prezzo" value="<%= f.getPrezzo() %>">
-      <button type="submit">🛒 Aggiungi</button>
-    </form>
+    <button onclick="aggiungiCarrello('<%= f.getNumeroSerie() %>', 'funko', '<%= f.getNome() %>', '<%= f.getPrezzo() %>')">🛒 Aggiungi</button>
     <% if (emailUser != null) { %>
     <button onclick="aggiungiPreferiti('<%= f.getNumeroSerie() %>', 'funko')">❤️ Preferiti</button>
     <% } %>
@@ -95,6 +83,20 @@
 </div>
 
 <script>
+  function aggiungiCarrello(id, tipo, titolo, prezzo) {
+    fetch('AggiungiAlCarrelloServlet', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ id, tipo, titolo, prezzo })
+    })
+            .then(res => res.text())
+            .then(text => {
+              if (text.trim() === "aggiunto") {
+                mostraBanner("✅ Aggiunto al carrello!");
+              }
+            });
+  }
+
   function aggiungiPreferiti(idProdotto, tipo) {
     fetch('AggiungiPreferitoServlet', {
       method: 'POST',
@@ -103,8 +105,6 @@
     })
             .then(res => res.text())
             .then(text => {
-              console.log("Risposta ricevuta:", `"${text}"`); // 🔍 Debug visivo in console
-
               if (text.trim() === "aggiunto") {
                 mostraBanner("❤️ Aggiunto ai preferiti!");
               } else if (text.trim() === "esiste") {
@@ -119,7 +119,7 @@
     banner.style.position = 'fixed';
     banner.style.top = '10px';
     banner.style.right = '10px';
-    banner.style.background = msg.includes("⚠️") ? '#FFC107' : '#E91E63';
+    banner.style.background = msg.includes("⚠️") ? '#FFC107' : msg.includes("✅") ? '#4CAF50' : '#E91E63';
     banner.style.color = '#fff';
     banner.style.padding = '10px 20px';
     banner.style.fontWeight = 'bold';
