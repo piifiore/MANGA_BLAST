@@ -69,7 +69,7 @@
       <span id="qta-<%= key %>"><%= p.getQuantita() %></span>
       <button onclick="modificaQuantita('<%= p.getIdProdotto() %>', '<%= p.getTipo() %>', 1)">+</button>
     </td>
-    <td id="subtotale-<%= key %>"><%= subtotale %>€</td>
+    <td id="subtotale-<%= key %>" data-prezzo="<%= p.getPrezzo() %>"><%= subtotale %>€</td>
   </tr>
   <%
     }
@@ -97,7 +97,7 @@
             .then(data => {
               const key = id + tipo;
               if (data.rimosso) {
-                location.reload(); // prodotto rimosso
+                location.reload();
               } else {
                 document.getElementById("qta-" + key).textContent = data.nuovaQuantita;
                 const prezzo = parseFloat(document.getElementById("subtotale-" + key).getAttribute("data-prezzo"));
@@ -111,7 +111,7 @@
   function aggiornaTotale() {
     let totale = 0;
     document.querySelectorAll("[id^='subtotale-']").forEach(td => {
-      const text = td.textContent.replace("€", "");
+      const text = td.textContent.replace("€", "").trim();
       const value = parseFloat(text);
       if (!isNaN(value)) totale += value;
     });
