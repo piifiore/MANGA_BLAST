@@ -46,8 +46,14 @@
 <div class="product-grid">
   <% for (Manga m : listaManga) { %>
   <div class="product-card">
-    <h3><%= m.getNome() %></h3>
-    <img src="${pageContext.request.contextPath}/<%= m.getImmagine() %>" alt="Copertina manga" />
+    <h3>
+      <a href="${pageContext.request.contextPath}/scheda-prodotto.jsp?id=<%= m.getISBN() %>&tipo=manga">
+        <%= m.getNome() %>
+      </a>
+    </h3>
+    <a href="${pageContext.request.contextPath}/scheda-prodotto.jsp?id=<%= m.getISBN() %>&tipo=manga">
+      <img src="${pageContext.request.contextPath}/<%= m.getImmagine() %>" alt="Copertina manga" />
+    </a>
     <p>Prezzo: <strong><%= m.getPrezzo() %>€</strong></p>
     <button onclick="aggiungiCarrello('<%= m.getISBN() %>', 'manga', '<%= m.getNome() %>', <%= m.getPrezzo() %>)">
       🛒 Aggiungi
@@ -56,14 +62,21 @@
   <% } %>
 </div>
 
+
 <hr>
 
 <h2 style="text-align:center;">🧸 Funko disponibili</h2>
 <div class="product-grid">
   <% for (Funko f : listaFunko) { %>
   <div class="product-card">
-    <h3><%= f.getNome() %></h3>
-    <img src="${pageContext.request.contextPath}/<%= f.getImmagine() %>" alt="Copertina manga" />
+    <h3>
+      <a href="${pageContext.request.contextPath}/scheda-prodotto.jsp?id=<%= f.getNumeroSerie() %>&tipo=funko">
+        <%= f.getNome() %>
+      </a>
+    </h3>
+    <a href="${pageContext.request.contextPath}/scheda-prodotto.jsp?id=<%= f.getNumeroSerie() %>&tipo=funko">
+      <img src="${pageContext.request.contextPath}/<%= f.getImmagine() %>" alt="Copertina funko" />
+    </a>
     <p>Prezzo: <strong><%= f.getPrezzo() %>€</strong></p>
     <button onclick="aggiungiCarrello('<%= f.getNumeroSerie() %>', 'funko', '<%= f.getNome() %>', <%= f.getPrezzo() %>)">
       🛒 Aggiungi
@@ -71,6 +84,7 @@
   </div>
   <% } %>
 </div>
+
 
 <!-- JavaScript AJAX per aggiunta al carrello -->
 <script>
