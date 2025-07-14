@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: progettotsw_db
 -- ------------------------------------------------------
--- Server version	9.3.0
+-- Server version	8.0.42
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -165,7 +165,7 @@ CREATE TABLE `manga` (
 
 LOCK TABLES `manga` WRITE;
 /*!40000 ALTER TABLE `manga` DISABLE KEYS */;
-INSERT INTO `manga` VALUES (9788864201795,5.20,'images/daf2b20d-71ed-42c7-80ff-aa7488aa75bf_opvol1.jpeg','One Piece vol.1','Presso il porto di un piccolo villaggio di mare è attraccata una nave dall\'aspetto minaccioso. Le sue vele sono ammainate ma sull\'albero maestro sventola fiero il vessillo dei pirati: il Jolly Roger! Un ragazzino del villaggio è disposto a tutto pur di salire a bordo e intraprendere l\'appassionante carriera del bucaniere, ma ancora non sa cosa lo aspetta al largo delle coste familiari della sua isola...');
+INSERT INTO `manga` VALUES (9788864201795,5.20,'images/4787a49a-2376-4bbd-bd86-eae88222b174_onepieice1.jpg','One Piece vol.1','ciaocicaicn');
 /*!40000 ALTER TABLE `manga` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,10 +233,11 @@ CREATE TABLE `ordini` (
   `email` varchar(255) DEFAULT NULL,
   `totale` decimal(10,2) DEFAULT '0.00',
   `data` datetime DEFAULT CURRENT_TIMESTAMP,
+  `stato` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_ordine`),
   KEY `email` (`email`),
   CONSTRAINT `ordini_ibfk_1` FOREIGN KEY (`email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,6 +246,7 @@ CREATE TABLE `ordini` (
 
 LOCK TABLES `ordini` WRITE;
 /*!40000 ALTER TABLE `ordini` DISABLE KEYS */;
+INSERT INTO `ordini` VALUES (1,'rotondoluigi0@gmail.com',25.00,'2025-07-12 16:21:03','Spedito');
 /*!40000 ALTER TABLE `ordini` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,11 +258,14 @@ DROP TABLE IF EXISTS `preferiti`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `preferiti` (
-  `email_utente` varchar(100) NOT NULL,
-  `tipo` varchar(20) NOT NULL,
-  `id_prodotto` varchar(50) NOT NULL,
-  PRIMARY KEY (`email_utente`,`id_prodotto`,`tipo`),
-  CONSTRAINT `preferiti_ibfk_1` FOREIGN KEY (`email_utente`) REFERENCES `utenti` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
+  `email_utente` varchar(255) NOT NULL,
+  `tipo` varchar(50) NOT NULL,
+  `id_prodotto` varchar(100) NOT NULL,
+  PRIMARY KEY (`email_utente`,`tipo`,`id_prodotto`),
+  KEY `idx_email` (`email_utente`),
+  KEY `idx_tipo` (`tipo`),
+  KEY `idx_id` (`id_prodotto`),
+  CONSTRAINT `preferiti_ibfk_1` FOREIGN KEY (`email_utente`) REFERENCES `utenti` (`email`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -284,7 +289,7 @@ DROP TABLE IF EXISTS `utenti`;
 CREATE TABLE `utenti` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `indirizzo` varchar(255) DEFAULT NULL,
+  `indirizzo` text,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -295,7 +300,7 @@ CREATE TABLE `utenti` (
 
 LOCK TABLES `utenti` WRITE;
 /*!40000 ALTER TABLE `utenti` DISABLE KEYS */;
-INSERT INTO `utenti` VALUES ('rotondoluigi0@gmail.com','Password1@','ciao, sono bello ciao, ciaso\r\n');
+INSERT INTO `utenti` VALUES ('rotondoluigi0@gmail.com','Password1@','ciao sono bello\r\n');
 /*!40000 ALTER TABLE `utenti` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -308,4 +313,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-14 15:27:00
+-- Dump completed on 2025-07-14 19:49:49
