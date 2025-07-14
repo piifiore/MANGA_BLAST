@@ -9,11 +9,9 @@
 
     try {
         if ("manga".equals(tipo)) {
-            MangaDAO dao = new MangaDAO();
-            prodotto = dao.doRetrieveByISBN(Long.parseLong(id));
+            prodotto = new MangaDAO().doRetrieveByISBN(Long.parseLong(id));
         } else if ("funko".equals(tipo)) {
-            FunkoDAO dao = new FunkoDAO();
-            prodotto = dao.doRetrieveByNumeroSerie(id);
+            prodotto = new FunkoDAO().doRetrieveByNumeroSerie(id);
         } else {
             errore = "Tipo prodotto non valido";
         }
@@ -21,7 +19,11 @@
         errore = "ID prodotto non valido";
         e.printStackTrace();
     }
+
+    String emailUser = (String) session.getAttribute("user");
 %>
+
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -32,77 +34,39 @@
 
 <jsp:include page="navbar.jsp" />
 
-<div class="breadcrumb">
-    <a href="${pageContext.request.contextPath}/index.jsp">Home</a> &raquo;
-    <a href="${pageContext.request.contextPath}/index.jsp#<%= tipo %>">Prodotti <%= tipo %></a> &raquo;
-    <span>Scheda</span>
-</div>
-
 <div class="scheda">
     <% if (errore != null) { %>
     <p style="color:red;">🚫 Errore: <%= errore %></p>
-    <% } else if (prodotto != null) { %>
-    <h2><%= tipo.equals("manga") ? ((Manga) prodotto).getNome() : ((Funko) prodotto).getNome() %></h2>
+    <% } else if (prodotto != null) {
+        String nome = tipo.equals("manga") ? ((Manga) prodotto).getNome() : ((Funko) prodotto).getNome();
+        String descrizione = tipo.equals("manga") ? ((Manga) prodotto).getDescrizione() : ((Funko) prodotto).getDescrizione();
+        String immagine = tipo.equals("manga") ? ((Manga) prodotto).getImmagine() : ((Funko) prodotto).getImmagine();
+        String prezzo = tipo.equals("manga") ? ((Manga) prodotto).getPrezzo().toString() : ((Funko) prodotto).getPrezzo().toString();
+    %>
+    <h2><%= nome %></h2>
+    <img src="${pageContext.request.contextPath}/<%= immagine %>" alt="Immagine prodotto" width="300" />
+    <p><strong>Descrizione:</strong> <%= descrizione %></p>
+    <p><strong>Prezzo:</strong> <%= prezzo %> €</p>
 
-    <img
-            src="${pageContext.request.contextPath}/<%= tipo.equals("manga") ? ((Manga) prodotto).getImmagine() : ((Funko) prodotto).getImmagine() %>"
-            alt="Immagine prodotto"
-            width="300"
-    />
+    <form action="AggiungiAlCarrelloServlet" method="post">
+        <input type="hidden" name="id" value="<%= id %>">
+        <input type="hidden" name="tipo" value="<%= tipo %>">
+        <input type="hidden" name="titolo" value="<%= nome %>">
+        <input type="hidden" name="prezzo" value="<%= prezzo %>">
+        <button type="submit">🛒 Aggiungi al carrello</button>
+    </form>
 
-    <p><strong>Descrizione:</strong> <%= tipo.equals("manga") ? ((Manga) prodotto).getDescrizione() : ((Funko) prodotto).getDescrizione() %></p>
-    <p><strong>Prezzo:</strong> <%= tipo.equals("manga") ? ((Manga) prodotto).getPrezzo() : ((Funko) prodotto).getPrezzo() %> €</p>
-
-    <button onclick="aggiungiCarrello('<%= id %>', '<%= tipo %>', '<%= tipo.equals("manga") ? ((Manga) prodotto).getNome() : ((Funko) prodotto).getNome() %>', <%= tipo.equals("manga") ? ((Manga) prodotto).getPrezzo() : ((Funko) prodotto).getPrezzo() %>)">
-        🛒 Aggiungi al carrello
-    </button>
-
-    <div class="contatto">
-        <p>❓ Domande su questo prodotto?</p>
-        <a href="mailto:info@mangablast.it?subject=Richiesta informazioni su <%= tipo.equals("manga") ? ((Manga) prodotto).getNome() : ((Funko) prodotto).getNome() %>" class="contattaci-btn">
-            ✉️ Contattaci
-        </a>
-    </div>
+    <% if (emailUser != null) { %>
+    <form action="AggiungiPreferitoServlet" method="post">
+        <input type="hidden" name="idProdotto" value="<%= id %>">
+        <input type="hidden" name="tipo" value="<%= tipo %>">
+        <button type="submit">❤️ Aggiungi ai preferiti</button>
+    </form>
+    <% } %>
     <% } else { %>
     <p style="color:red;">🚫 Prodotto non trovato</p>
     <% } %>
 </div>
-
-<script>
-    function aggiungiCarrello(id, tipo, titolo, prezzo) {
-        fetch('AggiungiAlCarrelloServlet', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-                id: id,
-                tipo: tipo,
-                titolo: titolo,
-                prezzo: prezzo
-            })
-        })
-            .then(response => response.text())
-            .then(text => {
-                if (text === 'aggiunto') {
-                    mostraBanner("✅ Aggiunto al carrello!");
-                }
-            });
-    }
-
-    function mostraBanner(msg) {
-        let banner = document.createElement('div');
-        banner.textContent = msg;
-        banner.style.position = 'fixed';
-        banner.style.top = '10px';
-        banner.style.right = '10px';
-        banner.style.background = '#4CAF50';
-        banner.style.color = '#fff';
-        banner.style.padding = '10px';
-        banner.style.borderRadius = '5px';
-        banner.style.zIndex = '1000';
-        document.body.appendChild(banner);
-        setTimeout(() => banner.remove(), 2000);
-    }
-</script>
 
 </body>
 </html>

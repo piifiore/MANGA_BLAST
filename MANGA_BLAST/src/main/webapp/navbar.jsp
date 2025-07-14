@@ -13,6 +13,7 @@
   <% if (isUser) { %>
   <a href="index.jsp">Home</a>
   <a href="carrello.jsp">Carrello</a>
+  <a href="preferiti.jsp">Preferiti</a>
   <a href="area-profilo.jsp">Profilo</a>
   <a href="ordini-utente.jsp">I miei ordini</a>
   <a href="logout.jsp">🔓 Logout</a>

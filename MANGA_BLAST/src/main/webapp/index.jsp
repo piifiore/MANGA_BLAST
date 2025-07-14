@@ -30,10 +30,6 @@
 
 <body>
 
-<header class="header">
-  
-</header>
-
 <% if (emailUser != null) { %>
 <div class="welcome-message">
   <h2>👋 Ciao <%= nomeUser %>, benvenuto su MangaBlast!</h2>
@@ -55,13 +51,23 @@
       <img src="${pageContext.request.contextPath}/<%= m.getImmagine() %>" alt="Copertina manga" />
     </a>
     <p>Prezzo: <strong><%= m.getPrezzo() %>€</strong></p>
-    <button onclick="aggiungiCarrello('<%= m.getISBN() %>', 'manga', '<%= m.getNome() %>', <%= m.getPrezzo() %>)">
-      🛒 Aggiungi
-    </button>
+    <form action="AggiungiAlCarrelloServlet" method="post">
+      <input type="hidden" name="id" value="<%= m.getISBN() %>">
+      <input type="hidden" name="tipo" value="manga">
+      <input type="hidden" name="titolo" value="<%= m.getNome() %>">
+      <input type="hidden" name="prezzo" value="<%= m.getPrezzo() %>">
+      <button type="submit">🛒 Aggiungi</button>
+    </form>
+    <% if (emailUser != null) { %>
+    <form action="AggiungiPreferitoServlet" method="post">
+      <input type="hidden" name="idProdotto" value="<%= m.getISBN() %>">
+      <input type="hidden" name="tipo" value="manga">
+      <button type="submit">❤️ Preferiti</button>
+    </form>
+    <% } %>
   </div>
   <% } %>
 </div>
-
 
 <hr>
 
@@ -78,50 +84,23 @@
       <img src="${pageContext.request.contextPath}/<%= f.getImmagine() %>" alt="Copertina funko" />
     </a>
     <p>Prezzo: <strong><%= f.getPrezzo() %>€</strong></p>
-    <button onclick="aggiungiCarrello('<%= f.getNumeroSerie() %>', 'funko', '<%= f.getNome() %>', <%= f.getPrezzo() %>)">
-      🛒 Aggiungi
-    </button>
+    <form action="AggiungiAlCarrelloServlet" method="post">
+      <input type="hidden" name="id" value="<%= f.getNumeroSerie() %>">
+      <input type="hidden" name="tipo" value="funko">
+      <input type="hidden" name="titolo" value="<%= f.getNome() %>">
+      <input type="hidden" name="prezzo" value="<%= f.getPrezzo() %>">
+      <button type="submit">🛒 Aggiungi</button>
+    </form>
+    <% if (emailUser != null) { %>
+    <form action="AggiungiPreferitoServlet" method="post">
+      <input type="hidden" name="idProdotto" value="<%= f.getNumeroSerie() %>">
+      <input type="hidden" name="tipo" value="funko">
+      <button type="submit">❤️ Preferiti</button>
+    </form>
+    <% } %>
   </div>
   <% } %>
 </div>
-
-
-<!-- JavaScript AJAX per aggiunta al carrello -->
-<script>
-  function aggiungiCarrello(id, tipo, titolo, prezzo) {
-    fetch('AggiungiAlCarrelloServlet', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        id: id,
-        tipo: tipo,
-        titolo: titolo,
-        prezzo: prezzo
-      })
-    })
-            .then(response => response.text())
-            .then(text => {
-              if (text === 'aggiunto') {
-                mostraBanner("✅ Aggiunto al carrello!");
-              }
-            });
-  }
-
-  function mostraBanner(msg) {
-    let banner = document.createElement('div');
-    banner.textContent = msg;
-    banner.style.position = 'fixed';
-    banner.style.top = '10px';
-    banner.style.right = '10px';
-    banner.style.background = '#4CAF50';
-    banner.style.color = '#fff';
-    banner.style.padding = '10px';
-    banner.style.borderRadius = '5px';
-    banner.style.zIndex = '1000';
-    document.body.appendChild(banner);
-    setTimeout(() => banner.remove(), 2000);
-  }
-</script>
 
 </body>
 </html>
