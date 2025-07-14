@@ -10,7 +10,7 @@ import model.UserDAO;
 import java.io.IOException;
 
 
-@WebServlet("/SignUpServlet")
+@WebServlet("/signup")
 
 public class SignUpServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
