@@ -59,7 +59,11 @@
       <button type="submit">🛒 Aggiungi</button>
     </form>
     <% if (emailUser != null) { %>
-    <button onclick="aggiungiPreferiti('<%= m.getISBN() %>', 'manga')">❤️ Preferiti</button>
+    <form action="AggiungiPreferitoServlet" method="post">
+      <input type="hidden" name="idProdotto" value="<%= m.getISBN() %>">
+      <input type="hidden" name="tipo" value="manga">
+      <button type="submit">❤️ Preferiti</button>
+    </form>
     <% } %>
   </div>
   <% } %>
@@ -88,48 +92,15 @@
       <button type="submit">🛒 Aggiungi</button>
     </form>
     <% if (emailUser != null) { %>
-    <button onclick="aggiungiPreferiti('<%= f.getNumeroSerie() %>', 'funko')">❤️ Preferiti</button>
+    <form action="AggiungiPreferitoServlet" method="post">
+      <input type="hidden" name="idProdotto" value="<%= f.getNumeroSerie() %>">
+      <input type="hidden" name="tipo" value="funko">
+      <button type="submit">❤️ Preferiti</button>
+    </form>
     <% } %>
   </div>
   <% } %>
 </div>
-
-<script>
-  function aggiungiPreferiti(idProdotto, tipo) {
-    fetch('AggiungiPreferitoServlet', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ idProdotto, tipo })
-    })
-            .then(res => res.text())
-            .then(text => {
-              console.log("Risposta ricevuta:", `"${text}"`); // 🔍 Debug visivo in console
-
-              if (text.trim() === "aggiunto") {
-                mostraBanner("❤️ Aggiunto ai preferiti!");
-              } else if (text.trim() === "esiste") {
-                mostraBanner("⚠️ Già presente nei preferiti!");
-              }
-            });
-  }
-
-  function mostraBanner(msg) {
-    let banner = document.createElement('div');
-    banner.textContent = msg;
-    banner.style.position = 'fixed';
-    banner.style.top = '10px';
-    banner.style.right = '10px';
-    banner.style.background = msg.includes("⚠️") ? '#FFC107' : '#E91E63';
-    banner.style.color = '#fff';
-    banner.style.padding = '10px 20px';
-    banner.style.fontWeight = 'bold';
-    banner.style.borderRadius = '5px';
-    banner.style.zIndex = '1000';
-    banner.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
-    document.body.appendChild(banner);
-    setTimeout(() => banner.remove(), 2000);
-  }
-</script>
 
 </body>
 </html>

@@ -18,7 +18,7 @@ public class AggiungiPreferitoServlet extends HttpServlet {
         String email = (String) session.getAttribute("user");
 
         if (email == null) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.sendRedirect("login.jsp");
             return;
         }
 
@@ -26,22 +26,21 @@ public class AggiungiPreferitoServlet extends HttpServlet {
         String idProdotto = request.getParameter("idProdotto");
 
         if (tipo == null || idProdotto == null || tipo.isEmpty() || idProdotto.isEmpty()) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.sendRedirect("index.jsp");
             return;
         }
 
         PreferitiDAO dao = new PreferitiDAO();
-        boolean esiste = dao.isPreferito(email, tipo, idProdotto);
 
-        response.setContentType("text/plain");
+        boolean esiste = dao.isPreferito(email, tipo, idProdotto);
 
         if (esiste) {
             response.getWriter().write("esiste");
+            response.getWriter().flush();
         } else {
             dao.aggiungiPreferito(email, tipo, idProdotto);
             response.getWriter().write("aggiunto");
+            response.getWriter().flush();
         }
-
-        response.getWriter().flush();
     }
 }
