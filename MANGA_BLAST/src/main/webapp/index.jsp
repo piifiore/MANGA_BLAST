@@ -47,7 +47,7 @@
   <% for (Manga m : listaManga) { %>
   <div class="product-card">
     <h3><%= m.getNome() %></h3>
-    <img src="<%= m.getImmagine() %>" alt="Copertina manga" style="width:150px;height:auto;">
+    <img src="${pageContext.request.contextPath}/<%= m.getImmagine() %>" alt="Copertina manga" />
     <p>Prezzo: <strong><%= m.getPrezzo() %>€</strong></p>
     <button onclick="aggiungiCarrello('<%= m.getISBN() %>', 'manga', '<%= m.getNome() %>', <%= m.getPrezzo() %>)">
       🛒 Aggiungi
@@ -63,7 +63,7 @@
   <% for (Funko f : listaFunko) { %>
   <div class="product-card">
     <h3><%= f.getNome() %></h3>
-    <img src="<%= f.getImmagine() %>" alt="Immagine funko" style="width:150px;height:auto;">
+    <img src="${pageContext.request.contextPath}/<%= f.getImmagine() %>" alt="Copertina manga" />
     <p>Prezzo: <strong><%= f.getPrezzo() %>€</strong></p>
     <button onclick="aggiungiCarrello('<%= f.getNumeroSerie() %>', 'funko', '<%= f.getNome() %>', <%= f.getPrezzo() %>)">
       🛒 Aggiungi
