@@ -64,6 +64,6 @@ public class AggiornaQuantitaItemServlet extends HttpServlet {
             }
         }
 
-        response.sendRedirect("Carrello.jsp");
+        response.sendRedirect("carrello.jsp");
     }
 }

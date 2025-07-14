@@ -26,7 +26,7 @@
 <%
 } else if ("true".equals(successo)) {
 %>
-<div style="color: green; font-weight: bold;">✅ Registrazione completata! Effettua il login.</div>
+<div style="color: green; font-weight: bold;">Registrazione completata! Effettua il login.</div>
 <%
     }
 %>

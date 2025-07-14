@@ -165,4 +165,30 @@ public class FunkoDAO {
             e.printStackTrace();
         }
     }
+
+    public Funko doRetrieveByNumeroSerie(String numeroSerie) {
+        Funko funko = null;
+        String query = "SELECT * FROM funko WHERE numeroSerie = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, numeroSerie);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                funko = new Funko();
+                funko.setNumeroSerie(rs.getString("numeroSerie"));
+                funko.setNome(rs.getString("nome"));
+                funko.setDescrizione(rs.getString("descrizione"));
+                funko.setPrezzo(rs.getBigDecimal("prezzo"));
+                funko.setImmagine(rs.getString("immagine"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return funko;
+    }
 }

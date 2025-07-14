@@ -165,4 +165,30 @@ public class MangaDAO {
         }
         return risultati;
     }
+
+    public Manga doRetrieveByISBN(long isbn) {
+        Manga manga = null;
+        String query = "SELECT * FROM manga WHERE ISBN = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setLong(1, isbn);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                manga = new Manga();
+                manga.setISBN(rs.getLong("ISBN"));
+                manga.setNome(rs.getString("nome"));
+                manga.setDescrizione(rs.getString("descrizione"));
+                manga.setPrezzo(rs.getBigDecimal("prezzo"));
+                manga.setImmagine(rs.getString("immagine"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return manga;
+    }
 }
