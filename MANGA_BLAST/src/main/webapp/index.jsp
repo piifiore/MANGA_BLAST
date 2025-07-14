@@ -30,9 +30,6 @@
 
 <body>
 
-<header class="header">
-  
-</header>
 
 <% if (emailUser != null) { %>
 <div class="welcome-message">
@@ -42,6 +39,7 @@
 
 <hr>
 
+<<<<<<< Updated upstream
 <h2 style="text-align:center;">📚 Manga disponibili</h2>
 <div class="product-grid">
   <% for (Manga m : listaManga) { %>
@@ -68,9 +66,26 @@
     <button onclick="aggiungiCarrello('<%= f.getNumeroSerie() %>', 'funko', '<%= f.getNome() %>', <%= f.getPrezzo() %>)">
       🛒 Aggiungi
     </button>
+=======
+
+<hr>
+
+<h2 style="text-align:center;">🧸 Funko disponibili</h2>e
+  <div>
+    <% for (Funko f : listaFunko) { %>
+    <div>
+      <h3><%= f.getNome() %></h3>
+      <img src="<%= f.getImmagine() %>" alt="Immagine funko" style="width:150px;height:auto;">
+      <p>Prezzo: <strong><%= f.getPrezzo() %>€</strong></p>
+      <button onclick="aggiungiCarrello('<%= f.getNumeroSerie() %>', 'funko', '<%= f.getNome() %>', <%= f.getPrezzo() %>)">
+        🛒 Aggiungi
+      </button>
+    </div>
+    <% } %>
+>>>>>>> Stashed changes
   </div>
-  <% } %>
-</div>
+
+
 
 <!-- JavaScript AJAX per aggiunta al carrello -->
 <script>
@@ -108,6 +123,60 @@
     setTimeout(() => banner.remove(), 2000);
   }
 </script>
+
+
+<h2 style="text-align:center;">📚 Manga disponibili</h2>
+
+<div style="display:flex; justify-content: space-between; text-align: center; border:3px solid yellow; margin-right:150px; margin-left:150px;"> <%-- div superiore--%>
+  <div style="border: 5px solid red; width:250px; height: 300px;"> <%-- div1 --%> </div>
+  <div style="border: 5px solid orange; width:250px; height: 300px;"> <%-- div2 --%>
+        <div style="display:flex; text-align: center;" >
+          <% for (Manga m : listaManga) { %>
+          <div>
+            <h3><%= m.getNome() %></h3>
+            <img src="<%= m.getImmagine() %>" alt="Copertina manga" style="width:150px;height:auto;">
+            <p>Prezzo: <strong><%= m.getPrezzo() %>€</strong></p>
+            <button onclick="aggiungiCarrello('<%= m.getISBN() %>', 'manga', '<%= m.getNome() %>', <%= m.getPrezzo() %>)">
+              🛒 Aggiungi
+            </button>
+          </div>
+          <% } %>
+        </div>
+  </div>
+
+  <div style="border: 5px solid purple; width:250px; height: 300px;"> <%-- div3--%> <p>PRODOTTO2</p> </div>
+</div>
+
+
+
+
+
+
+<br> <br> <br> <br>
+
+<div style="display:flex; justify-content: space-between; text-align: center; border:7px solid cyan;margin-right:150px; margin-left:150px;">
+  <div style="border: 5px solid brown; width:250px; height: 300px;"> <%-- div4--%>
+    <div class="product-grid">
+      <% for (Funko f : listaFunko) { %>
+      <div class="product-card">
+        <h3><%= f.getNome() %></h3>
+        <img src="<%= f.getImmagine() %>" alt="Immagine funko" style="width:150px;height:auto;">
+        <p>Prezzo: <strong><%= f.getPrezzo() %>€</strong></p>
+        <button onclick="aggiungiCarrello('<%= f.getNumeroSerie() %>', 'funko', '<%= f.getNome() %>', <%= f.getPrezzo() %>)">
+          🛒 Aggiungi
+        </button>
+      </div>
+      <% } %>
+    </div>
+
+
+  </div>
+
+  <div style="border: 5px solid pink; width:250px; height: 300px;"> <%-- div4--%> <p>PRODOTTO4</p> </div>
+  <div style="border: 5px solid violet; width:250px; height: 300px;"> <%-- div4--%> <p>PRODOTTO5</p> </div>
+</div>
+
+
 
 </body>
 </html>
