@@ -21,7 +21,7 @@
     font-weight: bold;
 }
 
-.prodotti-grid {
+.product-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
@@ -29,7 +29,7 @@
     justify-content: center;
 }
 
-.prodotto-card {
+.product-card {
     background: white;
     border-radius: 5px;
     padding: 1rem;
@@ -46,4 +46,3 @@
     border-radius: 3px;
     margin-top: 0.5rem;
 }
->>>>>>> e27b6ac1f3c34f01eff73874799bc5feebafa450
