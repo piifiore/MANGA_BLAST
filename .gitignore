@@ -18,6 +18,7 @@
 .idea/**/shelf/
 *.iws          # vecchio formato “project” di IDEA
 /.idea
-/out
+/out/
 /out/artifacts/MANGA_BLAST_war_exploded
 .idea/workspace.xml
+/.idea
