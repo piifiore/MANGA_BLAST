@@ -29,35 +29,52 @@ public class OrdineDAO {
             int idOrdine = -1;
             if (rs.next()) {
                 idOrdine = rs.getInt(1);
+                System.out.println("✅ Ordine inserito con ID: " + idOrdine);
+            } else {
+                System.err.println("❌ Nessun ID generato per l'ordine");
             }
 
-            String sqlManga = "INSERT INTO ordine_include_manga (id_ordine, ISBN) VALUES (?, ?)";
-            String sqlFunko = "INSERT INTO ordine_include_funko (id_ordine, NumeroSerie) VALUES (?, ?)";
+            String sqlManga = "INSERT INTO ordine_include_manga (id_ordine, ISBN, quantita) VALUES (?, ?, ?)";
+            String sqlFunko = "INSERT INTO ordine_include_funko (id_ordine, NumeroSerie, quantita) VALUES (?, ?, ?)";
             mangaStmt = conn.prepareStatement(sqlManga);
             funkoStmt = conn.prepareStatement(sqlFunko);
 
             for (ItemCarrello item : ordine.getProdotti()) {
                 String tipo = item.getTipo();
                 String idProdotto = item.getIdProdotto();
+                int quantita = item.getQuantita();
+
+                System.out.println("🛍️ Salvataggio prodotto: " + item.getTitolo() + " [tipo: " + tipo + "] quantita: " + quantita);
 
                 if ("manga".equalsIgnoreCase(tipo)) {
-                    mangaStmt.setInt(1, idOrdine);
-                    mangaStmt.setLong(2, Long.parseLong(idProdotto));
-                    mangaStmt.addBatch();
+                    try {
+                        long isbn = Long.parseLong(idProdotto);
+                        mangaStmt.setInt(1, idOrdine);
+                        mangaStmt.setLong(2, isbn);
+                        mangaStmt.setInt(3, quantita);
+                        mangaStmt.addBatch();
+                        System.out.println("📚 Manga salvato: ISBN " + isbn);
+                    } catch (NumberFormatException e) {
+                        System.err.println("⚠️ Errore parsing ISBN: " + idProdotto);
+                    }
                 } else if ("funko".equalsIgnoreCase(tipo)) {
                     funkoStmt.setInt(1, idOrdine);
                     funkoStmt.setString(2, idProdotto);
+                    funkoStmt.setInt(3, quantita);
                     funkoStmt.addBatch();
+                    System.out.println("🧸 Funko salvato: " + idProdotto);
                 }
             }
 
             mangaStmt.executeBatch();
             funkoStmt.executeBatch();
             conn.commit();
+            System.out.println("✅ Batch eseguito con successo");
 
         } catch (Exception e) {
             e.printStackTrace();
             try { if (conn != null) conn.rollback(); } catch (SQLException ignore) {}
+            System.err.println("❌ Rollback eseguito");
         } finally {
             try {
                 if (ordineStmt != null) ordineStmt.close();
@@ -67,6 +84,7 @@ public class OrdineDAO {
             } catch (SQLException ignore) {}
         }
     }
+
 
     public List<Ordine> getOrdiniByEmail(String email) {
         List<Ordine> ordini = new ArrayList<>();
@@ -101,8 +119,8 @@ public class OrdineDAO {
     private List<ItemCarrello> getProdottiOrdine(Connection conn, int idOrdine) throws SQLException {
         List<ItemCarrello> prodotti = new ArrayList<>();
 
-        // Manga
-        String sqlManga = "SELECT m.ISBN, m.nome, m.prezzo FROM ordine_include_manga oim JOIN manga m ON oim.ISBN = m.ISBN WHERE oim.id_ordine = ?";
+        // Manga con quantità
+        String sqlManga = "SELECT m.ISBN, m.nome, m.prezzo, oim.quantita FROM ordine_include_manga oim JOIN manga m ON oim.ISBN = m.ISBN WHERE oim.id_ordine = ?";
         try (PreparedStatement ps = conn.prepareStatement(sqlManga)) {
             ps.setInt(1, idOrdine);
             ResultSet rs = ps.executeQuery();
@@ -112,13 +130,13 @@ public class OrdineDAO {
                         "manga",
                         rs.getString("nome"),
                         rs.getBigDecimal("prezzo"),
-                        1
+                        rs.getInt("quantita")
                 ));
             }
         }
 
-        // Funko
-        String sqlFunko = "SELECT f.NumeroSerie, f.nome, f.prezzo FROM ordine_include_funko oif JOIN funko f ON oif.NumeroSerie = f.NumeroSerie WHERE oif.id_ordine = ?";
+        // Funko con quantità
+        String sqlFunko = "SELECT f.NumeroSerie, f.nome, f.prezzo, oif.quantita FROM ordine_include_funko oif JOIN funko f ON oif.NumeroSerie = f.NumeroSerie WHERE oif.id_ordine = ?";
         try (PreparedStatement ps = conn.prepareStatement(sqlFunko)) {
             ps.setInt(1, idOrdine);
             ResultSet rs = ps.executeQuery();
@@ -128,7 +146,7 @@ public class OrdineDAO {
                         "funko",
                         rs.getString("nome"),
                         rs.getBigDecimal("prezzo"),
-                        1
+                        rs.getInt("quantita")
                 ));
             }
         }
@@ -167,9 +185,9 @@ public class OrdineDAO {
             parametri.add(stato.trim());
         }
 
-        if (sort != null && sort.equals("data")) {
+        if ("data".equals(sort)) {
             query.append(" ORDER BY data DESC");
-        } else if (sort != null && sort.equals("totale")) {
+        } else if ("totale".equals(sort)) {
             query.append(" ORDER BY totale DESC");
         } else {
             query.append(" ORDER BY id_ordine DESC");

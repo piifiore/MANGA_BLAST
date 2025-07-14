@@ -54,8 +54,8 @@ public class UserDAO {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, email);
-            stmt.setString(2, password);
+            stmt.setString(2, email);
+            stmt.setString(1, password);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
