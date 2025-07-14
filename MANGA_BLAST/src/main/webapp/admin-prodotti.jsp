@@ -1,24 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp" />
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard Admin - Prodotti</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 40px; }
-        h2 { margin-top: 40px; }
-        input[type="text"], input[type="number"], select {
-            padding: 8px;
-            margin: 5px;
-            font-size: 14px;
-        }
-        table { margin-top: 20px; width: 100%; border-collapse: collapse; }
-        th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
-        img { max-width: 100px; }
-        form.inline { display: inline; }
-        .section { margin-bottom: 60px; }
-    </style>
+    <script src="scripts/admin-prodotti.js"></script>
+    <link rel="stylesheet" href="style/admin-prodotti-stile.css">
+
 </head>
 <body>
 <a href="admin-dashboard.jsp" style="display:inline-block; margin-bottom:20px; padding:10px 16px; background:#333; color:#fff; text-decoration:none; border-radius:5px;">
@@ -95,39 +84,7 @@
     </form>
 </div>
 
-<script>
-    function ajaxSearch(tipo) {
-        const query = document.getElementById(tipo + "Search").value;
-        const min = document.getElementById(tipo + "Min").value;
-        const max = document.getElementById(tipo + "Max").value;
-        const sort = document.getElementById(tipo + "Sort").value;
 
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "CercaProdottiServlet?tipo=" + tipo +
-            "&query=" + encodeURIComponent(query) +
-            "&min=" + min +
-            "&max=" + max +
-            "&sort=" + sort, true);
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                document.getElementById(tipo + "Results").innerHTML = xhr.responseText;
-            }
-        };
-        xhr.send();
-    }
-
-    // Event listeners
-    ["Search", "Min", "Max", "Sort"].forEach(field => {
-        document.getElementById("manga" + field).addEventListener("input", () => ajaxSearch("manga"));
-        document.getElementById("funko" + field).addEventListener("input", () => ajaxSearch("funko"));
-    });
-
-    // Load all on start
-    window.addEventListener("load", function() {
-        ajaxSearch("manga");
-        ajaxSearch("funko");
-    });
-</script>
 
 </body>
 </html>

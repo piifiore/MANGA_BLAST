@@ -2,7 +2,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="model.ItemCarrello" %>
 <%@ page import="model.PreferitiDAO" %>
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp" />
 
 <%
   String emailUser = (String) session.getAttribute("user");
@@ -20,24 +20,9 @@
   <meta charset="UTF-8">
   <title>❤️ I Tuoi Preferiti</title>
   <link rel="stylesheet" href="style/preferiti.css">
-  <style>
-    .product-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-    .product-card {
-      border: 1px solid #ccc;
-      padding: 10px;
-      width: 200px;
-      text-align: center;
-      border-radius: 8px;
-      background: #f9f9f9;
-    }
-    .product-card img { max-width: 100%; height: auto; }
-    .product-card h3 { font-size: 16px; margin-bottom: 5px; }
-    .product-card button {
-      margin: 5px 0;
-      padding: 6px 10px;
-      cursor: pointer;
-    }
-  </style>
+  <script src="scripts/preferiti.js"></script>
+
+
 </head>
 <body>
 
@@ -74,36 +59,7 @@
 
 <% } %>
 
-<script>
-  function rimuoviPreferito(id, tipo) {
-    fetch('RimuoviPreferitoServlet', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ id, tipo })
-    })
-            .then(() => {
-              mostraBanner("🗑️ Rimosso dai preferiti!");
-              setTimeout(() => location.reload(), 1000);
-            });
-  }
 
-  function mostraBanner(msg) {
-    let banner = document.createElement('div');
-    banner.textContent = msg;
-    banner.style.position = 'fixed';
-    banner.style.top = '10px';
-    banner.style.right = '10px';
-    banner.style.background = '#9C27B0';
-    banner.style.color = '#fff';
-    banner.style.padding = '10px 20px';
-    banner.style.fontWeight = 'bold';
-    banner.style.borderRadius = '5px';
-    banner.style.zIndex = '1000';
-    banner.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
-    document.body.appendChild(banner);
-    setTimeout(() => banner.remove(), 2000);
-  }
-</script>
 
 </body>
 </html>

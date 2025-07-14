@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.FunkoDAO" %>
 <%@ page import="model.Funko" %>
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp" />
 
 <%
   String numeroSerieParam = request.getParameter("numeroSerie");

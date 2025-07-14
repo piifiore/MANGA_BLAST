@@ -2,7 +2,7 @@
 <%@ page import="model.Ordine" %>
 <%@ page import="model.ItemCarrello" %>
 <%@ page import="java.util.*" %>
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp" />
 <%
     String emailAdmin = (String) session.getAttribute("admin");
     if (emailAdmin == null) {
@@ -17,6 +17,7 @@
     <meta charset="UTF-8">
     <title>Gestione Ordini</title>
     <link rel="stylesheet" href="css/admin-ordini.css">
+    <script src="scripts/admin-ordini.js"></script>
 </head>
 <body>
 <a href="admin-dashboard.jsp" style="display:inline-block; margin-bottom:20px; padding:10px 16px; background:#333; color:#fff; text-decoration:none; border-radius:5px;">
@@ -48,25 +49,7 @@
     <!-- Risultati AJAX -->
 </div>
 
-<script>
-    function caricaOrdini() {
-        const email = document.getElementById("searchEmail").value;
-        const stato = document.getElementById("filterStato").value;
-        const sort = document.getElementById("ordina").value;
 
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "OrderManagementServlet?email=" + encodeURIComponent(email) + "&stato=" + stato + "&sort=" + sort, true);
-        xhr.onload = function() {
-            document.getElementById("ordiniContainer").innerHTML = xhr.responseText;
-        };
-        xhr.send();
-    }
-
-    ["searchEmail", "filterStato", "ordina"].forEach(id => {
-        document.getElementById(id).addEventListener("input", caricaOrdini);
-    });
-    window.addEventListener("load", caricaOrdini);
-</script>
 
 </body>
 </html>

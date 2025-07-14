@@ -66,3 +66,17 @@ p a {
     color: #2979ff;
     text-decoration: none;
 }
+
+#successMessage {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+#errorMessage {
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 0.5rem;
+}

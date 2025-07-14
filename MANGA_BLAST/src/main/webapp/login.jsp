@@ -1,25 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp" />
 <html>
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/loginStyle.css">
     <script src="../scripts/login.js"></script>
-    <style>
-        #successMessage {
-            color: green;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-        #errorMessage {
-            color: red;
-            font-size: 0.9rem;
-            text-align: center;
-            margin-top: 0.5rem;
-        }
-    </style>
+
 </head>
 <body>
 <header style="display:flex; align-items:center; padding:10px;">

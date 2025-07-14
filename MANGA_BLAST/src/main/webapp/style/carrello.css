@@ -1,0 +1,14 @@
+.quantita-controls button {
+    padding: 4px 8px;
+    margin: 0 4px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+td a {
+    text-decoration: none;
+    color: #333;
+}
+td a:hover {
+    text-decoration: underline;
+}

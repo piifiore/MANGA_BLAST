@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.UserDAO" %>
 <%@ page import="model.User" %>
-<jsp:include page="navbar.jsp" />
+<jsp:include page="header.jsp" />
 <%
   String emailUtente = (String) session.getAttribute("user");
   if (emailUtente == null) {
