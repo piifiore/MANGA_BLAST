@@ -12,6 +12,7 @@
 
   <% if (isUser) { %>
   <a href="index.jsp">Home</a>
+  <a href="Carrello.jsp">Carrello</a>
   <a href="area-profilo.jsp">Profilo</a>
   <a href="ordini-utente.jsp">I miei ordini</a>
   <a href="logout.jsp">🔓 Logout</a>
