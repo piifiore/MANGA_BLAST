@@ -1,60 +1,84 @@
-# ===================== #
-# IntelliJ IDEA Specific
-# ===================== #
-.idea/                      # Tutto il contenuto della cartella .idea
-*.iml                       # File progetto IntelliJ
-*.iws                       # File progetto vecchi
+# ========== IntelliJ IDEA / IDE ==========
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
 
-# Plugin IntelliJ temporanei
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.*
-.idea/**/dictionaries
-.idea/**/shelf/
+# ========== Maven / Java ==========
+/target/
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/logging.properties
+/release.properties
+/dependency-reduced-pom.xml
+/buildNumber.properties
+/maven-status/
+/mvnw.cmd
+/mvnw
+/.mvn/
+/.settings/
 
-# Run configs (puoi tenerli se servono al team)
-.idea/runConfigurations/
-
-# ===================== #
-# Build output
-# ===================== #
-/out/
-build/
-target/
-
-# ===================== #
-# Compiled Java classes
-# ===================== #
+# ========== Build ==========
 *.class
+*.jar
+*.war
+*.ear
 
-# ===================== #
-# Logs / temp files
-# ===================== #
+# ========== Logs ==========
 *.log
+
+# ========== OS Specific ==========
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# ========== Backup and temp files ==========
+*.bak
 *.tmp
 *.swp
-*.bak
+*.swo
+*.orig
+*.rej
 
-# ===================== #
-# OS Specific
-# ===================== #
-.DS_Store     # macOS
-Thumbs.db     # Windows
-ehthumbs.db   # Windows
+# ========== Eclipse specific (optional) ==========
+*.classpath
+*.project
+*.settings/
 
-# ===================== #
-# JetBrains Code With Me
-# ===================== #
-.idea/.codeWithMe/
+# ========== VS Code (optional) ==========
+.vscode/
 
-# ===================== #
-# Eclipse / NetBeans (se usi altri IDE)
-# ===================== #
-*.launch
-.settings/
-.nb-gradle/
+# ========== Node.js (optional) ==========
+node_modules/
+npm-debug.log
+yarn-error.log
 
-# ===================== #
-# Git
-# ===================== #
-.git/
+# ========== Tomcat specific ==========
+/logs/
+/work/
+/temp/
+/conf/Catalina/localhost/*.xml
+/conf/Catalina/localhost/*.xml.old
+/conf/Catalina/localhost/*.xml.orig
+/conf/Catalina/localhost/*.bak
+/conf/Catalina/localhost/*.tmp
+
+# ========== JDBC / DB specific ==========
+*.h2.db
+*.mv.db
+*.db
+*.sqlite
+*.properties
+
+# Ignora file di configurazione locali JDBC, attenzione a non ignorare quelli da versionare esplicitamente
+*.jks
+*.keystore
+*.truststore
+
+# ========== Misc ==========
+# Evita di tracciare file di configurazione locali che possono contenere credenziali o configurazioni personalizzate
+*.env
+*.local
