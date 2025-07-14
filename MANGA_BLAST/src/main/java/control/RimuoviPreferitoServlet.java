@@ -18,7 +18,7 @@ public class RimuoviPreferitoServlet extends HttpServlet {
         String email = (String) session.getAttribute("user");
 
         if (email == null) {
-            response.sendRedirect("login.jsp");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
@@ -26,14 +26,16 @@ public class RimuoviPreferitoServlet extends HttpServlet {
         String idProdotto = request.getParameter("id");
 
         if (tipo == null || idProdotto == null || tipo.isEmpty() || idProdotto.isEmpty()) {
-            response.sendRedirect("preferiti.jsp");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
         PreferitiDAO dao = new PreferitiDAO();
         dao.rimuoviPreferito(email, tipo, idProdotto);
 
-        // Reindirizza alla pagina dei preferiti
-        response.sendRedirect("preferiti.jsp");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("text/plain");
+        response.getWriter().write("rimosso");
+        response.getWriter().flush();
     }
 }
