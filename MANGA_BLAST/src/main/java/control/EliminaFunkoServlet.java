@@ -3,10 +3,8 @@ package control;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
-import java.io.IOException;
-
 import model.FunkoDAO;
+import java.io.IOException;
 
 @WebServlet("/EliminaFunkoServlet")
 public class EliminaFunkoServlet extends HttpServlet {
@@ -16,10 +14,12 @@ public class EliminaFunkoServlet extends HttpServlet {
 
         try {
             String numeroSerie = request.getParameter("numeroSerie");
-            FunkoDAO dao = new FunkoDAO();
-            dao.deleteFunko(numeroSerie);
+            if (numeroSerie != null && !numeroSerie.isEmpty()) {
+                FunkoDAO dao = new FunkoDAO();
+                dao.deleteFunko(numeroSerie);
+            }
         } catch (Exception e) {
-            e.printStackTrace(); // Puoi sostituire con logger in produzione
+            e.printStackTrace();
         }
 
         response.sendRedirect("admin-prodotti.jsp");

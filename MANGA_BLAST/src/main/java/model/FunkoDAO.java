@@ -23,7 +23,6 @@ public class FunkoDAO {
                 f.setImmagine(rs.getString("immagine"));
                 list.add(f);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -31,16 +30,19 @@ public class FunkoDAO {
         return list;
     }
 
-    public List<Funko> searchByName(String nome) {
+    public List<Funko> searchByQuery(String query) {
         List<Funko> risultati = new ArrayList<>();
-        String query = "SELECT * FROM funko WHERE nome LIKE ?";
+        String sql = "SELECT * FROM funko WHERE LOWER(nome) LIKE ? OR LOWER(descrizione) LIKE ? OR LOWER(numeroSerie) LIKE ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, "%" + nome + "%");
+            String like = "%" + query.toLowerCase() + "%";
+            stmt.setString(1, like);
+            stmt.setString(2, like);
+            stmt.setString(3, like);
+
             ResultSet rs = stmt.executeQuery();
-
             while (rs.next()) {
                 Funko f = new Funko();
                 f.setNumeroSerie(rs.getString("numeroSerie"));
@@ -50,7 +52,6 @@ public class FunkoDAO {
                 f.setImmagine(rs.getString("immagine"));
                 risultati.add(f);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,7 +72,6 @@ public class FunkoDAO {
             stmt.setString(5, f.getImmagine());
 
             stmt.executeUpdate();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,66 +90,9 @@ public class FunkoDAO {
             stmt.setString(5, f.getNumeroSerie());
 
             stmt.executeUpdate();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public List<Funko> searchByNomeDescrizioneOrNumeroSerie(String query) {
-        List<Funko> risultati = new ArrayList<>();
-        String sql = "SELECT * FROM funko WHERE nome LIKE ? OR descrizione LIKE ? OR numeroSerie LIKE ?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            String like = "%" + query + "%";
-            stmt.setString(1, like);
-            stmt.setString(2, like);
-            stmt.setString(3, like);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Funko f = new Funko();
-                f.setNumeroSerie(rs.getString("numeroSerie"));
-                f.setNome(rs.getString("nome"));
-                f.setDescrizione(rs.getString("descrizione"));
-                f.setPrezzo(rs.getBigDecimal("prezzo"));
-                f.setImmagine(rs.getString("immagine"));
-                risultati.add(f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return risultati;
-    }
-
-    public List<Funko> searchByNomeOrNumeroSerie(String query) {
-        List<Funko> risultati = new ArrayList<>();
-        String sql = "SELECT * FROM funko WHERE nome LIKE ? OR numeroSerie LIKE ?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            String likeQuery = "%" + query + "%";
-            stmt.setString(1, likeQuery);
-            stmt.setString(2, likeQuery);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Funko f = new Funko();
-                f.setNumeroSerie(rs.getString("numeroSerie"));
-                f.setNome(rs.getString("nome"));
-                f.setDescrizione(rs.getString("descrizione"));
-                f.setPrezzo(rs.getBigDecimal("prezzo"));
-                f.setImmagine(rs.getString("immagine"));
-                risultati.add(f);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return risultati;
     }
 
     public void deleteFunko(String numeroSerie) {
@@ -160,7 +103,6 @@ public class FunkoDAO {
 
             stmt.setString(1, numeroSerie);
             stmt.executeUpdate();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -184,7 +126,6 @@ public class FunkoDAO {
                 funko.setPrezzo(rs.getBigDecimal("prezzo"));
                 funko.setImmagine(rs.getString("immagine"));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

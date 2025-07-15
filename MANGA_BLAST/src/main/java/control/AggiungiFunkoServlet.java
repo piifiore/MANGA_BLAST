@@ -37,31 +37,35 @@ public class AggiungiFunkoServlet extends HttpServlet {
                 return;
             }
 
-            // Upload immagine con nome unico
+            // Gestione immagine opzionale
             Part filePart = request.getPart("immagine");
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            String nuovoNome = UUID.randomUUID().toString() + "_" + fileName;
+            String nuovoNome = "images/default.jpg";
 
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) uploadDir.mkdir();
+            if (filePart != null && filePart.getSize() > 0) {
+                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                nuovoNome = "images/" + UUID.randomUUID().toString() + "_" + fileName;
 
-            filePart.write(uploadPath + File.separator + nuovoNome);
+                String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) uploadDir.mkdir();
 
-            // Creazione oggetto Funko
+                filePart.write(uploadPath + File.separator + nuovoNome.substring("images/".length()));
+            }
+
             Funko funko = new Funko();
             funko.setNumeroSerie(numeroSerie);
             funko.setNome(nome);
             funko.setDescrizione(descrizione);
             funko.setPrezzo(prezzo);
-            funko.setImmagine("images/" + nuovoNome);
+            funko.setImmagine(nuovoNome);
 
             new FunkoDAO().addFunko(funko);
 
+            response.sendRedirect("admin-prodotti.jsp?aggiunto=funko");
+
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("admin-prodotti.jsp?erroreInserimento=true");
         }
-
-        response.sendRedirect("admin-prodotti.jsp");
     }
 }

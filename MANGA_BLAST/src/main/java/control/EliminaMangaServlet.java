@@ -2,11 +2,8 @@ package control;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import model.MangaDAO;
-
 import java.io.IOException;
 
 @WebServlet("/EliminaMangaServlet")
@@ -15,9 +12,12 @@ public class EliminaMangaServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            long isbn = Long.parseLong(request.getParameter("ISBN"));
-            MangaDAO dao = new MangaDAO();
-            dao.deleteManga(isbn);
+            String isbnParam = request.getParameter("ISBN");
+            if (isbnParam != null && !isbnParam.isEmpty()) {
+                long isbn = Long.parseLong(isbnParam);
+                MangaDAO dao = new MangaDAO();
+                dao.deleteManga(isbn);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

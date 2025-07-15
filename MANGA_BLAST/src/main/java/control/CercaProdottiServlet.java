@@ -2,6 +2,7 @@ package control;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import jakarta.servlet.RequestDispatcher;
 import model.*;
 import java.io.*;
 import java.math.BigDecimal;
@@ -16,92 +17,71 @@ public class CercaProdottiServlet extends HttpServlet {
         String minStr = request.getParameter("min");
         String maxStr = request.getParameter("max");
 
-        BigDecimal min = (minStr != null && !minStr.isEmpty()) ? new BigDecimal(minStr) : BigDecimal.ZERO;
-        BigDecimal max = (maxStr != null && !maxStr.isEmpty()) ? new BigDecimal(maxStr) : new BigDecimal("999999");
+        BigDecimal min = BigDecimal.ZERO;
+        BigDecimal max = new BigDecimal("999999");
 
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        if ("manga".equals(tipo)) {
-            MangaDAO dao = new MangaDAO();
-            List<Manga> risultati = query != null && !query.isEmpty()
-                    ? dao.searchByNomeDescrizioneOrIsbn(query)
-                    : dao.getAllManga();
-
-            risultati.removeIf(m -> m.getPrezzo().compareTo(min) < 0 || m.getPrezzo().compareTo(max) > 0);
-
-            if ("asc".equals(sort)) {
-                risultati.sort(Comparator.comparing(Manga::getPrezzo));
-            } else if ("desc".equals(sort)) {
-                risultati.sort(Comparator.comparing(Manga::getPrezzo).reversed());
-            }
-
-            if (risultati.isEmpty()) {
-                out.println("<p style='color:red;'>📭 Nessun manga trovato</p>");
-                return;
-            }
-
-            out.println("<table><tr><th>ISBN</th><th>Nome</th><th>Descrizione</th><th>Prezzo</th><th>Immagine</th><th>Azioni</th></tr>");
-            for (Manga m : risultati) {
-                out.println("<tr>"
-                        + "<td>" + m.getISBN() + "</td>"
-                        + "<td>" + m.getNome() + "</td>"
-                        + "<td>" + m.getDescrizione() + "</td>"
-                        + "<td>" + m.getPrezzo() + " €</td>"
-                        + "<td><img src='" + request.getContextPath() + "/" + m.getImmagine() + "' width='100'></td>"
-                        + "<td>"
-                        + "<form action='modifica-manga.jsp' method='get' style='display:inline;'>"
-                        + "<input type='hidden' name='ISBN' value='" + m.getISBN() + "'>"
-                        + "<input type='submit' value='Modifica'>"
-                        + "</form> "
-                        + "<form action='EliminaMangaServlet' method='post' style='display:inline;'>"
-                        + "<input type='hidden' name='ISBN' value='" + m.getISBN() + "'>"
-                        + "<input type='submit' value='Elimina' onclick=\"return confirm('Eliminare questo manga?')\">"
-                        + "</form>"
-                        + "</td></tr>");
-            }
-            out.println("</table>");
+        try {
+            if (minStr != null && !minStr.isEmpty()) min = new BigDecimal(minStr);
+            if (maxStr != null && !maxStr.isEmpty()) max = new BigDecimal(maxStr);
+        } catch (NumberFormatException e) {
+            // Ignora e usa default
         }
 
-        else if ("funko".equals(tipo)) {
-            FunkoDAO dao = new FunkoDAO();
-            List<Funko> risultati = query != null && !query.isEmpty()
-                    ? dao.searchByNomeDescrizioneOrNumeroSerie(query)
-                    : dao.getAllFunko();
+        final BigDecimal minFiltro = min;
+        final BigDecimal maxFiltro = max;
 
-            risultati.removeIf(f -> f.getPrezzo().compareTo(min) < 0 || f.getPrezzo().compareTo(max) > 0);
+        try {
+            if ("manga".equals(tipo)) {
+                MangaDAO dao = new MangaDAO();
+                List<Manga> risultati = (query != null && !query.isBlank())
+                        ? dao.searchByQuery(query)
+                        : dao.getAllManga();
 
-            if ("asc".equals(sort)) {
-                risultati.sort(Comparator.comparing(Funko::getPrezzo));
-            } else if ("desc".equals(sort)) {
-                risultati.sort(Comparator.comparing(Funko::getPrezzo).reversed());
+                risultati.removeIf(m -> m.getPrezzo() == null ||
+                        m.getPrezzo().compareTo(minFiltro) < 0 ||
+                        m.getPrezzo().compareTo(maxFiltro) > 0);
+
+                if ("asc".equals(sort)) {
+                    risultati.sort(Comparator.comparing(Manga::getPrezzo));
+                } else if ("desc".equals(sort)) {
+                    risultati.sort(Comparator.comparing(Manga::getPrezzo).reversed());
+                }
+
+                request.setAttribute("risultatiManga", risultati);
+                // Carica anche la lista Funko completa per mostrare entrambi
+                FunkoDAO daoF = new FunkoDAO();
+                request.setAttribute("risultatiFunko", daoF.getAllFunko());
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("admin-prodotti.jsp");
+                dispatcher.forward(request, response);
+
+            } else if ("funko".equals(tipo)) {
+                FunkoDAO dao = new FunkoDAO();
+                List<Funko> risultati = (query != null && !query.isBlank())
+                        ? dao.searchByQuery(query)
+                        : dao.getAllFunko();
+
+                risultati.removeIf(f -> f.getPrezzo() == null ||
+                        f.getPrezzo().compareTo(minFiltro) < 0 ||
+                        f.getPrezzo().compareTo(maxFiltro) > 0);
+
+                if ("asc".equals(sort)) {
+                    risultati.sort(Comparator.comparing(Funko::getPrezzo));
+                } else if ("desc".equals(sort)) {
+                    risultati.sort(Comparator.comparing(Funko::getPrezzo).reversed());
+                }
+
+                request.setAttribute("risultatiFunko", risultati);
+                // Carica anche la lista Manga completa per mostrare entrambi
+                MangaDAO daoM = new MangaDAO();
+                request.setAttribute("risultatiManga", daoM.getAllManga());
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("admin-prodotti.jsp");
+                dispatcher.forward(request, response);
             }
-
-            if (risultati.isEmpty()) {
-                out.println("<p style='color:red;'>📭 Nessun Funko trovato</p>");
-                return;
-            }
-
-            out.println("<table><tr><th>Serie</th><th>Nome</th><th>Descrizione</th><th>Prezzo</th><th>Immagine</th><th>Azioni</th></tr>");
-            for (Funko f : risultati) {
-                out.println("<tr>"
-                        + "<td>" + f.getNumeroSerie() + "</td>"
-                        + "<td>" + f.getNome() + "</td>"
-                        + "<td>" + f.getDescrizione() + "</td>"
-                        + "<td>" + f.getPrezzo() + " €</td>"
-                        + "<td><img src='" + request.getContextPath() + "/" + f.getImmagine() + "' width='100'></td>"
-                        + "<td>"
-                        + "<form action='modifica-funko.jsp' method='get' style='display:inline;'>"
-                        + "<input type='hidden' name='numeroSerie' value='" + f.getNumeroSerie() + "'>"
-                        + "<input type='submit' value='Modifica'>"
-                        + "</form> "
-                        + "<form action='EliminaFunkoServlet' method='post' style='display:inline;'>"
-                        + "<input type='hidden' name='numeroSerie' value='" + f.getNumeroSerie() + "'>"
-                        + "<input type='submit' value='Elimina' onclick=\"return confirm('Eliminare questo Funko?')\">"
-                        + "</form>"
-                        + "</td></tr>");
-            }
-            out.println("</table>");
+        } catch (Exception e) {
+            response.setContentType("text/plain");
+            e.printStackTrace(response.getWriter());
         }
     }
 }

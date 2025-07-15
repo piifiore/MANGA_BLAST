@@ -37,31 +37,35 @@ public class AggiungiMangaServlet extends HttpServlet {
                 return;
             }
 
-            // Gestione file immagine
+            // Gestione file immagine (opzionale)
             Part filePart = request.getPart("immagine");
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            String nuovoNome = UUID.randomUUID().toString() + "_" + fileName;
+            String nuovoNome = "images/default.jpg"; // Immagine di default
 
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) uploadDir.mkdir();
+            if (filePart != null && filePart.getSize() > 0) {
+                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                nuovoNome = "images/" + UUID.randomUUID().toString() + "_" + fileName;
 
-            filePart.write(uploadPath + File.separator + nuovoNome);
+                String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) uploadDir.mkdir();
 
-            // Creazione manga e inserimento
+                filePart.write(uploadPath + File.separator + nuovoNome.substring("images/".length()));
+            }
+
             Manga manga = new Manga();
             manga.setISBN(isbn);
             manga.setNome(nome);
             manga.setDescrizione(descrizione);
             manga.setPrezzo(prezzo);
-            manga.setImmagine("images/" + nuovoNome); // ✅ Percorso relativo per il JSP
+            manga.setImmagine(nuovoNome);
 
             new MangaDAO().addManga(manga);
 
+            response.sendRedirect("admin-prodotti.jsp?aggiunto=manga");
+
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("admin-prodotti.jsp?erroreInserimento=true");
         }
-
-        response.sendRedirect("admin-prodotti.jsp");
     }
 }

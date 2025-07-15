@@ -1,12 +1,92 @@
-body { font-family: Arial, sans-serif; padding: 40px; }
-h2 { margin-top: 40px; }
-input[type="text"], input[type="number"], select {
-    padding: 8px;
-    margin: 5px;
-    font-size: 14px;
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    padding: 40px;
+    background-color: #f7f7f7;
+    color: #333;
 }
-table { margin-top: 20px; width: 100%; border-collapse: collapse; }
-th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
-img { max-width: 100px; }
-form.inline { display: inline; }
-.section { margin-bottom: 60px; }
+
+h2 {
+    margin-top: 40px;
+    font-size: 24px;
+    color: #444;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea,
+input[type="file"] {
+    padding: 8px;
+    margin: 5px 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #0078d7;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #005ea6;
+}
+
+table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+th {
+    background-color: #efefef;
+    font-weight: bold;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: top;
+}
+
+img {
+    max-width: 100px;
+    border-radius: 4px;
+}
+
+form.inline {
+    display: inline;
+}
+
+.section {
+    margin-bottom: 60px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.filtro-table,
+.form-table {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.filtro-table td,
+.form-table td {
+    padding: 8px;
+}

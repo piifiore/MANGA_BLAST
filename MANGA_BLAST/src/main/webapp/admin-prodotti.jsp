@@ -1,89 +1,134 @@
+<meta charset="UTF-8">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.*" %>
+<%@ page import="model.Manga,model.MangaDAO" %>
+<%@ page import="model.Funko,model.FunkoDAO" %>
+
 <jsp:include page="header.jsp" />
+
+<%
+    List<Manga> risultatiManga = (List<Manga>) request.getAttribute("risultatiManga");
+    List<Funko> risultatiFunko = (List<Funko>) request.getAttribute("risultatiFunko");
+
+    if (risultatiManga == null) {
+        MangaDAO daoM = new MangaDAO();
+        risultatiManga = daoM.getAllManga();
+        request.setAttribute("risultatiManga", risultatiManga);
+    }
+
+    if (risultatiFunko == null) {
+        FunkoDAO daoF = new FunkoDAO();
+        risultatiFunko = daoF.getAllFunko();
+        request.setAttribute("risultatiFunko", risultatiFunko);
+    }
+
+    String aggiunto = request.getParameter("aggiunto");
+    String errorePrezzo = request.getParameter("errorePrezzo");
+    String erroreInserimento = request.getParameter("erroreInserimento");
+%>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard Admin - Prodotti</title>
-    <script src="scripts/admin-prodotti.js"></script>
-    <script src="scripts/scheda-prodotto.js"></script>
     <link rel="stylesheet" href="style/admin-prodotti-stile.css">
-
 </head>
 <body>
 
+<% if (aggiunto != null) { %>
+<div style="background-color:#d4edda;color:#155724;padding:10px;margin-bottom:10px;border:1px solid #c3e6cb;">
+    ✔ <%= aggiunto.equals("manga") ? "Manga" : "Funko" %> aggiunto correttamente!
+</div>
+<% } else if (errorePrezzo != null) { %>
+<div style="background-color:#f8d7da;color:#721c24;padding:10px;margin-bottom:10px;border:1px solid #f5c6cb;">
+    ⚠️ Il prezzo inserito non è valido.
+</div>
+<% } else if (erroreInserimento != null) { %>
+<div style="background-color:#f8d7da;color:#721c24;padding:10px;margin-bottom:10px;border:1px solid #f5c6cb;">
+    ⚠️ Errore durante l'inserimento del prodotto.
+</div>
+<% } %>
 
-<h1>🔧 Pannello di Gestione Prodotti</h1>
-
-<!-- ================= Manga ================= -->
 <div class="section">
-    <h2>📚 Gestione Manga</h2>
+    <h2>Gestione Manga</h2>
 
-    <input type="text" id="mangaSearch" placeholder="🔎 Cerca per nome, descrizione o ISBN...">
-    <label>Prezzo minimo:</label>
-    <input type="number" id="mangaMin" min="0">
-    <label>Prezzo massimo:</label>
-    <input type="number" id="mangaMax" min="0">
-    <label>Ordina per prezzo:</label>
-    <select id="mangaSort">
-        <option value="">--</option>
-        <option value="asc">Crescente</option>
-        <option value="desc">Decrescente</option>
-    </select>
+    <form action="CercaProdottiServlet" method="get">
+        <input type="hidden" name="tipo" value="manga">
+        <table class="filtro-table">
+            <tr><td><label>Cerca:</label></td><td><input type="text" name="query" placeholder="Titolo, descrizione, ISBN"></td></tr>
+            <tr><td><label>Prezzo minimo:</label></td><td><input type="number" name="min" step="0.01" min="0"></td></tr>
+            <tr><td><label>Prezzo massimo:</label></td><td><input type="number" name="max" step="0.01" min="0"></td></tr>
+            <tr>
+                <td><label>Ordina:</label></td>
+                <td>
+                    <select name="sort">
+                        <option value="">--</option>
+                        <option value="asc">Prezzo crescente</option>
+                        <option value="desc">Prezzo decrescente</option>
+                    </select>
+                </td>
+            </tr>
+            <tr><td colspan="2"><input type="submit" value="Cerca Manga"></td></tr>
+        </table>
+    </form>
 
-    <div id="mangaResults"></div>
+    <p><strong><%= risultatiManga.size() %> manga trovati</strong></p>
+    <jsp:include page="risultati-manga.jsp" />
 
-    <h3>➕ Aggiungi nuovo Manga</h3>
     <form action="AggiungiMangaServlet" method="post" enctype="multipart/form-data">
-        <label>ISBN:</label><br>
-        <input type="text" name="ISBN" required><br>
-        <label>Nome:</label><br>
-        <input type="text" name="nome" required><br>
-        <label>Descrizione:</label><br>
-        <textarea name="descrizione" rows="4" cols="40" required></textarea><br>
-        <label>Prezzo:</label><br>
-        <input type="number" name="prezzo" step="0.01" min="0" required><br>
-        <label>Immagine:</label><br>
-        <input type="file" name="immagine"><br><br>
-        <input type="submit" value="Aggiungi Manga">
+        <h3>Aggiungi Manga</h3>
+        <table class="form-table">
+            <tr><td><label>ISBN:</label></td><td><input type="text" name="ISBN" required></td></tr>
+            <tr><td><label>Nome:</label></td><td><input type="text" name="nome" required></td></tr>
+            <tr><td><label>Descrizione:</label></td><td><textarea name="descrizione" required></textarea></td></tr>
+            <tr><td><label>Prezzo:</label></td><td><input type="number" name="prezzo" step="0.01" min="0" required></td></tr>
+            <tr><td><label>Immagine:</label></td><td><input type="file" name="immagine"></td></tr>
+            <tr><td colspan="2"><input type="submit" value="Aggiungi Manga"></td></tr>
+        </table>
     </form>
 </div>
 
-<!-- ================= Funko ================= -->
+<hr>
+
 <div class="section">
-    <h2>👽 Gestione Funko</h2>
+    <h2>Gestione Funko</h2>
 
-    <input type="text" id="funkoSearch" placeholder="🔎 Cerca per nome, descrizione o numero serie...">
-    <label>Prezzo minimo:</label>
-    <input type="number" id="funkoMin" min="0">
-    <label>Prezzo massimo:</label>
-    <input type="number" id="funkoMax" min="0">
-    <label>Ordina per prezzo:</label>
-    <select id="funkoSort">
-        <option value="">--</option>
-        <option value="asc">Crescente</option>
-        <option value="desc">Decrescente</option>
-    </select>
+    <form action="CercaProdottiServlet" method="get">
+        <input type="hidden" name="tipo" value="funko">
+        <table class="filtro-table">
+            <tr><td><label>Cerca:</label></td><td><input type="text" name="query" placeholder="Titolo, descrizione, serie"></td></tr>
+            <tr><td><label>Prezzo minimo:</label></td><td><input type="number" name="min" step="0.01" min="0"></td></tr>
+            <tr><td><label>Prezzo massimo:</label></td><td><input type="number" name="max" step="0.01" min="0"></td></tr>
+            <tr>
+                <td><label>Ordina:</label></td>
+                <td>
+                    <select name="sort">
+                        <option value="">--</option>
+                        <option value="asc">Prezzo crescente</option>
+                        <option value="desc">Prezzo decrescente</option>
+                    </select>
+                </td>
+            </tr>
+            <tr><td colspan="2"><input type="submit" value="Cerca Funko"></td></tr>
+        </table>
+    </form>
 
-    <div id="funkoResults"></div>
+    <p><strong><%= risultatiFunko.size() %> funko trovati</strong></p>
+    <jsp:include page="risultati-funko.jsp" />
 
-    <h3>➕ Aggiungi nuovo Funko</h3>
     <form action="AggiungiFunkoServlet" method="post" enctype="multipart/form-data">
-        <label>Numero Serie:</label><br>
-        <input type="text" name="numeroSerie" required><br>
-        <label>Nome:</label><br>
-        <input type="text" name="nome" required><br>
-        <label>Descrizione:</label><br>
-        <textarea name="descrizione" rows="4" cols="40" required></textarea><br>
-        <label>Prezzo:</label><br>
-        <input type="number" name="prezzo" step="0.01" min="0" required><br>
-        <label>Immagine:</label><br>
-        <input type="file" name="immagine"><br><br>
-        <input type="submit" value="Aggiungi Funko">
+        <h3>Aggiungi Funko</h3>
+        <table class="form-table">
+            <tr><td><label>Numero serie:</label></td><td><input type="text" name="numeroSerie" required></td></tr>
+            <tr><td><label>Nome:</label></td><td><input type="text" name="nome" required></td></tr>
+            <tr><td><label>Descrizione:</label></td><td><textarea name="descrizione" required></textarea></td></tr>
+            <tr><td><label>Prezzo:</label></td><td><input type="number" name="prezzo" step="0.01" min="0" required></td></tr>
+            <tr><td><label>Immagine:</label></td><td><input type="file" name="immagine"></td></tr>
+            <tr><td colspan="2"><input type="submit" value="Aggiungi Funko"></td></tr>
+        </table>
     </form>
 </div>
-
-
 
 </body>
 </html>
