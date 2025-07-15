@@ -1,4 +1,3 @@
-<meta charset="UTF-8">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
 <%@ page import="model.Manga,model.MangaDAO" %>
@@ -73,6 +72,8 @@
         </table>
     </form>
 
+    <p><a href="admin-prodotti.jsp">Reimposta filtri manga</a></p>
+
     <p><strong><%= risultatiManga.size() %> manga trovati</strong></p>
     <jsp:include page="risultati-manga.jsp" />
 
@@ -113,6 +114,8 @@
             <tr><td colspan="2"><input type="submit" value="Cerca Funko"></td></tr>
         </table>
     </form>
+
+    <p><a href="admin-prodotti.jsp">Reimposta filtri funko</a></p>
 
     <p><strong><%= risultatiFunko.size() %> funko trovati</strong></p>
     <jsp:include page="risultati-funko.jsp" />

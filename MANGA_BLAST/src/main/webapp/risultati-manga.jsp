@@ -4,15 +4,6 @@
 
 <%
     List<Manga> risultati = (List<Manga>) request.getAttribute("risultatiManga");
-
-// DEBUG: stampa gli ID ricevuti
-    if (risultati != null) {
-        out.println("<div style='font-size:12px;color:gray;'>DEBUG - Manga ricevuti: " + risultati.size() + "<br>");
-        for (Manga m : risultati) {
-            out.println("• " + m.getISBN() + " - " + m.getNome() + "<br>");
-        }
-        out.println("</div><hr>");
-    }
 %>
 
 <%
