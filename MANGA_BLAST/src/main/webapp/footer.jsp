@@ -18,7 +18,7 @@
         </div>
 
         <div class="footer-copy">
-            <p>&copy; 2025 Manga Blast – Progetto universitario realizzato da <strong>Luigi Pio Rotondo, </strong></p>
+            <p>&copy; 2025 Manga Blast – Progetto universitario realizzato da <strong>Luigi Pio Rotondo, Pino Firoello Romano, Francesco Izzo  </strong></p>
         </div>
     </div>
 </footer>
