@@ -9,6 +9,7 @@ function modificaQuantita(id, tipo, delta) {
             const key = id + tipo;
             if (data.rimosso) {
                 mostraBanner("🗑️ Prodotto rimosso dal carrello!");
+                evidenziaRimozione(key);
                 setTimeout(() => location.reload(), 1000);
             } else {
                 document.getElementById("qta-" + key).textContent = data.nuovaQuantita;
@@ -16,6 +17,7 @@ function modificaQuantita(id, tipo, delta) {
                 const subtotale = prezzo * data.nuovaQuantita;
                 document.getElementById("subtotale-" + key).textContent = subtotale.toFixed(2) + "€";
                 aggiornaTotale();
+                evidenziaModifica(key);
             }
         });
 }
@@ -30,19 +32,29 @@ function aggiornaTotale() {
     document.getElementById("totaleCarrello").textContent = totale.toFixed(2);
 }
 
+// ✅ Glow visuale per modifica
+function evidenziaModifica(key) {
+    const row = document.getElementById("subtotale-" + key).closest("tr");
+    if (row) {
+        row.classList.add("row-highlight");
+        setTimeout(() => row.classList.remove("row-highlight"), 1200);
+    }
+}
+
+// ❌ Fade visivo per rimozione
+function evidenziaRimozione(key) {
+    const row = document.getElementById("subtotale-" + key).closest("tr");
+    if (row) {
+        row.style.opacity = "0.5";
+        row.style.transition = "opacity 0.5s";
+    }
+}
+
+// 🔔 Banner visivo
 function mostraBanner(msg) {
     const banner = document.createElement("div");
     banner.textContent = msg;
-    banner.style.position = "fixed";
-    banner.style.top = "10px";
-    banner.style.right = "10px";
-    banner.style.background = "#F44336"; // Rosso per rimozione
-    banner.style.color = "#fff";
-    banner.style.padding = "10px 20px";
-    banner.style.fontWeight = "bold";
-    banner.style.borderRadius = "5px";
-    banner.style.zIndex = "1000";
-    banner.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
+    banner.className = "floating-banner";
     document.body.appendChild(banner);
-    setTimeout(() => banner.remove(), 2000);
+    setTimeout(() => banner.remove(), 2500);
 }

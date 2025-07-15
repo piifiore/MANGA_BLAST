@@ -1,102 +1,131 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f0f2f5;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background-color: #1E1B2E;
+    color: #f5f5f5;
 }
 
-form {
-    background: white;
+.signup-container {
+    max-width: 450px;
+    margin: 5rem auto;
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    width: 350px;
+    background-color: #2E294E;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(239, 83, 80, 0.3);
+    text-align: center;
+}
+
+.signup-container h2 {
+    margin-bottom: 1.5rem;
+    color: #EF5350;
 }
 
 label {
     display: block;
-    margin: 1rem 0 0.3rem;
-    color: #555;
+    margin: 1rem 0 0.5rem;
+    text-align: left;
+    font-weight: bold;
 }
 
-input {
+input[type="email"],
+input[type="password"] {
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #f5f5f5;
+    color: #333;
     font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 8px #EF5350;
+}
+
+/* 👁️ Toggle password */
+.password-wrapper {
+    position: relative;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #888;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.password-toggle-icon:hover {
+    color: #EF5350;
 }
 
 button {
     margin-top: 1.5rem;
-    width: 100%;
-    padding: 0.7rem;
-    font-size: 1rem;
-    border: none;
-    background-color: #4caf50;
+    padding: 0.8rem 1.5rem;
+    background-color: #EF5350;
     color: white;
-    border-radius: 4px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
+    transition: transform 0.2s;
 }
-
 button:hover {
-    background-color: #388e3c;
+    transform: scale(1.05);
 }
 
-#signupMessage {
-    color: red;
-    margin-top: 0.5rem;
-    text-align: center;
-    font-size: 0.9rem;
+.success-msg {
+    background-color: #4CAF50;
+    padding: 0.8rem;
+    color: white;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+.error-msg {
+    color: #FFC107;
+    margin-top: 1rem;
+    font-weight: bold;
 }
 
-/* Password feedback dinamico */
 #password-feedback {
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     text-align: left;
 }
-
 #password-feedback ul {
     list-style: none;
     padding-left: 0;
-    margin: 0.5rem 0 0;
 }
-
 #password-feedback li {
-    color: red;
+    padding: 0.4rem;
+    color: #ddd;
+    transition: color 0.3s;
 }
-
-#password-feedback li::before {
-    content: "❌ ";
-    color: red;
-}
-
 #password-feedback li.valid {
-    color: green;
+    color: #4CAF50;
+    font-weight: bold;
 }
 
-#password-feedback li.valid::before {
-    content: "✅ ";
-    color: green;
+.login-link {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+}
+.login-link a {
+    color: #9C27B0;
+    text-decoration: none;
+}
+.login-link a:hover {
+    text-decoration: underline;
 }
 
-#password-feedback.valid {
-    color: green;
-}
-
-#password-feedback.invalid {
-    color: red;
-}
-
-/* Input border feedback */
-input.invalid {
-    border: 2px solid red;
-}
-
-input.valid {
-    border: 2px solid green;
+/* 📱 Responsive */
+@media screen and (max-width: 480px) {
+    .signup-container {
+        margin: 3rem 1rem;
+        padding: 1.5rem;
+    }
 }

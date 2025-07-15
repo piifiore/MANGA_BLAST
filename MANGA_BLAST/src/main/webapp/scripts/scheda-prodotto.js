@@ -8,6 +8,8 @@ function aggiungiCarrello(id, tipo, titolo, prezzo) {
         .then(text => {
             if (text.trim() === "aggiunto") {
                 mostraBanner("✅ Aggiunto al carrello!");
+            } else {
+                mostraBanner("⚠️ Operazione non riuscita");
             }
         });
 }
@@ -24,23 +26,16 @@ function aggiungiPreferiti(idProdotto, tipo) {
                 mostraBanner("❤️ Aggiunto ai preferiti!");
             } else if (text.trim() === "esiste") {
                 mostraBanner("⚠️ Già presente nei preferiti!");
+            } else {
+                mostraBanner("⚠️ Errore imprevisto");
             }
         });
 }
 
 function mostraBanner(msg) {
-    let banner = document.createElement('div');
+    const banner = document.createElement('div');
     banner.textContent = msg;
-    banner.style.position = 'fixed';
-    banner.style.top = '10px';
-    banner.style.right = '10px';
-    banner.style.background = msg.includes("⚠️") ? '#FFC107' : msg.includes("✅") ? '#4CAF50' : '#E91E63';
-    banner.style.color = '#fff';
-    banner.style.padding = '10px 20px';
-    banner.style.fontWeight = 'bold';
-    banner.style.borderRadius = '5px';
-    banner.style.zIndex = '1000';
-    banner.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+    banner.className = "floating-banner";
     document.body.appendChild(banner);
-    setTimeout(() => banner.remove(), 2000);
+    setTimeout(() => banner.remove(), 2500);
 }

@@ -1,45 +1,47 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<html>
+<!DOCTYPE html>
+<html lang="it">
 <head>
-    <title>Login</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/loginStyle.css">
-    <script src="../scripts/login.js"></script>
-
+    <meta charset="UTF-8">
+    <title>🔐 Login</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/loginStyle.css?v=<%= System.currentTimeMillis() %>">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="scripts/login.js"></script>
 </head>
 <body>
-<header style="display:flex; align-items:center; padding:10px;">
- <jsp:include page="header.jsp"></jsp:include>
-</header>
-<div id="Log-in">
+<jsp:include page="header.jsp" />
 
-    <h2>Accedi al tuo account</h2>
+<div class="login-container">
+    <h2>🔐 Accedi al tuo account</h2>
 
     <% String success = request.getParameter("signupSuccess");
         if ("true".equals(success)) { %>
-    <div id="successMessage">Registrazione effettuata con successo!</div>
+    <div class="success-msg">✅ Registrazione effettuata con successo!</div>
     <% } %>
 
-    <form method="post" id="LoginForm" action="${pageContext.request.contextPath}/login">
-
+    <form method="post" id="loginForm" action="${pageContext.request.contextPath}/login">
         <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required>
+        <input type="email" name="email" id="email" placeholder="Inserisci la tua email" required>
 
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
+        <div class="password-wrapper">
+            <input type="password" name="password" id="password" placeholder="••••••" required>
+            <span class="password-toggle-icon" onclick="togglePassword('password', this)">
+          <i class="fas fa-eye"></i>
+        </span>
+        </div>
 
         <button type="submit">Accedi</button>
 
-        <p>Non hai un account? <a href="signup.jsp">Registrati qui</a></p>
-
         <% String errorMessage = (String) request.getAttribute("errorMessage");
             if (errorMessage != null) { %>
-        <p id="errorMessage"><%= errorMessage %></p>
+        <p class="error-msg"><%= errorMessage %></p>
         <% } %>
+
+        <p class="register-link">Non hai un account? <a href="signup.jsp">Registrati qui</a></p>
     </form>
-
-    <jsp:include page="footer.jsp"></jsp:include>
-
 </div>
+
+<jsp:include page="footer.jsp" />
 </body>
 </html>

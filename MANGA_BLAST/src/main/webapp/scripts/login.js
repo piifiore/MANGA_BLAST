@@ -1,29 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
-    const errorMessage = document.getElementById("errorMessage");
 
     loginForm.addEventListener("submit", (e) => {
-        const email = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
 
-        // Validazione base
         if (!email.match(/^\S+@\S+\.\S+$/)) {
             e.preventDefault();
-            errorMessage.textContent = "Inserisci una email valida.";
-            errorMessage.style.color = "red";
+            alert("Inserisci una email valida.");
         } else if (password.length < 5) {
             e.preventDefault();
-            errorMessage.textContent = "La password deve contenere almeno 5 caratteri.";
-            errorMessage.style.color = "red";
-        } else {
-            errorMessage.textContent = ""; // Reset messaggio
+            alert("La password deve contenere almeno 5 caratteri.");
         }
     });
-
-    // Eventi dinamici per feedback immediato
-    ["username", "password"].forEach(id => {
-        document.getElementById(id).addEventListener("change", () => {
-            errorMessage.textContent = ""; // Pulisce l'errore appena l'utente modifica
-        });
-    });
 });
+
+// 👁️ Toggle password con Font Awesome
+function togglePassword(inputId, iconElement) {
+    const input = document.getElementById(inputId);
+    const icon = iconElement.querySelector("i");
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}

@@ -6,23 +6,23 @@ function rimuoviPreferito(id, tipo) {
     })
         .then(() => {
             mostraBanner("🗑️ Rimosso dai preferiti!");
+            evidenziaRimozione(id);
             setTimeout(() => location.reload(), 1000);
         });
 }
 
 function mostraBanner(msg) {
-    let banner = document.createElement('div');
+    const banner = document.createElement('div');
     banner.textContent = msg;
-    banner.style.position = 'fixed';
-    banner.style.top = '10px';
-    banner.style.right = '10px';
-    banner.style.background = '#9C27B0';
-    banner.style.color = '#fff';
-    banner.style.padding = '10px 20px';
-    banner.style.fontWeight = 'bold';
-    banner.style.borderRadius = '5px';
-    banner.style.zIndex = '1000';
-    banner.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+    banner.className = "floating-banner";
     document.body.appendChild(banner);
-    setTimeout(() => banner.remove(), 2000);
+    setTimeout(() => banner.remove(), 2500);
+}
+
+function evidenziaRimozione(id) {
+    const card = document.querySelector(`.product-card[data-id='${id}']`);
+    if (card) {
+        card.style.opacity = "0.5";
+        card.style.transition = "opacity 0.5s ease";
+    }
 }

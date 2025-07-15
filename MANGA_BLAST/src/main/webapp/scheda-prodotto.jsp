@@ -28,41 +28,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Scheda Prodotto</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/scheda.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/scheda.css?v=<%= System.currentTimeMillis() %>">
     <script src="scripts/scheda-prodotto.js"></script>
 </head>
 <body>
-
 <jsp:include page="header.jsp" />
 
-<div class="scheda">
+<div class="product-sheet">
     <% if (errore != null) { %>
-    <p style="color:red;">🚫 Errore: <%= errore %></p>
+    <div class="error-box">🚫 <%= errore %></div>
     <% } else if (prodotto != null) {
         String nome = tipo.equals("manga") ? ((Manga) prodotto).getNome() : ((Funko) prodotto).getNome();
         String descrizione = tipo.equals("manga") ? ((Manga) prodotto).getDescrizione() : ((Funko) prodotto).getDescrizione();
         String immagine = tipo.equals("manga") ? ((Manga) prodotto).getImmagine() : ((Funko) prodotto).getImmagine();
         String prezzo = tipo.equals("manga") ? ((Manga) prodotto).getPrezzo().toString() : ((Funko) prodotto).getPrezzo().toString();
     %>
-    <h2><%= nome %></h2>
-    <img src="${pageContext.request.contextPath}/<%= immagine %>" alt="Immagine prodotto" width="300" />
-    <p><strong>Descrizione:</strong> <%= descrizione %></p>
-    <p><strong>Prezzo:</strong> <%= prezzo %> €</p>
+    <div class="product-container">
+        <div class="product-image">
+            <img src="${pageContext.request.contextPath}/<%= immagine %>" alt="<%= nome %>" />
+        </div>
+        <div class="product-info">
+            <h1><%= nome %></h1>
+            <p class="description"><%= descrizione %></p>
+            <p class="price-tag">💸 <strong><%= prezzo %> €</strong></p>
 
-
-    <button onclick="aggiungiCarrello('<%= id %>', '<%= tipo %>', '<%= nome %>', '<%= prezzo %>')">🛒 Aggiungi al carrello</button>
-
-
-    <% if (emailUser != null) { %>
-    <button onclick="aggiungiPreferiti('<%= id %>', '<%= tipo %>')">❤️ Aggiungi ai preferiti</button>
-    <% } %>
+            <div class="action-buttons">
+                <button onclick="aggiungiCarrello('<%= id %>', '<%= tipo %>', '<%= nome %>', '<%= prezzo %>')">🛒 Aggiungi al carrello</button>
+                <% if (emailUser != null) { %>
+                <button onclick="aggiungiPreferiti('<%= id %>', '<%= tipo %>')">❤️ Aggiungi ai preferiti</button>
+                <% } %>
+            </div>
+        </div>
+    </div>
     <% } else { %>
-    <p style="color:red;">🚫 Prodotto non trovato</p>
+    <div class="error-box">🚫 Prodotto non trovato</div>
     <% } %>
 </div>
 
-
-<jsp:include page="footer.jsp"></jsp:include>
-
+<jsp:include page="footer.jsp" />
 </body>
 </html>

@@ -9,65 +9,67 @@
 <head>
   <meta charset="UTF-8">
   <title>✅ Checkout</title>
-  <link rel="stylesheet" href="style/checkout.css">
+  <link rel="stylesheet" href="style/checkout.css?v=<%= System.currentTimeMillis() %>">
+  <script src="scripts/checkout.js"></script>
 </head>
 <body>
 
-<h1>📦 Riepilogo Ordine</h1>
+<div class="checkout-wrapper">
+  <h1>📦 Riepilogo Ordine</h1>
 
-<%
-  String emailUser = (String) session.getAttribute("user");
-  if (emailUser == null) {
-    response.sendRedirect("login.jsp");
-    return;
-  }
-
-  List<ItemCarrello> carrello = (List<ItemCarrello>) session.getAttribute("carrello");
-  BigDecimal totale = BigDecimal.ZERO;
-
-  if (carrello == null || carrello.isEmpty()) {
-%>
-<p>⚠️ Il carrello è vuoto. Non puoi completare l'ordine.</p>
-<a href="index.jsp">⬅️ Torna allo shop</a>
-<%
-} else {
-%>
-<table>
-  <thead>
-  <tr>
-    <th>Prodotto</th>
-    <th>Prezzo</th>
-    <th>Quantità</th>
-    <th>Totale</th>
-  </tr>
-  </thead>
-  <tbody>
   <%
-    for (ItemCarrello p : carrello) {
-      BigDecimal subtotale = p.getPrezzo().multiply(new BigDecimal(p.getQuantita()));
-      totale = totale.add(subtotale);
-  %>
-  <tr>
-    <td><%= p.getTitolo() %></td>
-    <td><%= p.getPrezzo() %>€</td>
-    <td><%= p.getQuantita() %></td>
-    <td><%= subtotale %>€</td>
-  </tr>
-  <%
+    String emailUser = (String) session.getAttribute("user");
+    if (emailUser == null) {
+      response.sendRedirect("login.jsp");
+      return;
     }
+
+    List<ItemCarrello> carrello = (List<ItemCarrello>) session.getAttribute("carrello");
+    BigDecimal totale = BigDecimal.ZERO;
+
+    if (carrello == null || carrello.isEmpty()) {
   %>
-  </tbody>
-</table>
+  <p class="empty-msg">⚠️ Il carrello è vuoto. Non puoi completare l'ordine.</p>
+  <div class="link-area">
+    <a href="index.jsp" class="btn secondary">⬅️ Torna allo shop</a>
+  </div>
+  <%
+  } else {
+  %>
 
-<h3>💰 Totale ordine: <%= totale %>€</h3>
+  <table class="riepilogo-table">
+    <thead>
+    <tr>
+      <th>Prodotto</th>
+      <th>Prezzo</th>
+      <th>Quantità</th>
+      <th>Totale</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%
+      for (ItemCarrello p : carrello) {
+        BigDecimal subtotale = p.getPrezzo().multiply(new BigDecimal(p.getQuantita()));
+        totale = totale.add(subtotale);
+    %>
+    <tr>
+      <td><%= p.getTitolo() %></td>
+      <td><%= p.getPrezzo() %>€</td>
+      <td><%= p.getQuantita() %></td>
+      <td><%= subtotale %>€</td>
+    </tr>
+    <% } %>
+    </tbody>
+  </table>
 
-<form action="ConfermaOrdineServlet" method="post">
-  <button type="submit">📬 Conferma Ordine</button>
-</form>
-<%
-  }
-%>
+  <h3 class="totale">💰 Totale ordine: <%= totale %>€</h3>
 
-<jsp:include page="footer.jsp"></jsp:include>
+  <form action="ConfermaOrdineServlet" method="post">
+    <button type="submit" class="btn confirm">📬 Conferma Ordine</button>
+  </form>
+  <% } %>
+</div>
+
+<jsp:include page="footer.jsp" />
 </body>
 </html>

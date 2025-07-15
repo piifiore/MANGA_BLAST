@@ -2,7 +2,6 @@
 <%@ page import="java.util.*" %>
 <%@ page import="model.ItemCarrello" %>
 <%@ page import="model.PreferitiDAO" %>
-<jsp:include page="header.jsp" />
 
 <%
   String emailUser = (String) session.getAttribute("user");
@@ -18,13 +17,12 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>❤️ I Tuoi Preferiti</title>
-  <link rel="stylesheet" href="style/preferiti.css">
+  <title>❤️ I tuoi Preferiti</title>
+  <link rel="stylesheet" href="style/preferiti.css?v=<%= System.currentTimeMillis() %>">
   <script src="scripts/preferiti.js"></script>
-
-
 </head>
 <body>
+<jsp:include page="header.jsp" />
 
 <h1>🌟 Preferiti di <%= emailUser %></h1>
 
@@ -32,17 +30,16 @@
 <p>Non hai ancora aggiunto nulla ai preferiti 😢</p>
 <a href="index.jsp">🔙 Torna allo shop</a>
 <% } else { %>
-
 <div class="product-grid">
   <% for (ItemCarrello p : preferiti) { %>
-  <div class="product-card">
+  <div class="product-card" data-id="<%= p.getIdProdotto() %>">
     <a href="scheda-prodotto.jsp?id=<%= p.getIdProdotto() %>&tipo=<%= p.getTipo() %>">
       <img src="<%= p.getImmagine() %>" alt="<%= p.getTitolo() %>" />
       <h3><%= p.getTitolo() %></h3>
     </a>
     <p><strong><%= p.getPrezzo() %>€</strong></p>
 
-    <!-- Aggiungi al carrello -->
+    <!-- Aggiunta al carrello -->
     <form action="AggiungiAlCarrelloServlet" method="post">
       <input type="hidden" name="id" value="<%= p.getIdProdotto() %>">
       <input type="hidden" name="tipo" value="<%= p.getTipo() %>">
@@ -51,15 +48,13 @@
       <button type="submit">🛒 Aggiungi al Carrello</button>
     </form>
 
-    <!-- Rimuovi dai preferiti via AJAX -->
+    <!-- Rimozione preferito -->
     <button onclick="rimuoviPreferito('<%= p.getIdProdotto() %>', '<%= p.getTipo() %>')">🗑️ Rimuovi</button>
   </div>
   <% } %>
 </div>
-
 <% } %>
 
-
-
+<jsp:include page="footer.jsp" />
 </body>
 </html>

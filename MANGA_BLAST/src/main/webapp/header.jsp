@@ -8,28 +8,34 @@
   boolean isAdmin = admin != null;
 %>
 
+<link rel="stylesheet" href="style/header.css?v=<%= System.currentTimeMillis() %>">
+<script src="scripts/header.js"></script>
 
-<link rel="stylesheet" href="style/header.css">
+<header class="main-header">
+  <div class="logo" onclick="location.href='index.jsp'">🎌 MangaBlast</div>
 
-<div class="navbar">
+  <nav class="navbar">
+    <% if (isUser) { %>
+    <a href="index.jsp">Home</a>
+    <a href="carrello.jsp">Carrello</a>
+    <a href="preferiti.jsp">Preferiti</a>
+    <a href="area-profilo.jsp">Profilo</a>
+    <a href="ordini-utente.jsp">Ordini</a>
+    <a href="logout.jsp">Logout</a>
 
-  <% if (isUser) { %>
-  <a href="index.jsp">Home</a>
-  <a href="carrello.jsp">Carrello</a>
-  <a href="preferiti.jsp">Preferiti</a>
-  <a href="area-profilo.jsp">Profilo</a>
-  <a href="ordini-utente.jsp">I miei ordini</a>
-  <a href="logout.jsp"> Logout</a>
+    <% } else if (isAdmin) { %>
+    <a href="admin-dashboard.jsp">Dashboard</a>
+    <a href="admin-ordini.jsp">Ordini</a>
+    <a href="admin-prodotti.jsp">Prodotti</a>
+    <a href="logout.jsp">Logout</a>
 
-  <% } else if (isAdmin) { %>
-  <a href="admin-dashboard.jsp">Dashboard Admin</a>
-  <a href="OrderManagementServlet">Gestione Ordini</a>
-  <a href="logout.jsp"> Logout</a>
+    <% } else { %>
+    <a href="index.jsp">Home</a>
+    <a href="login.jsp">Login</a>
+    <a href="signup.jsp">Sign Up</a>
+    <% } %>
+  </nav>
 
-  <% } else { %>
-  <a href="index.jsp">Home</a>
-  <a href="login.jsp"> Login</a>
-  <a href="signup.jsp">Sign Up</a>
-  <% } %>
-
-</div>
+  <!-- 🍔 Hamburger per mobile -->
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+</header>

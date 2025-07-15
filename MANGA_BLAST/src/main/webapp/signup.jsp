@@ -1,58 +1,57 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="header.jsp" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/style/signup.css?v=<%= System.currentTimeMillis() %>">
-<script src="../scripts/signup.js"></script>
-
-<html>
+<!DOCTYPE html>
+<html lang="it">
 <head>
-    <title>Sign-up</title>
+    <meta charset="UTF-8">
+    <title>🎉 Registrazione</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/signup.css?v=<%= System.currentTimeMillis() %>">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="scripts/signup.js"></script>
 </head>
 <body>
-<header style="display:flex; align-items:center; padding:10px;">
-    <a href="index.jsp">
-        <img src="img/logo.png" alt="Logo del sito" style="height:50px;">
-    </a>
-</header>
+<jsp:include page="header.jsp" />
 
-<h2>Registrazione Utente</h2>
+<div class="signup-container">
+    <h2>🎉 Crea il tuo account</h2>
 
-<%
-    String errore = (String) request.getAttribute("errore");
-    String successo = request.getParameter("signupSuccess");
+    <%
+        String errore = (String) request.getAttribute("errore");
+        String successo = request.getParameter("signupSuccess");
 
-    if (errore != null) {
-%>
-<div style="color: red; font-weight: bold;">⚠️ <%= errore %></div>
-<%
-} else if ("true".equals(successo)) {
-%>
-<div style="color: green; font-weight: bold;">Registrazione completata! Effettua il login.</div>
-<%
-    }
-%>
+        if (errore != null) {
+    %>
+    <div class="error-msg">⚠️ <%= errore %></div>
+    <% } else if ("true".equals(successo)) { %>
+    <div class="success-msg">✅ Registrazione completata! Effettua il login.</div>
+    <% } %>
 
-<form method="post" id="SignUpForm" action="${pageContext.request.contextPath}/signup">
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" required>
+    <form method="post" id="SignUpForm" action="${pageContext.request.contextPath}/signup">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="Inserisci email" required>
 
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" minlength="8" required>
+        <label for="password">Password:</label>
+        <div class="password-wrapper">
+            <input type="password" name="password" id="password" minlength="8" required>
+            <span class="password-toggle-icon" onclick="togglePassword('password', this)">
+          <i class="fas fa-eye"></i>
+        </span>
+        </div>
 
-    <div id="password-feedback">
-        <ul>
-            <li id="length">Minimo 8 caratteri</li>
-            <li id="lowercase">Almeno una minuscola</li>
-            <li id="uppercase">Almeno una MAIUSCOLA</li>
-            <li id="number">Almeno un numero</li>
-            <li id="special">Almeno un carattere speciale</li>
-        </ul>
-    </div>
+        <div id="password-feedback">
+            <ul>
+                <li id="length">Minimo 8 caratteri</li>
+                <li id="lowercase">Almeno una minuscola</li>
+                <li id="uppercase">Almeno una MAIUSCOLA</li>
+                <li id="number">Almeno un numero</li>
+                <li id="special">Almeno un carattere speciale</li>
+            </ul>
+        </div>
 
-    <button type="submit">Registrati</button>
-    <p>Hai già un account? <a href="login.jsp">Vai al login</a></p>
-</form>
+        <button type="submit">Registrati</button>
+        <p class="login-link">Hai già un account? <a href="login.jsp">Accedi qui</a></p>
+    </form>
+</div>
 
-<jsp:include page="footer.jsp"></jsp:include>
-
+<jsp:include page="footer.jsp" />
 </body>
 </html>

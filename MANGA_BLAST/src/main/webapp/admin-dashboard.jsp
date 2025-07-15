@@ -18,23 +18,31 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard Amministratore</title>
-  <link rel="stylesheet" href="css/admin-dashboard.css">
+  <title>🔧 Admin Dashboard</title>
+  <link rel="stylesheet" href="css/admin-dashboard.css?v=<%= System.currentTimeMillis() %>">
+  <script src="scripts/admin-dashboard.js"></script>
 </head>
 <body>
 
-<div class="welcome">
-  👋 Ciao <strong><%= nomeAdmin %></strong>, benvenuto nella tua dashboard da amministratore!
+<div class="dashboard-container">
+  <h1>🔧 Admin Dashboard</h1>
+  <p class="welcome-msg">Benvenuto <strong><%= nomeAdmin %></strong>, gestisci facilmente prodotti e ordini dal pannello qui sotto.</p>
+
+  <div class="card-area">
+    <a href="admin-prodotti.jsp" class="admin-card">
+      <div class="card-icon">🛒</div>
+      <h3>Gestione Prodotti</h3>
+      <p>Visualizza, modifica e aggiungi prodotti al catalogo.</p>
+    </a>
+
+    <a href="admin-ordini.jsp" class="admin-card">
+      <div class="card-icon">📦</div>
+      <h3>Gestione Ordini</h3>
+      <p>Monitora gli ordini ricevuti e aggiorna lo stato di spedizione.</p>
+    </a>
+  </div>
 </div>
 
-<div class="btn-area">
-  <form action="admin-prodotti.jsp" method="get">
-    <input type="submit" value="🛒 Gestione Prodotti" class="admin-btn">
-  </form>
-  <form action="OrderManagementServlet" method="get">
-    <input type="submit" value="📦 Gestione Ordini" class="admin-btn">
-  </form>
-</div>
-
+<jsp:include page="footer.jsp" />
 </body>
 </html>

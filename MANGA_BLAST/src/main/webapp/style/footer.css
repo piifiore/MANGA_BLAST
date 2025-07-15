@@ -1,29 +1,67 @@
 .site-footer {
-    background-color: #3E4E50;
-    text-decoration-color: white;
+    background-color: #1E1B2E;
+    color: #f5f5f5;
+    padding: 2rem 1rem;
+    border-top: 2px solid #9C27B0;
+    box-shadow: 0 -4px 12px rgba(239, 83, 80, 0.3);
+    font-family: 'Poppins', sans-serif;
+}
+
+.footer-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: 1.5rem;
-    font-size: 0.9rem;
-    color: #333;
-    margin-top: 2rem;
-    border-top: 1px solid #ccc;
 }
 
-.footer-social {
-    margin-bottom: 0.5rem;
+.footer-social p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #9C27B0;
 }
 
-.footer-social a img {
-    width: 24px;
-    margin: 0 8px;
-    vertical-align: middle;
-    transition: transform 0.3s ease;
+.footer-social ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 1.2rem;
 }
 
-.footer-social a:hover img {
-    transform: scale(1.1);
+.footer-social li {
+    display: inline-block;
+}
+
+.footer-social img {
+    width: 28px;
+    height: 28px;
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.footer-social img:hover {
+    transform: scale(1.2);
+    filter: brightness(1.4);
 }
 
 .footer-copy {
-    font-style: italic;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #ccc;
+}
+
+.footer-copy strong {
+    color: #EF5350;
+}
+
+/* 📱 Responsive */
+@media screen and (max-width: 600px) {
+    .footer-social ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .footer-social img {
+        margin-bottom: 0.5rem;
+    }
 }

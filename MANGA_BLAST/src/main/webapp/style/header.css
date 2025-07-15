@@ -1,20 +1,86 @@
-.navbar {
-    background-color: #3E4E50;
-    padding: 10px 20px;
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 🔝 Header unificato per tutti i ruoli */
+.main-header {
+    background-color: #1E1B2E;
+    color: white;
+    padding: 1rem 2rem;
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
     align-items: center;
-    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+    position: relative;
+    z-index: 10;
+}
+
+/* 🎌 Logo */
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #EF5350;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* 📂 Navbar */
+.navbar {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
 }
 
 .navbar a {
-    color: #fff;
+    color: white;
     text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    transition: background 0.3s;
+    font-weight: bold;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
 .navbar a:hover {
-    background-color: #444;
+    background-color: #EF5350;
+    transform: scale(1.05);
+}
+
+/* 🍔 Hamburger menu */
+.hamburger {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+}
+
+/* 📱 Responsive menu */
+@media screen and (max-width: 768px) {
+    .navbar {
+        display: none;
+        flex-direction: column;
+        background-color: #2E294E;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        padding: 1rem;
+        box-shadow: 0 4px 8px rgba(239, 83, 80, 0.3);
+        border-radius: 0 0 12px 12px;
+    }
+
+    .navbar.show {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .navbar a {
+        padding: 0.6rem 1rem;
+    }
 }
