@@ -1,18 +1,30 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
-<%@ page import="model.Funko" %>
+<%@ page import="model.Manga" %>
 
 <%
-    List<Funko> risultati = (List<Funko>) request.getAttribute("risultatiFunko");
+    List<Manga> risultati = (List<Manga>) request.getAttribute("risultatiManga");
+
+// DEBUG: stampa gli ID ricevuti
+    if (risultati != null) {
+        out.println("<div style='font-size:12px;color:gray;'>DEBUG - Manga ricevuti: " + risultati.size() + "<br>");
+        for (Manga m : risultati) {
+            out.println("• " + m.getISBN() + " - " + m.getNome() + "<br>");
+        }
+        out.println("</div><hr>");
+    }
+%>
+
+<%
     if (risultati == null || risultati.isEmpty()) {
 %>
-<p>Nessun Funko trovato.</p>
+<p>Nessun manga trovato.</p>
 <%
 } else {
 %>
 <table>
     <tr>
-        <th>Numero Serie</th>
+        <th>ISBN</th>
         <th>Nome</th>
         <th>Descrizione</th>
         <th>Prezzo</th>
@@ -20,21 +32,21 @@
         <th>Azioni</th>
     </tr>
     <%
-        for (Funko f : risultati) {
+        for (Manga m : risultati) {
     %>
     <tr>
-        <td><%= f.getNumeroSerie() %></td>
-        <td><%= f.getNome() %></td>
-        <td><%= f.getDescrizione() %></td>
-        <td><%= f.getPrezzo() %> &euro;</td>
-        <td><img src="<%= request.getContextPath() + "/" + f.getImmagine() %>" width="100"></td>
+        <td><%= m.getISBN() %></td>
+        <td><%= m.getNome() %></td>
+        <td><%= m.getDescrizione() %></td>
+        <td><%= m.getPrezzo() %> &euro;</td>
+        <td><img src="<%= request.getContextPath() + "/" + m.getImmagine() %>" width="100"></td>
         <td>
-            <form action="modifica-funko.jsp" method="get" style="display:inline;">
-                <input type="hidden" name="numeroSerie" value="<%= f.getNumeroSerie() %>">
+            <form action="modifica-manga.jsp" method="get" style="display:inline;">
+                <input type="hidden" name="ISBN" value="<%= m.getISBN() %>">
                 <input type="submit" value="Modifica">
             </form>
-            <form action="EliminaFunkoServlet" method="post" style="display:inline;" onsubmit="return confirm('Eliminare questo Funko?');">
-                <input type="hidden" name="numeroSerie" value="<%= f.getNumeroSerie() %>">
+            <form action="EliminaMangaServlet" method="post" style="display:inline;" onsubmit="return confirm('Eliminare questo manga?');">
+                <input type="hidden" name="ISBN" value="<%= m.getISBN() %>">
                 <input type="submit" value="Elimina">
             </form>
         </td>
