@@ -1,0 +1,88 @@
+body {
+    background-color: #14121F;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f5f5f5;
+}
+
+.modifica-container {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #1E1B2E;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(239,83,80,0.2);
+}
+
+h1 {
+    text-align: center;
+    color: #EF5350;
+    margin-bottom: 2rem;
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+    color: #f5f5f5;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 1rem;
+    background-color: #2E294E;
+    color: #f5f5f5;
+    font-size: 1rem;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.attuale {
+    font-size: 0.85rem;
+    color: #bbb;
+    margin-bottom: 1.5rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    background-color: #EF5350;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn:hover {
+    background-color: #c62828;
+    transform: scale(1.05);
+}
+
+.btn.secondary {
+    background-color: #6A1B9A;
+}
+
+.not-found {
+    text-align: center;
+    padding: 3rem;
+}

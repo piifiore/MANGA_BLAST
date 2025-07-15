@@ -8,8 +8,13 @@
 <%
   String emailUser = (String) session.getAttribute("user");
   String nomeUser = "";
+  String emailAdmin = (String) session.getAttribute("admin");
+  String nomeAdmin = "";
   if (emailUser != null && emailUser.contains("@")) {
     nomeUser = emailUser.substring(0, emailUser.indexOf("@"));
+  }
+  if (emailAdmin != null && emailAdmin.contains("@")) {
+    nomeAdmin = emailAdmin.substring(0, emailAdmin.indexOf("@"));
   }
 
   String query = request.getParameter("query");
@@ -51,6 +56,10 @@
 <% if (emailUser != null) { %>
 <div class="welcome-message">
   Benvenuto, <strong><%= nomeUser %></strong> su <strong>MangaBlast</strong>
+</div>
+<% } else if (emailAdmin != null) { %>
+<div class="welcome-message">
+  Ciao <strong><%= nomeAdmin %></strong>!
 </div>
 <% } %>
 

@@ -25,39 +25,43 @@
 <head>
   <meta charset="UTF-8">
   <title>Modifica Funko</title>
+  <link rel="stylesheet" href="style/modifica-funko.css?v=<%= System.currentTimeMillis() %>">
 </head>
 <body>
 
-<%
-  if (funko == null) {
-%>
-<h2>Funko non trovato</h2>
-<p><a href="admin-prodotti.jsp">Torna alla dashboard</a></p>
-<%
-} else {
-%>
+<main class="modifica-container">
+  <% if (funko == null) { %>
+  <div class="not-found">
+    <h2>Funko non trovato</h2>
+    <a href="admin-prodotti.jsp" class="btn">Torna ai Prodotti</a>
+  </div>
+  <% } else { %>
+  <h1>Modifica Funko</h1>
 
-<h2>Modifica Funko - Serie <%= funko.getNumeroSerie() %></h2>
+  <form action="ModificaFunkoServlet" method="post" enctype="multipart/form-data" class="modifica-form">
+    <input type="hidden" name="numeroSerie" value="<%= funko.getNumeroSerie() %>">
 
-<form action="ModificaFunkoServlet" method="post" enctype="multipart/form-data">
-  <input type="hidden" name="numeroSerie" value="<%= funko.getNumeroSerie() %>">
-  <label for="nome">Nome:</label><br>
-  <input type="text" id="nome" name="nome" value="<%= funko.getNome() %>" required><br>
-  <label for="descrizione">Descrizione:</label><br>
-  <textarea id="descrizione" name="descrizione" rows="4" cols="40" required><%= funko.getDescrizione() %></textarea><br>
-  <label for="prezzo">Prezzo:</label><br>
-  <input type="number" id="prezzo" name="prezzo" value="<%= funko.getPrezzo() %>" step="0.01" min="0" required><br>
-  <label for="immagine">Immagine:</label><br>
-  <input type="file" id="immagine" name="immagine"><br>
-  <small>Attuale: <%= funko.getImmagine() %></small><br><br>
-  <input type="submit" value="Salva modifiche">
-</form>
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome" value="<%= funko.getNome() %>" required>
 
-<p><a href="admin-prodotti.jsp">Torna alla dashboard</a></p>
+    <label for="descrizione">Descrizione</label>
+    <textarea id="descrizione" name="descrizione" rows="5" required><%= funko.getDescrizione() %></textarea>
 
-<%
-  }
-%>
+    <label for="prezzo">Prezzo</label>
+    <input type="number" id="prezzo" name="prezzo" value="<%= funko.getPrezzo() %>" step="0.01" min="0" required>
 
+    <label for="immagine">Immagine</label>
+    <input type="file" id="immagine" name="immagine">
+    <p class="attuale">Attuale: <%= funko.getImmagine() %></p>
+
+    <div class="form-actions">
+      <input type="submit" value="Salva modifiche" class="btn">
+      <a href="admin-prodotti.jsp" class="btn secondary">Annulla</a>
+    </div>
+  </form>
+  <% } %>
+</main>
+
+<jsp:include page="footer.jsp" />
 </body>
 </html>
