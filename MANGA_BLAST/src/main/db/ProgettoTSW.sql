@@ -166,7 +166,7 @@ CREATE TABLE `manga` (
 
 LOCK TABLES `manga` WRITE;
 /*!40000 ALTER TABLE `manga` DISABLE KEYS */;
-INSERT INTO `manga` VALUES (456,10.00,'images/623cda69-85b9-4dc1-8ea9-624c7d864ff2_onepieice1.jpg','onepice','ujiu'),(6666666,6.66,'images/6da76804-430c-4ab6-bdad-9bd77516593c_onepieice1.jpg','666666','66666ciao'),(53625643,69.00,'images/74dcd7d7-07a6-468a-a91e-d624a3311da1_onepieice1.jpg','gay piece','il gay piece');
+INSERT INTO `manga` VALUES (696969,1000.00,'images/82daf5ed-219c-4a0c-a7d0-5d5c97ab009d_onepieice1.jpg','l\'orgia segreta','linganguli'),(6666666,6.66,'images/6da76804-430c-4ab6-bdad-9bd77516593c_onepieice1.jpg','666666','66666ciao'),(53625643,69.00,'images/74dcd7d7-07a6-468a-a91e-d624a3311da1_onepieice1.jpg','gay piece','il gay piece');
 /*!40000 ALTER TABLE `manga` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,7 +221,7 @@ CREATE TABLE `ordine_include_manga` (
 
 LOCK TABLES `ordine_include_manga` WRITE;
 /*!40000 ALTER TABLE `ordine_include_manga` DISABLE KEYS */;
-INSERT INTO `ordine_include_manga` VALUES (1,456,2),(2,6666666,2);
+INSERT INTO `ordine_include_manga` VALUES (2,6666666,2),(3,6666666,1),(4,6666666,3),(5,53625643,1);
 /*!40000 ALTER TABLE `ordine_include_manga` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,7 +239,7 @@ CREATE TABLE `ordini` (
   `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `stato` varchar(45) NOT NULL,
   PRIMARY KEY (`id_ordine`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,7 +248,7 @@ CREATE TABLE `ordini` (
 
 LOCK TABLES `ordini` WRITE;
 /*!40000 ALTER TABLE `ordini` DISABLE KEYS */;
-INSERT INTO `ordini` VALUES (1,'rotondoluigi0@gmail.com',20.00,'2025-07-15 15:02:53','Consegnato'),(2,'rotondoluigi0@gmail.com',13.32,'2025-07-15 15:09:08','In attesa');
+INSERT INTO `ordini` VALUES (1,'rotondoluigi0@gmail.com',20.00,'2025-07-15 15:02:53','Consegnato'),(2,'rotondoluigi0@gmail.com',13.32,'2025-07-15 15:09:08','Consegnato'),(3,'rotondoluigi0@gmail.com',6.66,'2025-07-15 16:55:04','Spedito'),(4,'rotondoluigi0@gmail.com',19.98,'2025-07-15 18:45:26','In attesa'),(5,'rotondoluigi0@gmail.com',69.00,'2025-07-15 19:01:14','Spedito');
 /*!40000 ALTER TABLE `ordini` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,7 +277,7 @@ CREATE TABLE `preferiti` (
 
 LOCK TABLES `preferiti` WRITE;
 /*!40000 ALTER TABLE `preferiti` DISABLE KEYS */;
-INSERT INTO `preferiti` VALUES ('rotondoluigi0@gmail.com','manga','456'),('rotondoluigi0@gmail.com','manga','9788864201795');
+INSERT INTO `preferiti` VALUES ('rotondoluigi0@gmail.com','funko','47'),('rotondoluigi0@gmail.com','funko','69'),('rotondoluigi0@gmail.com','manga','456'),('rotondoluigi0@gmail.com','manga','53625643'),('rotondoluigi0@gmail.com','manga','6666666'),('rotondoluigi0@gmail.com','manga','9788864201795');
 /*!40000 ALTER TABLE `preferiti` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,7 +302,7 @@ CREATE TABLE `utenti` (
 
 LOCK TABLES `utenti` WRITE;
 /*!40000 ALTER TABLE `utenti` DISABLE KEYS */;
-INSERT INTO `utenti` VALUES ('rotondoluigi0@gmail.com','Password1@','ciao sono bello, ciao\r\n');
+INSERT INTO `utenti` VALUES ('izzof@gmail.com','Password1@',NULL),('rotondoluigi0@gmail.com','Password1@','Via P. A. Mastrilli 41\r\n');
 /*!40000 ALTER TABLE `utenti` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -315,4 +315,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-15 15:25:20
+-- Dump completed on 2025-07-15 19:11:41
