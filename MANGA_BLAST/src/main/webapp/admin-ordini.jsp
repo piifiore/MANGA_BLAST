@@ -1,53 +1,75 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ page import="model.Ordine" %>
 <%@ page import="model.ItemCarrello" %>
-<%@ page import="java.util.*" %>
+<%@ page import="java.util.List" %>
 <jsp:include page="header.jsp" />
-<%
-    String emailAdmin = (String) session.getAttribute("admin");
-    if (emailAdmin == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
-%>
 
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <title>Gestione Ordini</title>
-    <link rel="stylesheet" href="css/admin-ordini.css">
-    <script src="scripts/admin-ordini.js"></script>
+    <link rel="stylesheet" href="style/admin-ordini.css">
 </head>
 <body>
 
+<h1>📋 Ordini ricevuti</h1>
 
-<h1>📦 Gestione Ordini</h1>
-
-<div class="filters">
-    <label>Email cliente:</label>
-    <input type="text" id="searchEmail">
-    <label>Stato:</label>
-    <select id="filterStato">
-        <option value="">-- Tutti --</option>
-        <option value="In attesa">In attesa</option>
-        <option value="Spedito">Spedito</option>
-        <option value="Consegnato">Consegnato</option>
-    </select>
-    <label>Ordina per:</label>
-    <select id="ordina">
-        <option value="data_desc">Data ↓</option>
-        <option value="data_asc">Data ↑</option>
-        <option value="totale_desc">Totale ↓</option>
-        <option value="totale_asc">Totale ↑</option>
-    </select>
-</div>
-
-<div id="ordiniContainer">
-    <!-- Risultati AJAX -->
-</div>
-
-
+<%
+    List<Ordine> ordini = (List<Ordine>) request.getAttribute("ordini");
+    if (ordini == null || ordini.isEmpty()) {
+%>
+<p>📭 Nessun ordine trovato.</p>
+<%
+} else {
+%>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Data</th>
+        <th>Totale</th>
+        <th>Stato</th>
+        <th>Dettagli</th>
+    </tr>
+    <%
+        for (Ordine o : ordini) {
+    %>
+    <tr>
+        <td><%= o.getId() %></td>
+        <td><%= o.getEmailUtente() %></td>
+        <td><%= o.getDataOra() %></td>
+        <td><%= o.getTotale() %> €</td>
+        <td>
+            <form action="AggiornaStatoOrdineServlet" method="post">
+                <input type="hidden" name="id" value="<%= o.getId() %>">
+                <select name="stato">
+                    <option <%= "In attesa".equals(o.getStato()) ? "selected" : "" %>>In attesa</option>
+                    <option <%= "Spedito".equals(o.getStato()) ? "selected" : "" %>>Spedito</option>
+                    <option <%= "Consegnato".equals(o.getStato()) ? "selected" : "" %>>Consegnato</option>
+                </select>
+                <input type="submit" value="✔️">
+            </form>
+        </td>
+        <td>
+            <ul>
+                <%
+                    for (ItemCarrello p : o.getProdotti()) {
+                %>
+                <li><%= p.getQuantita() %> x <%= p.getTitolo() %> — <%= p.getPrezzo() %> €</li>
+                <%
+                    }
+                %>
+            </ul>
+        </td>
+    </tr>
+    <%
+        }
+    %>
+</table>
+<%
+    }
+%>
 
 </body>
 </html>

@@ -31,7 +31,7 @@
   <form action="admin-prodotti.jsp" method="get">
     <input type="submit" value="🛒 Gestione Prodotti" class="admin-btn">
   </form>
-  <form action="admin-ordini.jsp" method="get">
+  <form action="OrderManagementServlet" method="get">
     <input type="submit" value="📦 Gestione Ordini" class="admin-btn">
   </form>
 </div>

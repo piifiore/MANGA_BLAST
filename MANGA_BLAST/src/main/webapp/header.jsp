@@ -23,7 +23,7 @@
 
   <% } else if (isAdmin) { %>
   <a href="admin-dashboard.jsp">Dashboard Admin</a>
-  <a href="admin-ordini.jsp">Gestione Ordini</a>
+  <a href="OrderManagementServlet">Gestione Ordini</a>
   <a href="logout.jsp"> Logout</a>
 
   <% } else { %>
