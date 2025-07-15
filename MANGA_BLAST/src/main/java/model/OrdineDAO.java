@@ -219,4 +219,34 @@ public class OrdineDAO {
 
         return ordini;
     }
+
+    public List<Ordine> getAllOrders() {
+        List<Ordine> ordini = new ArrayList<>();
+
+        String sqlOrdini = "SELECT * FROM ordini ORDER BY data DESC";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sqlOrdini)) {
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Ordine o = new Ordine();
+                o.setId(rs.getInt("id_ordine"));
+                o.setEmailUtente(rs.getString("email"));
+                o.setTotale(rs.getBigDecimal("totale"));
+                o.setDataOra(rs.getTimestamp("data").toLocalDateTime());
+                o.setStato(rs.getString("stato"));
+
+                o.setProdotti(getProdottiOrdine(conn, o.getId()));
+                ordini.add(o);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ordini;
+    }
+
+
 }

@@ -53,15 +53,17 @@
             <p class="price-tag">💸 <strong><%= prezzo %> €</strong></p>
 
             <div class="action-buttons">
-                <button onclick="aggiungiCarrello('<%= id %>', '<%= tipo %>', '<%= nome %>', '<%= prezzo %>')">🛒 Aggiungi al carrello</button>
                 <% if (emailUser != null) { %>
-                <button onclick="aggiungiPreferiti('<%= id %>', '<%= tipo %>')">❤️ Aggiungi ai preferiti</button>
+                <button onclick="aggiungiCarrello('<%= id %>', '<%= tipo %>', '<%= nome %>', '<%= prezzo %>')">Aggiungi al carrello</button>
+                <% } %>
+                <% if (emailUser != null) { %>
+                <button onclick="aggiungiPreferiti('<%= id %>', '<%= tipo %>')">Aggiungi ai preferiti</button>
                 <% } %>
             </div>
         </div>
     </div>
     <% } else { %>
-    <div class="error-box">🚫 Prodotto non trovato</div>
+    <div class="error-box">Prodotto non trovato</div>
     <% } %>
 </div>
 

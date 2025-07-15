@@ -24,8 +24,7 @@
     <a href="logout.jsp">Logout</a>
 
     <% } else if (isAdmin) { %>
-    <a href="admin-dashboard.jsp">Dashboard</a>
-    <a href="admin-ordini.jsp">Ordini</a>
+    <a href="OrderManagementServlet">Ordini</a>
     <a href="admin-prodotti.jsp">Prodotti</a>
     <a href="logout.jsp">Logout</a>
 

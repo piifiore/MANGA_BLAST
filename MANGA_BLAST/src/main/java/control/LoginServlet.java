@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 
         if (dao.isAdmin(email, password)) {
             session.setAttribute("admin", email);
-            response.sendRedirect("admin-dashboard.jsp");
+            response.sendRedirect("index.jsp");
 
         } else if (dao.isUser(email, password)) {
             session.setAttribute("user", email);

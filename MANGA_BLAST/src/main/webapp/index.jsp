@@ -84,7 +84,9 @@
       <img src="<%= m.getImmagine() %>" alt="Copertina manga" />
     </a>
     <p>Prezzo: <strong><%= m.getPrezzo() %>€</strong></p>
+    <% if (emailUser != null) { %>
     <button onclick="aggiungiCarrello('<%= m.getISBN() %>', 'manga', '<%= m.getNome() %>', '<%= m.getPrezzo() %>')">Aggiungi</button>
+    <% } %>
     <% if (emailUser != null) { %>
     <button onclick="aggiungiPreferiti('<%= m.getISBN() %>', 'manga')">Preferiti</button>
     <% } %>
@@ -105,7 +107,9 @@
       <img src="<%= f.getImmagine() %>" alt="Funko <%= f.getNome() %>" />
     </a>
     <p>Prezzo: <strong><%= f.getPrezzo() %>€</strong></p>
+    <% if (emailUser != null) { %>
     <button onclick="aggiungiCarrello('<%= f.getNumeroSerie() %>', 'funko', '<%= f.getNome() %>', '<%= f.getPrezzo() %>')">Aggiungi</button>
+    <% } %>
     <% if (emailUser != null) { %>
     <button onclick="aggiungiPreferiti('<%= f.getNumeroSerie() %>', 'funko')">Preferiti</button>
     <% } %>
