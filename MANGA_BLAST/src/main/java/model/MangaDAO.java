@@ -132,4 +132,55 @@ public class MangaDAO {
 
         return manga;
     }
+
+    public List<Manga> searchManga(String query, String fasciaPrezzo) {
+        List<Manga> risultati = new ArrayList<>();
+
+        String sql = "SELECT * FROM manga WHERE 1=1";
+
+        if (query != null && !query.isEmpty()) {
+            sql += " AND (nome LIKE ? OR CAST(ISBN AS CHAR) LIKE ?)";
+        }
+
+        if (fasciaPrezzo != null) {
+            switch (fasciaPrezzo) {
+                case "low":
+                    sql += " AND prezzo <= 10";
+                    break;
+                case "medium":
+                    sql += " AND prezzo > 10 AND prezzo <= 25";
+                    break;
+                case "high":
+                    sql += " AND prezzo > 25";
+                    break;
+            }
+        }
+
+        try (Connection conn = ConPool.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            int paramIndex = 1;
+            if (query != null && !query.isEmpty()) {
+                String keyword = "%" + query + "%";
+                ps.setString(paramIndex++, keyword);
+                ps.setString(paramIndex++, keyword);
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Manga m = new Manga();
+                m.setISBN(rs.getLong("ISBN"));
+                m.setNome(rs.getString("nome"));
+                m.setPrezzo(BigDecimal.valueOf(rs.getDouble("prezzo")));
+                m.setImmagine(rs.getString("immagine"));
+                risultati.add(m);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return risultati;
+    }
+
+
 }

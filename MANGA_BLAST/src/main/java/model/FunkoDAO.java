@@ -132,4 +132,54 @@ public class FunkoDAO {
 
         return funko;
     }
+
+    public List<Funko> searchFunko(String query, String fasciaPrezzo) {
+        List<Funko> risultati = new ArrayList<>();
+
+        String sql = "SELECT * FROM funko WHERE 1=1";
+
+        if (query != null && !query.isEmpty()) {
+            sql += " AND (nome LIKE ? OR NumeroSerie LIKE ?)";
+        }
+
+        if (fasciaPrezzo != null) {
+            switch (fasciaPrezzo) {
+                case "low":
+                    sql += " AND prezzo <= 10";
+                    break;
+                case "medium":
+                    sql += " AND prezzo > 10 AND prezzo <= 25";
+                    break;
+                case "high":
+                    sql += " AND prezzo > 25";
+                    break;
+            }
+        }
+
+        try (Connection conn = ConPool.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            int paramIndex = 1;
+            if (query != null && !query.isEmpty()) {
+                String keyword = "%" + query + "%";
+                ps.setString(paramIndex++, keyword);
+                ps.setString(paramIndex++, keyword);
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Funko f = new Funko();
+                f.setNumeroSerie(rs.getString("NumeroSerie"));
+                f.setNome(rs.getString("nome"));
+                f.setPrezzo(BigDecimal.valueOf(rs.getDouble("prezzo")));
+                f.setImmagine(rs.getString("immagine"));
+                risultati.add(f);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return risultati;
+    }
+
 }
