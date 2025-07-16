@@ -10,6 +10,7 @@ h1 {
     margin-top: 3rem;
     margin-bottom: 2rem;
     color: #EF5350;
+    font-size: 2.2rem;
 }
 
 p {
@@ -63,10 +64,73 @@ p.empty-msg {
     color: #FFC107;
 }
 
-/* 📱 Responsive */
+/* 📱 Small screens (max 480px) */
 @media screen and (max-width: 480px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+
     .ordine-box {
         margin: 1rem;
         padding: 1rem;
+    }
+
+    .ordine-box h3 {
+        font-size: 1rem;
+    }
+
+    p, .ordine-box li {
+        font-size: 1rem;
+    }
+
+    p.empty-msg {
+        font-size: 1rem;
+    }
+}
+
+/* 📱 Medium screens (481px - 768px) */
+@media screen and (max-width: 768px) and (min-width: 481px) {
+    h1 {
+        font-size: 1.9rem;
+    }
+
+    .ordine-box {
+        margin: 1.5rem;
+        padding: 1.2rem;
+    }
+
+    .ordine-box h3 {
+        font-size: 1.1rem;
+    }
+
+    p, .ordine-box li {
+        font-size: 1.05rem;
+    }
+
+    p.empty-msg {
+        font-size: 1.1rem;
+    }
+}
+
+/* 🖥️ Large screens (over 1200px) */
+@media screen and (min-width: 1200px) {
+    .ordine-box {
+        max-width: 900px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .ordine-box h3 {
+        font-size: 1.4rem;
+    }
+
+    p, .ordine-box li {
+        font-size: 1.15rem;
+    }
+
+    p.empty-msg {
+        font-size: 1.3rem;
     }
 }

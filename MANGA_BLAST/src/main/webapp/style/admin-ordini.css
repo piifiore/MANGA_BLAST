@@ -10,6 +10,7 @@ h1 {
     text-align: center;
     color: #4A148C;
     margin-bottom: 2rem;
+    font-size: 2rem;
 }
 
 .empty-message {
@@ -57,6 +58,7 @@ li {
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .stato-select {
@@ -94,4 +96,65 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #6A1B9A;
+}
+
+/* 📱 Smartphone piccoli */
+@media screen and (max-width: 480px) {
+    body {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    th, td {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+
+    li {
+        font-size: 0.9rem;
+    }
+
+    .stato-form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 0.6rem;
+    }
+}
+
+/* 📱 Tablet / schermi medi */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    th, td {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    input[type="submit"] {
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* 🖥️ Schermi grandi */
+@media screen and (min-width: 1200px) {
+    h1 {
+        font-size: 2.4rem;
+    }
+
+    th, td {
+        font-size: 1rem;
+    }
+
+    .stato-select {
+        font-size: 1rem;
+    }
 }

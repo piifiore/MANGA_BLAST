@@ -27,6 +27,22 @@ body {
     color: #888;
 }
 
+/* 🏠 Bottone "torna alla home" */
+.back-home-btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background-color: #9C27B0;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    margin-top: 1rem;
+    transition: transform 0.2s;
+}
+.back-home-btn:hover {
+    transform: scale(1.05);
+}
+
 /* 🧱 Tabella */
 .cart-table-container {
     overflow-x: auto;
@@ -99,10 +115,12 @@ body {
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    transition: transform 0.2s;
+    box-shadow: 0 4px 12px rgba(239, 83, 80, 0.3);
+    transition: transform 0.2s, background-color 0.2s;
 }
 .checkout-btn:hover {
     transform: scale(1.05);
+    background-color: #f44336;
 }
 
 /* ✨ Glow temporaneo riga */
@@ -145,5 +163,9 @@ body {
     }
     .checkout-btn {
         width: 90%;
+    }
+    .quantita-controls button {
+        padding: 8px 16px;
+        font-size: 1.2rem;
     }
 }
