@@ -19,6 +19,7 @@ h1 {
     text-align: center;
     color: #EF5350;
     margin-bottom: 2rem;
+    font-size: 2rem;
 }
 
 label {
@@ -85,4 +86,44 @@ textarea {
 .not-found {
     text-align: center;
     padding: 3rem;
+}
+
+/* 📱 Mobile: schermi fino a 600px */
+@media screen and (max-width: 600px) {
+    .modifica-container {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Tablet: da 601px a 900px */
+@media screen and (min-width: 601px) and (max-width: 900px) {
+    .modifica-container {
+        max-width: 500px;
+        padding: 1.8rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .btn {
+        padding: 0.8rem 1.4rem;
+        font-size: 1rem;
+    }
 }

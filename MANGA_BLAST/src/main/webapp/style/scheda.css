@@ -92,14 +92,45 @@ body {
 .action-buttons button:hover {
     filter: brightness(1.2);
 }
-
 /* 📱 Responsive layout */
 @media screen and (max-width: 768px) {
     .product-container {
         flex-direction: column;
         text-align: center;
+        align-items: center; /* centra anche l'immagine */
     }
     .product-info {
         padding: 1.5rem;
+        max-width: 100%;
+    }
+    .product-image img {
+        max-width: 80vw; /* immagine più fluida su mobile */
+        height: auto;
     }
 }
+
+/* 📱 Mobile stretto (fino a 480px) */
+@media screen and (max-width: 480px) {
+    .product-sheet {
+        padding: 1rem;
+        margin: 2rem 1rem;
+    }
+
+    .product-info h1 {
+        font-size: 1.5rem;
+    }
+    .description {
+        font-size: 1rem;
+    }
+    .price-tag {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .action-buttons button {
+        width: 100%;
+        margin: 0.3rem 0;
+        padding: 0.8rem;
+    }
+}
+

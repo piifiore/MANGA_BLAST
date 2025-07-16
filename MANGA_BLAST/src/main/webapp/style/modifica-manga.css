@@ -86,3 +86,46 @@ textarea {
     text-align: center;
     padding: 3rem;
 }
+
+/* Media Queries per dispositivi mobili e tablet */
+
+/* Smartphone piccoli (max 480px) */
+@media screen and (max-width: 480px) {
+    .modifica-container {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Tablet (481px - 768px) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .modifica-container {
+        max-width: 500px;
+        padding: 1.8rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .btn {
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
+    }
+}
