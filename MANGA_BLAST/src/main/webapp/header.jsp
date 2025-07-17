@@ -10,6 +10,8 @@
 
 <link rel="stylesheet" href="style/header.css?v=<%= System.currentTimeMillis() %>">
 <script src="scripts/header.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 <header class="main-header">
   <div class="logo" onclick="location.href='index.jsp'">🎌 MangaBlast</div>

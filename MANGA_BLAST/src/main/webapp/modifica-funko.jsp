@@ -23,6 +23,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Modifica Funko</title>
   <link rel="stylesheet" href="style/modifica-funko.css?v=<%= System.currentTimeMillis() %>">

@@ -2,6 +2,7 @@
 <html lang="it">
 <head>
     <link rel="stylesheet" href="style/footer.css?v=<%= System.currentTimeMillis() %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 

@@ -30,6 +30,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🛒 Admin - Prodotti</title>
     <link rel="stylesheet" href="style/admin-prodotti-stile.css?v=<%= System.currentTimeMillis() %>">
     <script src="scripts/admin-prodotti.js"></script>

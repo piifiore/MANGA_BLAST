@@ -20,8 +20,15 @@ h1 {
     margin-top: 3rem;
 }
 
-table {
+/* ✅ Scroll orizzontale per tabella */
+.table-responsive {
+    overflow-x: auto;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive table {
+    min-width: 768px; /* imposta una larghezza minima per non comprimere troppo le colonne */
     border-collapse: collapse;
     margin: auto;
     background-color: white;

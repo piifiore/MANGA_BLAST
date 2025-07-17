@@ -17,6 +17,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>❤️ I tuoi Preferiti</title>
   <link rel="stylesheet" href="style/preferiti.css?v=<%= System.currentTimeMillis() %>">
   <script src="scripts/preferiti.js"></script>
