@@ -5,6 +5,9 @@ body {
     color: #f5f5f5;
 }
 
+
+
+
 /* 🛒 Wrapper pagina */
 .cart-wrapper {
     max-width: 1200px;
@@ -70,7 +73,7 @@ body {
 }
 .cart-table td a {
     text-decoration: none;
-    color: #9C27B0;
+    color:  #F78BDE;
 }
 .cart-table td a:hover {
     text-decoration: underline;

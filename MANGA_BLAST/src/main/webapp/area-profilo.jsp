@@ -56,10 +56,11 @@
         </span>
     </div>
 
-    <label for="indirizzo">Indirizzo:</label>
-    <textarea name="indirizzo" id="indirizzo" rows="4" placeholder="Inserisci il tuo indirizzo..."><%= user.getIndirizzo() %></textarea>
+    <label for="indirizzo">Modifica il tuo indirizzo:</label>
+    <input type="text" id="indirizzo" placeholder="Modifica il tuo indirizzo..." value = "<%= user.getIndirizzo() %>">
 
-    <button type="submit">💾 Salva Modifiche</button>
+    <button type="submit" id="btn-indirizzo"> 💾 Salva Modifiche </button>
+
   </form>
 
   <div class="link-area">

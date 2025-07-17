@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("profiloForm");
     const passwordInput = document.getElementById("nuovaPassword");
+    const input= document.getElementById("indirizzo")
+    const btn= document.getElementById("btn-indirizzo")
+    let isDisabled = false;
+
+
+
 
     form.addEventListener("submit", (e) => {
         const password = passwordInput.value.trim();
@@ -9,9 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("La nuova password deve contenere almeno 6 caratteri.");
         }
     });
+
+
+
+
+
 });
 
-// 👁️ Font Awesome toggle
 function togglePassword(inputId, iconElement) {
     const input = document.getElementById(inputId);
     const icon = iconElement.querySelector("i");
@@ -23,4 +33,11 @@ function togglePassword(inputId, iconElement) {
         input.type = "password";
         icon.classList.replace("fa-eye-slash", "fa-eye");
     }
+
+
+
 }
+
+
+
+

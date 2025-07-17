@@ -87,7 +87,7 @@
         <p><strong><%= risultatiManga.size() %> manga disponibili</strong></p>
         <jsp:include page="risultati-manga.jsp" />
 
-        <h3>➕ Aggiungi Manga</h3>
+        <h3>Aggiungi Manga</h3>
         <form action="AggiungiMangaServlet" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="isbn">ISBN:</label>
@@ -154,7 +154,7 @@
         <p><strong><%= risultatiFunko.size() %> funko disponibili</strong></p>
         <jsp:include page="risultati-funko.jsp" />
 
-        <h3>➕ Aggiungi Funko</h3>
+        <h3>Aggiungi Funko</h3>
         <form action="AggiungiFunkoServlet" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="numeroSerie">Numero Serie:</label>
