@@ -14,7 +14,7 @@
                 <li><a href="https://youtu.be/dQw4w9WgXcQ?si=qHsb_cvfJAaPV00T" target="_blank"><img src="images/facebook.png" alt="Facebook" class="social-logo" /></a></li>
                 <li><a href="https://youtu.be/ZbWIs6z3Thw?si=xRZMTg754KOCSTmn" target="_blank"><img src="images/instagram.png" alt="Instagram" class="social-logo" /></a></li>
                 <li><a href="https://youtu.be/_e9yMqmXWo0" target="_blank"><img src="images/twitter.png" alt="Twitter" class="social-logo" /></a></li>
-                <li><a href="https://youtu.be/viPQKEH-AJM?si=CKq-H5O81Mbe4NCc" target="_blank"><img src="images/youtube.png" alt="YouTube" class="social-logo" /></a></li>
+                <li><a href="https://www.youtube.com/watch?v=r11mz5jvHaU" target="_blank"><img src="images/youtube.png" alt="YouTube" class="social-logo" /></a></li>
             </ul>
         </div>
 
