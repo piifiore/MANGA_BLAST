@@ -58,7 +58,7 @@
     </div>
 
     <label for="indirizzo">Modifica il tuo indirizzo:</label>
-    <input type="text" id="indirizzo" placeholder="Modifica il tuo indirizzo..." value = "<%= user.getIndirizzo() %>">
+    <input type="text" name = "indirizzo" id="indirizzo" placeholder="Modifica il tuo indirizzo...">
 
     <button type="submit" id="btn-indirizzo"> 💾 Salva Modifiche </button>
 

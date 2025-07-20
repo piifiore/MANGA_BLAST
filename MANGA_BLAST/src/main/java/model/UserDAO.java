@@ -121,7 +121,7 @@ public class UserDAO {
             sql = "UPDATE utenti SET indirizzo = ? WHERE email = ?";
         }
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = ConPool.getConnection();  // ✅ Usa lo stesso pool
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             if (cambiaPassword) {
@@ -138,6 +138,7 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+
 
     // (Facoltativo) Ottieni tutti gli admin
     public ResultSet getAllAdmins() {
