@@ -30,7 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scheda Prodotto</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/scheda.css?v=<%= System.currentTimeMillis() %>">
-    <script src="scripts/scheda-prodotto.js"></script>
+    <script src="scripts/scheda-prodotto.js" defer></script>
 </head>
 <body>
 <jsp:include page="header.jsp" />
@@ -54,9 +54,12 @@
             <p class="price-tag">💸 <strong><%= prezzo %> €</strong></p>
 
             <div class="action-buttons">
-                <% if (emailUser != null) { %>
-                <button onclick="aggiungiCarrello('<%= id %>', '<%= tipo %>', '<%= nome %>', '<%= prezzo %>')">Aggiungi al carrello</button>
-                <% } %>
+                <!-- ✅ Bottone sempre visibile -->
+                <button onclick="aggiungiCarrello('<%= id %>', '<%= tipo %>', '<%= nome %>', '<%= prezzo %>')">
+                    Aggiungi al carrello
+                </button>
+
+                <!-- ❤️ Solo utenti registrati -->
                 <% if (emailUser != null) { %>
                 <button onclick="aggiungiPreferiti('<%= id %>', '<%= tipo %>')">Aggiungi ai preferiti</button>
                 <% } %>

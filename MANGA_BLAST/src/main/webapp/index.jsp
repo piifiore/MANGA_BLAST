@@ -47,9 +47,10 @@
   <meta charset="UTF-8">
   <title>MangaBlast</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css?v=<%= System.currentTimeMillis() %>">
-  <script src="scripts/index.js"></script>
-  <script src="scripts/scheda-prodotto.js"></script>
-  <script src="scripts/preferiti.js"></script>
+  <script src="scripts/index.js" defer></script>
+  <script src="scripts/scheda-prodotto.js" defer></script>
+  <script src="scripts/preferiti.js" defer></script>
+  <script src="/scripts/carrello.js"></script>
 </head>
 
 <body>
@@ -94,9 +95,11 @@
       <img src="<%= m.getImmagine() %>" alt="Copertina manga" />
     </a>
     <p>Prezzo: <strong><%= m.getPrezzo() %>€</strong></p>
-    <% if (emailUser != null) { %>
+
+    <!-- ✅ Aggiunta al carrello sempre disponibile -->
     <button onclick="aggiungiCarrello('<%= m.getISBN() %>', 'manga', '<%= m.getNome() %>', '<%= m.getPrezzo() %>')">Aggiungi</button>
-    <% } %>
+
+    <!-- ❤️ Solo per utenti loggati -->
     <% if (emailUser != null) { %>
     <button onclick="aggiungiPreferiti('<%= m.getISBN() %>', 'manga')">Preferiti</button>
     <% } %>
@@ -117,9 +120,11 @@
       <img src="<%= f.getImmagine() %>" alt="Funko <%= f.getNome() %>" />
     </a>
     <p>Prezzo: <strong><%= f.getPrezzo() %>€</strong></p>
-    <% if (emailUser != null) { %>
+
+    <!-- ✅ Aggiunta al carrello sempre disponibile -->
     <button onclick="aggiungiCarrello('<%= f.getNumeroSerie() %>', 'funko', '<%= f.getNome() %>', '<%= f.getPrezzo() %>')">Aggiungi</button>
-    <% } %>
+
+    <!-- ❤️ Solo per utenti loggati -->
     <% if (emailUser != null) { %>
     <button onclick="aggiungiPreferiti('<%= f.getNumeroSerie() %>', 'funko')">Preferiti</button>
     <% } %>
