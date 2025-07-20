@@ -121,7 +121,7 @@ public class UserDAO {
             sql = "UPDATE utenti SET indirizzo = ? WHERE email = ?";
         }
 
-        try (Connection conn = ConPool.getConnection();  // ✅ Usa lo stesso pool
+        try (Connection conn = ConPool.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             if (cambiaPassword) {
