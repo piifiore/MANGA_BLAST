@@ -36,6 +36,9 @@ public class CercaProdottiServlet extends HttpServlet {
         final BigDecimal minFiltro = min;
         final BigDecimal maxFiltro = max;
 
+        String requestedWith = request.getHeader("X-Requested-With");
+        boolean isAjax = requestedWith != null && requestedWith.equals("XMLHttpRequest");
+
         try {
             if ("manga".equals(tipo)) {
                 MangaDAO dao = new MangaDAO();
@@ -57,9 +60,12 @@ public class CercaProdottiServlet extends HttpServlet {
                 // Carica anche la lista Funko completa per mostrare entrambi
                 FunkoDAO daoF = new FunkoDAO();
                 request.setAttribute("risultatiFunko", daoF.getAllFunko());
-
-                RequestDispatcher dispatcher = request.getRequestDispatcher("admin-prodotti.jsp");
-                dispatcher.forward(request, response);
+                if (isAjax) {
+                    request.getRequestDispatcher("risultati-manga.jsp").forward(request, response);
+                } else {
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("admin-prodotti.jsp");
+                    dispatcher.forward(request, response);
+                }
 
             } else if ("funko".equals(tipo)) {
                 FunkoDAO dao = new FunkoDAO();
@@ -81,9 +87,12 @@ public class CercaProdottiServlet extends HttpServlet {
                 // Carica anche la lista Manga completa per mostrare entrambi
                 MangaDAO daoM = new MangaDAO();
                 request.setAttribute("risultatiManga", daoM.getAllManga());
-
-                RequestDispatcher dispatcher = request.getRequestDispatcher("admin-prodotti.jsp");
-                dispatcher.forward(request, response);
+                if (isAjax) {
+                    request.getRequestDispatcher("risultati-funko.jsp").forward(request, response);
+                } else {
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("admin-prodotti.jsp");
+                    dispatcher.forward(request, response);
+                }
             }
         } catch (Exception e) {
             response.setContentType("text/plain");

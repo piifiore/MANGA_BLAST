@@ -85,6 +85,7 @@
 
 <% if (!listaManga.isEmpty()) { %>
 <h2 style="text-align:center; margin-top:2rem;">Manga disponibili</h2>
+<div id="ajax-product-grid">
 <div class="product-grid">
   <% for (Manga m : listaManga) { %>
   <div class="product-card" data-id="<%= m.getISBN() %>">
@@ -95,21 +96,19 @@
       <img src="<%= m.getImmagine() %>" alt="Copertina manga" />
     </a>
     <p>Prezzo: <strong><%= m.getPrezzo() %>€</strong></p>
-
-    <!-- ✅ Aggiunta al carrello sempre disponibile -->
     <button onclick="aggiungiCarrello('<%= m.getISBN() %>', 'manga', '<%= m.getNome() %>', '<%= m.getPrezzo() %>')">Aggiungi</button>
-
-    <!-- ❤️ Solo per utenti loggati -->
     <% if (emailUser != null) { %>
     <button onclick="aggiungiPreferiti('<%= m.getISBN() %>', 'manga')">Preferiti</button>
     <% } %>
   </div>
   <% } %>
 </div>
+</div>
 <% } %>
 
 <% if (!listaFunko.isEmpty()) { %>
 <h2 style="text-align:center; margin-top:2rem;">Funko disponibili</h2>
+<div id="ajax-product-grid">
 <div class="product-grid">
   <% for (Funko f : listaFunko) { %>
   <div class="product-card" data-id="<%= f.getNumeroSerie() %>">
@@ -120,16 +119,13 @@
       <img src="<%= f.getImmagine() %>" alt="Funko <%= f.getNome() %>" />
     </a>
     <p>Prezzo: <strong><%= f.getPrezzo() %>€</strong></p>
-
-    <!-- ✅ Aggiunta al carrello sempre disponibile -->
     <button onclick="aggiungiCarrello('<%= f.getNumeroSerie() %>', 'funko', '<%= f.getNome() %>', '<%= f.getPrezzo() %>')">Aggiungi</button>
-
-    <!-- ❤️ Solo per utenti loggati -->
     <% if (emailUser != null) { %>
     <button onclick="aggiungiPreferiti('<%= f.getNumeroSerie() %>', 'funko')">Preferiti</button>
     <% } %>
   </div>
   <% } %>
+</div>
 </div>
 <% } %>
 
