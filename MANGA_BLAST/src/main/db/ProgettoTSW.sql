@@ -307,6 +307,25 @@ INSERT INTO `utenti` VALUES ('izzof@gmail.com','Password1@',NULL),('romanofiorel
 UNLOCK TABLES;
 
 --
+-- Table structure for table `ordine_dettagli`
+--
+
+DROP TABLE IF EXISTS `ordine_dettagli`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ordine_dettagli` (
+  `id_ordine` INT NOT NULL,
+  `tipo` VARCHAR(20) NOT NULL, -- 'manga' o 'funko'
+  `id_prodotto` VARCHAR(50) NOT NULL,
+  `nome` VARCHAR(255) NOT NULL,
+  `prezzo` DECIMAL(10,2) NOT NULL,
+  `quantita` INT NOT NULL,
+  PRIMARY KEY (`id_ordine`, `tipo`, `id_prodotto`),
+  KEY `idx_ordine` (`id_ordine`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping events for database 'progettotsw_db'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

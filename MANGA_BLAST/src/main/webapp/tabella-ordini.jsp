@@ -45,10 +45,17 @@
             <td>
                 <ul>
                     <%
-                        for (ItemCarrello p : o.getProdotti()) {
+                        List<ItemCarrello> prodotti = o.getProdotti();
+                        if (prodotti == null || prodotti.isEmpty()) {
                     %>
-                    <li><%= p.getQuantita() %> x <%= p.getTitolo() %> - <%= p.getPrezzo() %> €</li>
+                        <li style="color:#c62828;">Nessun dettaglio</li>
                     <%
+                        } else {
+                            for (ItemCarrello p : prodotti) {
+                    %>
+                        <li><%= p.getQuantita() %> x <%= p.getTitolo() %> - <%= p.getPrezzo() %> €</li>
+                    <%
+                            }
                         }
                     %>
                 </ul>

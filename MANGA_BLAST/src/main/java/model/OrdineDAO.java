@@ -12,6 +12,7 @@ public class OrdineDAO {
         PreparedStatement ordineStmt = null;
         PreparedStatement mangaStmt = null;
         PreparedStatement funkoStmt = null;
+        PreparedStatement dettagliStmt = null;
 
         try {
             conn = DBConnection.getConnection();
@@ -38,11 +39,23 @@ public class OrdineDAO {
             String sqlFunko = "INSERT INTO ordine_include_funko (id_ordine, NumeroSerie, quantita) VALUES (?, ?, ?)";
             mangaStmt = conn.prepareStatement(sqlManga);
             funkoStmt = conn.prepareStatement(sqlFunko);
+            String sqlDettagli = "INSERT INTO ordine_dettagli (id_ordine, tipo, id_prodotto, nome, prezzo, quantita) VALUES (?, ?, ?, ?, ?, ?)";
+            dettagliStmt = conn.prepareStatement(sqlDettagli);
 
             for (ItemCarrello item : ordine.getProdotti()) {
                 String tipo = item.getTipo();
                 String idProdotto = item.getIdProdotto();
                 int quantita = item.getQuantita();
+                String nome = item.getTitolo();
+                java.math.BigDecimal prezzo = item.getPrezzo();
+
+                dettagliStmt.setInt(1, idOrdine);
+                dettagliStmt.setString(2, tipo);
+                dettagliStmt.setString(3, idProdotto);
+                dettagliStmt.setString(4, nome);
+                dettagliStmt.setBigDecimal(5, prezzo);
+                dettagliStmt.setInt(6, quantita);
+                dettagliStmt.addBatch();
 
                 System.out.println("🛍️ Salvataggio prodotto: " + item.getTitolo() + " [tipo: " + tipo + "] quantita: " + quantita);
 
@@ -68,6 +81,7 @@ public class OrdineDAO {
 
             mangaStmt.executeBatch();
             funkoStmt.executeBatch();
+            dettagliStmt.executeBatch();
             conn.commit();
             System.out.println("✅ Batch eseguito con successo");
 
@@ -80,6 +94,7 @@ public class OrdineDAO {
                 if (ordineStmt != null) ordineStmt.close();
                 if (mangaStmt != null) mangaStmt.close();
                 if (funkoStmt != null) funkoStmt.close();
+                if (dettagliStmt != null) dettagliStmt.close();
                 if (conn != null) conn.close();
             } catch (SQLException ignore) {}
         }
@@ -105,7 +120,7 @@ public class OrdineDAO {
                 o.setDataOra(rs.getTimestamp("data").toLocalDateTime());
                 o.setStato(rs.getString("stato"));
 
-                o.setProdotti(getProdottiOrdine(conn, o.getId()));
+                o.setProdotti(getDettagliOrdineStorico(conn, o.getId()));
                 ordini.add(o);
             }
 
@@ -114,44 +129,6 @@ public class OrdineDAO {
         }
 
         return ordini;
-    }
-
-    private List<ItemCarrello> getProdottiOrdine(Connection conn, int idOrdine) throws SQLException {
-        List<ItemCarrello> prodotti = new ArrayList<>();
-
-        // Manga con quantità
-        String sqlManga = "SELECT m.ISBN, m.nome, m.prezzo, oim.quantita FROM ordine_include_manga oim JOIN manga m ON oim.ISBN = m.ISBN WHERE oim.id_ordine = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sqlManga)) {
-            ps.setInt(1, idOrdine);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                prodotti.add(new ItemCarrello(
-                        String.valueOf(rs.getLong("ISBN")),
-                        "manga",
-                        rs.getString("nome"),
-                        rs.getBigDecimal("prezzo"),
-                        rs.getInt("quantita")
-                ));
-            }
-        }
-
-        // Funko con quantità
-        String sqlFunko = "SELECT f.NumeroSerie, f.nome, f.prezzo, oif.quantita FROM ordine_include_funko oif JOIN funko f ON oif.NumeroSerie = f.NumeroSerie WHERE oif.id_ordine = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sqlFunko)) {
-            ps.setInt(1, idOrdine);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                prodotti.add(new ItemCarrello(
-                        rs.getString("NumeroSerie"),
-                        "funko",
-                        rs.getString("nome"),
-                        rs.getBigDecimal("prezzo"),
-                        rs.getInt("quantita")
-                ));
-            }
-        }
-
-        return prodotti;
     }
 
     public void updateOrderStatus(int idOrdine, String nuovoStato) {
@@ -218,7 +195,7 @@ public class OrdineDAO {
                 o.setDataOra(rs.getTimestamp("data").toLocalDateTime());
                 o.setStato(rs.getString("stato"));
 
-                o.setProdotti(getProdottiOrdine(conn, o.getId()));
+                o.setProdotti(getDettagliOrdineStorico(conn, o.getId()));
                 ordini.add(o);
             }
 
@@ -246,7 +223,7 @@ public class OrdineDAO {
                 o.setDataOra(rs.getTimestamp("data").toLocalDateTime());
                 o.setStato(rs.getString("stato"));
 
-                o.setProdotti(getProdottiOrdine(conn, o.getId()));
+                o.setProdotti(getDettagliOrdineStorico(conn, o.getId()));
                 ordini.add(o);
             }
 
@@ -255,6 +232,25 @@ public class OrdineDAO {
         }
 
         return ordini;
+    }
+
+    public List<ItemCarrello> getDettagliOrdineStorico(Connection conn, int idOrdine) throws SQLException {
+        List<ItemCarrello> prodotti = new ArrayList<>();
+        String sql = "SELECT tipo, id_prodotto, nome, prezzo, quantita FROM ordine_dettagli WHERE id_ordine = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idOrdine);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                prodotti.add(new ItemCarrello(
+                    rs.getString("id_prodotto"),
+                    rs.getString("tipo"),
+                    rs.getString("nome"),
+                    rs.getBigDecimal("prezzo"),
+                    rs.getInt("quantita")
+                ));
+            }
+        }
+        return prodotti;
     }
 
 
