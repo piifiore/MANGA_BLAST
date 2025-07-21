@@ -105,6 +105,55 @@ input[type="submit"]:hover {
     background-color: #6A1B9A;
 }
 
+/* Responsive filtri ordini */
+.ordini-filtri {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+.ordini-filtri > div {
+    min-width: 180px;
+}
+@media screen and (max-width: 768px) {
+    .ordini-filtri {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+    .ordini-filtri > div {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+/* Miglioro la tabella su mobile */
+@media screen and (max-width: 600px) {
+    .table-responsive table {
+        min-width: 480px;
+        font-size: 0.92em;
+    }
+    th, td {
+        padding: 0.5rem;
+    }
+    .stato-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.3rem;
+    }
+    input[type="submit"] {
+        width: 100%;
+        padding: 0.6rem;
+        font-size: 1em;
+    }
+    .ordini-filtri label {
+        font-size: 1em;
+    }
+    .ordini-filtri input, .ordini-filtri select {
+        font-size: 1em;
+    }
+}
+
 /* 📱 Smartphone piccoli */
 @media screen and (max-width: 480px) {
     body {
@@ -163,5 +212,131 @@ input[type="submit"]:hover {
 
     .stato-select {
         font-size: 1rem;
+    }
+}
+
+/* Card ordini mobile */
+.ordini-cards-mobile {
+    display: none;
+}
+@media screen and (max-width: 600px) {
+    .table-responsive { display: none; }
+    .ordini-cards-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+    }
+    .ordine-card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        padding: 1rem 1.2rem;
+        font-size: 1em;
+    }
+    .ordine-card-row {
+        margin-bottom: 0.5em;
+        word-break: break-word;
+    }
+    .ordine-card-row strong {
+        color: #4A148C;
+        min-width: 80px;
+        display: inline-block;
+    }
+    .ordine-card ul {
+        padding-left: 1.2em;
+        margin: 0.2em 0 0.5em 0;
+    }
+    .ordine-card form.stato-form {
+        flex-direction: row;
+        gap: 0.5em;
+        margin-top: 0.5em;
+    }
+    .ordine-card input[type="submit"] {
+        width: auto;
+        padding: 0.4rem 0.8rem;
+        font-size: 1em;
+    }
+}
+
+/* Card ordini anche su tablet/intermedio */
+@media screen and (max-width: 900px) {
+    .table-responsive { display: none; }
+    .ordini-cards-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+    }
+    .ordine-card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        padding: 1rem 1.2rem;
+        font-size: 1em;
+    }
+    .ordine-card-row {
+        margin-bottom: 0.5em;
+        word-break: break-word;
+    }
+    .ordine-card-row strong {
+        color: #4A148C;
+        min-width: 80px;
+        display: inline-block;
+    }
+    .ordine-card ul {
+        padding-left: 1.2em;
+        margin: 0.2em 0 0.5em 0;
+    }
+    .ordine-card form.stato-form {
+        flex-direction: row;
+        gap: 0.5em;
+        margin-top: 0.5em;
+    }
+    .ordine-card input[type="submit"] {
+        width: auto;
+        padding: 0.4rem 0.8rem;
+        font-size: 1em;
+    }
+}
+
+/* Card ordini per tablet/intermedio (601px-900px) */
+@media screen and (min-width: 601px) and (max-width: 900px) {
+    .table-responsive { display: none; }
+    .ordini-cards-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    .ordine-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        padding: 1.5rem 2rem;
+        font-size: 1.08em;
+    }
+    .ordine-card-row {
+        margin-bottom: 0.7em;
+        word-break: break-word;
+    }
+    .ordine-card-row strong {
+        color: #4A148C;
+        min-width: 90px;
+        display: inline-block;
+    }
+    .ordine-card ul {
+        padding-left: 1.5em;
+        margin: 0.3em 0 0.7em 0;
+    }
+    .ordine-card form.stato-form {
+        flex-direction: row;
+        gap: 0.7em;
+        margin-top: 0.7em;
+    }
+    .ordine-card input[type="submit"] {
+        width: auto;
+        padding: 0.5rem 1.2rem;
+        font-size: 1.08em;
     }
 }

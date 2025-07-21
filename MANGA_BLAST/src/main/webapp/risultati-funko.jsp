@@ -43,6 +43,32 @@
         }
     %>
 </table>
+<% } %>
+
+<!-- Card funko per mobile/tablet -->
+<div class="funko-cards-mobile">
 <%
-    }
+    if (risultati != null && !risultati.isEmpty()) {
+        for (Funko f : risultati) {
 %>
+    <div class="funko-card">
+        <div class="funko-card-row"><strong>Numero Serie:</strong> <%= f.getNumeroSerie() %></div>
+        <div class="funko-card-row"><strong>Nome:</strong> <%= f.getNome() %></div>
+        <div class="funko-card-row"><strong>Descrizione:</strong> <%= f.getDescrizione() %></div>
+        <div class="funko-card-row"><strong>Prezzo:</strong> <%= f.getPrezzo() %> &euro;</div>
+        <div class="funko-card-row"><strong>Immagine:</strong><br><img src="<%= request.getContextPath() + "/" + f.getImmagine() %>" width="100"></div>
+        <div class="funko-card-row">
+            <form action="modifica-funko.jsp" method="get" style="display:inline;">
+                <input type="hidden" name="numeroSerie" value="<%= f.getNumeroSerie() %>">
+                <input type="submit" value="Modifica">
+            </form>
+            <form action="EliminaFunkoServlet" method="post" style="display:inline;" onsubmit="return confirm('Eliminare questo Funko?');">
+                <input type="hidden" name="numeroSerie" value="<%= f.getNumeroSerie() %>">
+                <input type="submit" value="Elimina">
+            </form>
+        </div>
+    </div>
+<%  }
+   }
+%>
+</div>

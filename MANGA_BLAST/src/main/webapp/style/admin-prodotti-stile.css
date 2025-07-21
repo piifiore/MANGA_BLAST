@@ -200,3 +200,52 @@ hr {
         font-size: 1.2rem;
     }
 }
+
+/* Card prodotti mobile/tablet */
+.manga-cards-mobile, .funko-cards-mobile { display: none; }
+@media screen and (max-width: 900px) {
+    table { display: none; }
+    .manga-cards-mobile, .funko-cards-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        margin-top: 1.2rem;
+    }
+    .manga-card, .funko-card {
+        background: #fff;
+        color: #222;
+        border-radius: 10px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        padding: 1.2rem 1.5rem;
+        font-size: 1.05em;
+    }
+    .manga-card-row, .funko-card-row {
+        margin-bottom: 0.6em;
+        word-break: break-word;
+    }
+    .manga-card-row strong, .funko-card-row strong {
+        color: #EF5350;
+        min-width: 90px;
+        display: inline-block;
+    }
+    .manga-card ul, .funko-card ul {
+        padding-left: 1.2em;
+        margin: 0.2em 0 0.5em 0;
+    }
+    .manga-card form, .funko-card form {
+        margin-top: 0.5em;
+        display: inline-block;
+    }
+    .manga-card input[type="submit"], .funko-card input[type="submit"] {
+        width: auto;
+        padding: 0.4rem 0.8rem;
+        font-size: 1em;
+        margin-right: 0.5em;
+    }
+    .manga-card img, .funko-card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+        margin-top: 0.3em;
+    }
+}

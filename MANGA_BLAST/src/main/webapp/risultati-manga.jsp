@@ -46,6 +46,32 @@
         }
     %>
 </table>
+<% } %>
+
+<!-- Card manga per mobile/tablet -->
+<div class="manga-cards-mobile">
 <%
-    }
+    if (risultati != null && !risultati.isEmpty()) {
+        for (Manga m : risultati) {
 %>
+    <div class="manga-card">
+        <div class="manga-card-row"><strong>ISBN:</strong> <%= m.getISBN() %></div>
+        <div class="manga-card-row"><strong>Nome:</strong> <%= m.getNome() %></div>
+        <div class="manga-card-row"><strong>Descrizione:</strong> <%= m.getDescrizione() %></div>
+        <div class="manga-card-row"><strong>Prezzo:</strong> <%= m.getPrezzo() %> &euro;</div>
+        <div class="manga-card-row"><strong>Immagine:</strong><br><img src="<%= request.getContextPath() + "/" + m.getImmagine() %>" width="100"></div>
+        <div class="manga-card-row">
+            <form action="modifica-manga.jsp" method="get" style="display:inline;">
+                <input type="hidden" name="ISBN" value="<%= m.getISBN() %>">
+                <input type="submit" value="Modifica">
+            </form>
+            <form action="EliminaMangaServlet" method="post" style="display:inline;" onsubmit="return confirm('Eliminare questo manga?');">
+                <input type="hidden" name="ISBN" value="<%= m.getISBN() %>">
+                <input type="submit" value="Elimina">
+            </form>
+        </div>
+    </div>
+<%  }
+   }
+%>
+</div>
