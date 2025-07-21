@@ -24,10 +24,14 @@ public class AggiornaStatoOrdineServlet extends HttpServlet {
         dao.updateOrderStatus(idOrdine, nuovoStato);
 
         // Recupera tutti gli ordini aggiornati per visualizzarli
-        List<Ordine> ordiniAggiornati = dao.getFilteredOrders(null, null, null);
+        List<Ordine> ordiniAggiornati = dao.getFilteredOrders(null, null, null, null, null);
         request.setAttribute("ordini", ordiniAggiornati);
 
-        // Inoltra a admin-ordini.jsp con gli ordini pronti
-        request.getRequestDispatcher("admin-ordini.jsp").forward(request, response);
+        String requestedWith = request.getHeader("X-Requested-With");
+        if (requestedWith != null && requestedWith.equals("XMLHttpRequest")) {
+            request.getRequestDispatcher("tabella-ordini.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("admin-ordini.jsp").forward(request, response);
+        }
     }
 }

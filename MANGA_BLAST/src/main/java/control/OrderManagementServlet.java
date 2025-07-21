@@ -17,21 +17,30 @@ public class OrderManagementServlet extends HttpServlet {
         String email = request.getParameter("email");
         String stato = request.getParameter("stato");
         String sort = request.getParameter("sort");
+        String dataDa = request.getParameter("dataDa");
+        String dataA = request.getParameter("dataA");
 
         OrdineDAO dao = new OrdineDAO();
         List<Ordine> ordini;
 
         boolean hasFilter = (email != null && !email.trim().isEmpty()) ||
                 (stato != null && !stato.trim().isEmpty()) ||
-                (sort != null && !sort.trim().isEmpty());
+                (sort != null && !sort.trim().isEmpty()) ||
+                (dataDa != null && !dataDa.trim().isEmpty()) ||
+                (dataA != null && !dataA.trim().isEmpty());
 
         if (hasFilter) {
-            ordini = dao.getFilteredOrders(email, stato, sort);
+            ordini = dao.getFilteredOrders(email, stato, sort, dataDa, dataA);
         } else {
             ordini = dao.getAllOrders();
         }
 
         request.setAttribute("ordini", ordini);
-        request.getRequestDispatcher("admin-ordini.jsp").forward(request, response);
+        String requestedWith = request.getHeader("X-Requested-With");
+        if (requestedWith != null && requestedWith.equals("XMLHttpRequest")) {
+            request.getRequestDispatcher("tabella-ordini.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("admin-ordini.jsp").forward(request, response);
+        }
     }
 }

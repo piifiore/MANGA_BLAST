@@ -169,7 +169,7 @@ public class OrdineDAO {
         }
     }
 
-    public List<Ordine> getFilteredOrders(String email, String stato, String sort) {
+    public List<Ordine> getFilteredOrders(String email, String stato, String sort, String dataDa, String dataA) {
         List<Ordine> ordini = new ArrayList<>();
 
         StringBuilder query = new StringBuilder("SELECT * FROM ordini WHERE 1=1");
@@ -183,6 +183,15 @@ public class OrdineDAO {
         if (stato != null && !stato.trim().isEmpty()) {
             query.append(" AND stato = ?");
             parametri.add(stato.trim());
+        }
+
+        if (dataDa != null && !dataDa.trim().isEmpty()) {
+            query.append(" AND DATE(data) >= ?");
+            parametri.add(dataDa.trim());
+        }
+        if (dataA != null && !dataA.trim().isEmpty()) {
+            query.append(" AND DATE(data) <= ?");
+            parametri.add(dataA.trim());
         }
 
         if ("data".equals(sort)) {
