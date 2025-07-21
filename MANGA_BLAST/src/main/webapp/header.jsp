@@ -32,8 +32,8 @@
 
     <% } else { %>
     <a href="index.jsp">Home</a>
-    <a href="login.jsp">Login</a>
     <a href="carrello.jsp">Carrello</a>
+    <a href="login.jsp">Login</a>
     <a href="signup.jsp">Sign Up</a>
     <% } %>
   </nav>
