@@ -19,6 +19,12 @@ public class AggiungiFunkoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        String admin = (session != null) ? (String) session.getAttribute("admin") : null;
+        if (admin == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
 
         try {
             String numeroSerie = request.getParameter("numeroSerie");

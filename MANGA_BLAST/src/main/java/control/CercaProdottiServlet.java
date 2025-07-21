@@ -11,6 +11,12 @@ import java.util.*;
 @WebServlet("/CercaProdottiServlet")
 public class CercaProdottiServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(false);
+        String admin = (session != null) ? (String) session.getAttribute("admin") : null;
+        if (admin == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
         String tipo = request.getParameter("tipo");
         String query = request.getParameter("query");
         String sort = request.getParameter("sort");
