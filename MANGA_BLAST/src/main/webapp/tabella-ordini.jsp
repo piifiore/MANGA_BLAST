@@ -38,8 +38,13 @@
                         <option value="In attesa" <%= "In attesa".equals(o.getStato()) ? "selected" : "" %>>In attesa</option>
                         <option value="Spedito" <%= "Spedito".equals(o.getStato()) ? "selected" : "" %>>Spedito</option>
                         <option value="Consegnato" <%= "Consegnato".equals(o.getStato()) ? "selected" : "" %>>Consegnato</option>
+                        <option value="Archiviato" <%= "Archiviato".equals(o.getStato()) ? "selected" : "" %>>Archiviato</option>
                     </select>
                     <input type="submit" value="Aggiorna">
+                </form>
+                <form action="ArchiviaOrdineServlet" method="post" class="archivia-form" style="margin-top: 0.5rem;">
+                    <input type="hidden" name="id" value="<%= o.getId() %>">
+                    <input type="submit" value="📁 Archivia" class="archivia-btn">
                 </form>
             </td>
             <td>
@@ -104,8 +109,13 @@
                     <option value="In attesa" <%= "In attesa".equals(o.getStato()) ? "selected" : "" %>>In attesa</option>
                     <option value="Spedito" <%= "Spedito".equals(o.getStato()) ? "selected" : "" %>>Spedito</option>
                     <option value="Consegnato" <%= "Consegnato".equals(o.getStato()) ? "selected" : "" %>>Consegnato</option>
+                    <option value="Archiviato" <%= "Archiviato".equals(o.getStato()) ? "selected" : "" %>>Archiviato</option>
                 </select>
                 <input type="submit" value="Aggiorna">
+            </form>
+            <form action="ArchiviaOrdineServlet" method="post" class="archivia-form" style="margin-top: 0.5rem;">
+                <input type="hidden" name="id" value="<%= o.getId() %>">
+                <input type="submit" value="📁 Archivia" class="archivia-btn">
             </form>
         </div>
     </div>

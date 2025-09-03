@@ -10,6 +10,26 @@ function caricaOrdini() {
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     xhr.onload = function() {
         document.getElementById("ordiniContainer").innerHTML = xhr.responseText;
+        
+        // Mostra/nascondi sezione ordini archiviati
+        const archiviatiSection = document.getElementById("ordiniArchiviatiSection");
+        if (archiviatiSection) {
+            if (stato === "Archiviato") {
+                archiviatiSection.style.display = "none";
+            } else {
+                archiviatiSection.style.display = "block";
+            }
+        }
+    };
+    xhr.send();
+}
+
+function caricaOrdiniArchiviati() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "OrderManagementServlet?stato=Archiviato", true);
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    xhr.onload = function() {
+        document.getElementById("ordiniArchiviatiContainer").innerHTML = xhr.responseText;
     };
     xhr.send();
 }
@@ -17,4 +37,8 @@ function caricaOrdini() {
 ["searchEmail", "filterStato", "ordina", "dataDa", "dataA"].forEach(id => {
     document.getElementById(id).addEventListener("input", caricaOrdini);
 });
-window.addEventListener("load", caricaOrdini);
+
+window.addEventListener("load", function() {
+    caricaOrdini();
+    caricaOrdiniArchiviati();
+});

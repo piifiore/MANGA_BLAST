@@ -29,6 +29,7 @@
             <option value="In attesa">In attesa</option>
             <option value="Spedito">Spedito</option>
             <option value="Consegnato">Consegnato</option>
+            <option value="Archiviato">Archiviato</option>
         </select>
     </div>
     <div>
@@ -51,6 +52,13 @@
 
 <!-- CONTAINER ORDINI -->
 <div id="ordiniContainer"></div>
+
+<!-- SEZIONE ORDINI ARCHIVIATI -->
+<div id="ordiniArchiviatiSection">
+    <hr style="margin: 3rem 0; border: 1px solid #ddd;">
+    <h2 style="color: #666; text-align: center; margin-bottom: 2rem;">📁 Ordini Archiviati</h2>
+    <div id="ordiniArchiviatiContainer"></div>
+</div>
 
 </body>
 <script src="scripts/admin-ordini.js"></script>
