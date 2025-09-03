@@ -40,38 +40,6 @@ INSERT INTO `admin` VALUES ('admin1@mangablast.it','admin'),('admin2@mangablast.
 UNLOCK TABLES;
 
 --
--- Table structure for table `carte_pagamento`
---
-
-DROP TABLE IF EXISTS `carte_pagamento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `carte_pagamento` (
-  `email` varchar(255) NOT NULL,
-  `intestatario` varchar(60) NOT NULL,
-  `numero` varchar(25) NOT NULL, -- numero completo (valutare cifratura in produzione)
-  `last4` char(4) NOT NULL,
-  `brand` varchar(20) DEFAULT NULL, -- Visa/Mastercard/Amex...
-  `scadenza_mese` tinyint unsigned NOT NULL, -- 1-12
-  `scadenza_anno` smallint unsigned NOT NULL, -- es: 2027
-  PRIMARY KEY (`email`),
-  CONSTRAINT `carte_pagamento_ibfk_1` FOREIGN KEY (`email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `carte_pagamento`
---
-
-LOCK TABLES `carte_pagamento` WRITE;
-/*!40000 ALTER TABLE `carte_pagamento` DISABLE KEYS */;
--- Esempi (facoltativi):
--- INSERT INTO `carte_pagamento` (`email`,`intestatario`,`numero`,`last4`,`brand`,`scadenza_mese`,`scadenza_anno`) VALUES
--- ('romanofiorello@gmail.com','ROMANO FIORELLO','4111111111111234','1234','Visa',7,2027);
-/*!40000 ALTER TABLE `carte_pagamento` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `carrelli`
 --
 
@@ -149,6 +117,35 @@ LOCK TABLES `carrello_contiene_manga` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `carte_pagamento`
+--
+
+DROP TABLE IF EXISTS `carte_pagamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `carte_pagamento` (
+  `email` varchar(255) NOT NULL,
+  `intestatario` varchar(60) NOT NULL,
+  `numero` varchar(25) NOT NULL,
+  `last4` char(4) NOT NULL,
+  `brand` varchar(20) DEFAULT NULL,
+  `scadenza_mese` tinyint unsigned NOT NULL,
+  `scadenza_anno` smallint unsigned NOT NULL,
+  PRIMARY KEY (`email`),
+  CONSTRAINT `carte_pagamento_ibfk_1` FOREIGN KEY (`email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `carte_pagamento`
+--
+
+LOCK TABLES `carte_pagamento` WRITE;
+/*!40000 ALTER TABLE `carte_pagamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `carte_pagamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `funko`
 --
 
@@ -200,6 +197,34 @@ LOCK TABLES `manga` WRITE;
 /*!40000 ALTER TABLE `manga` DISABLE KEYS */;
 INSERT INTO `manga` VALUES (5346568645,4.20,'images/3e3c6717-253b-44e4-9048-3409704db661_One_Piece_vol_1.jpg','One Piece: Volume 1','non il miglior manga'),(53895739085,5.90,'images/3d36d218-e8a1-43fb-894d-2a60bb6d97b1_DB.jpg','Dragon Ball Evergreen: Volume 1','Il miglior manga'),(4923874789534,52.90,'images/7c7596f3-71ae-4a1d-a2b6-80f21ae63462_bre.jpg','Berserk Ominbus','Berserk');
 /*!40000 ALTER TABLE `manga` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ordine_dettagli`
+--
+
+DROP TABLE IF EXISTS `ordine_dettagli`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ordine_dettagli` (
+  `id_ordine` int NOT NULL,
+  `tipo` varchar(20) NOT NULL,
+  `id_prodotto` varchar(50) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `prezzo` decimal(10,2) NOT NULL,
+  `quantita` int NOT NULL,
+  PRIMARY KEY (`id_ordine`,`tipo`,`id_prodotto`),
+  KEY `idx_ordine` (`id_ordine`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ordine_dettagli`
+--
+
+LOCK TABLES `ordine_dettagli` WRITE;
+/*!40000 ALTER TABLE `ordine_dettagli` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ordine_dettagli` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -280,7 +305,7 @@ CREATE TABLE `ordini` (
 
 LOCK TABLES `ordini` WRITE;
 /*!40000 ALTER TABLE `ordini` DISABLE KEYS */;
-INSERT INTO `ordini` VALUES (9,'romanofiorello@gmail.com',72.80,'2025-07-20 17:59:25','Consegnato'),(10,'romanofiorello@gmail.com',5.90,'2025-07-20 22:13:31','In attesa');
+INSERT INTO `ordini` VALUES (9,'romanofiorello@gmail.com',72.80,'2025-07-20 17:59:25','Archiviato'),(10,'romanofiorello@gmail.com',5.90,'2025-07-20 22:13:31','Archiviato');
 /*!40000 ALTER TABLE `ordini` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,35 +361,9 @@ CREATE TABLE `utenti` (
 
 LOCK TABLES `utenti` WRITE;
 /*!40000 ALTER TABLE `utenti` DISABLE KEYS */;
-INSERT INTO `utenti` (`email`,`password`,`via`,`numero_civico`,`cap`) VALUES
-('izzof@gmail.com','Password1@',NULL,NULL,NULL),
-('romanofiorello@gmail.com','Fiorello27/',NULL,NULL,NULL),
-('rotondoluigi0@gmail.com','Password1@',NULL,NULL,NULL);
+INSERT INTO `utenti` VALUES ('izzof@gmail.com','Password1@',NULL,NULL,NULL),('Locazzo@gmail.com','Skibidi1!',NULL,NULL,NULL),('romanofiorello@gmail.com','Fiorello27/',NULL,NULL,NULL),('rotondoluigi0@gmail.com','Password1@',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `utenti` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `ordine_dettagli`
---
-
-DROP TABLE IF EXISTS `ordine_dettagli`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ordine_dettagli` (
-  `id_ordine` INT NOT NULL,
-  `tipo` VARCHAR(20) NOT NULL, -- 'manga' o 'funko'
-  `id_prodotto` VARCHAR(50) NOT NULL,
-  `nome` VARCHAR(255) NOT NULL,
-  `prezzo` DECIMAL(10,2) NOT NULL,
-  `quantita` INT NOT NULL,
-  PRIMARY KEY (`id_ordine`, `tipo`, `id_prodotto`),
-  KEY `idx_ordine` (`id_ordine`)
-);
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping events for database 'progettotsw_db'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -375,4 +374,4 @@ CREATE TABLE `ordine_dettagli` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-20 22:15:41
+-- Dump completed on 2025-09-03 19:00:22
