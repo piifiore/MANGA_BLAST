@@ -44,7 +44,12 @@ public class OrderManagementServlet extends HttpServlet {
         request.setAttribute("ordini", ordini);
         String requestedWith = request.getHeader("X-Requested-With");
         if (requestedWith != null && requestedWith.equals("XMLHttpRequest")) {
-            request.getRequestDispatcher("tabella-ordini.jsp").forward(request, response);
+            // Se è richiesto lo stato "Archiviato", usa la tabella degli ordini archiviati
+            if ("Archiviato".equals(stato)) {
+                request.getRequestDispatcher("tabella-ordini-archiviati.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("tabella-ordini.jsp").forward(request, response);
+            }
         } else {
             request.getRequestDispatcher("admin-ordini.jsp").forward(request, response);
         }

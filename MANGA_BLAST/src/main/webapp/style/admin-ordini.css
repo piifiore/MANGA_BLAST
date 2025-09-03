@@ -122,6 +122,26 @@ li {
     background-color: #8e24aa;
 }
 
+.rimuovi-form {
+    margin-top: 0.5rem;
+}
+
+.rimuovi-btn {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.rimuovi-btn:hover {
+    background-color: #b71c1c;
+}
+
 input[type="submit"] {
     background-color: #4A148C;
     color: white;
@@ -135,6 +155,62 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #6A1B9A;
+}
+
+/* Messaggi di notifica */
+.messaggio-successo, .messaggio-errore {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    font-weight: bold;
+    animation: slideIn 0.3s ease-out;
+}
+
+.messaggio-successo {
+    background-color: #4caf50;
+    color: white;
+}
+
+.messaggio-errore {
+    background-color: #f44336;
+    color: white;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Sezione ordini archiviati */
+#ordiniArchiviatiSection {
+    margin-top: 3rem;
+}
+
+#ordiniArchiviatiSection hr {
+    margin: 3rem 0;
+    border: 1px solid #ddd;
+    border-radius: 1px;
+}
+
+#ordiniArchiviatiSection h2 {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(106, 27, 154, 0.1);
 }
 
 /* Responsive filtri ordini */

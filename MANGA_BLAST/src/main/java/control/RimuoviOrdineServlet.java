@@ -8,8 +8,8 @@ import model.OrdineDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/ArchiviaOrdineServlet")
-public class ArchiviaOrdineServlet extends HttpServlet {
+@WebServlet("/RimuoviOrdineServlet")
+public class RimuoviOrdineServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,13 +29,17 @@ public class ArchiviaOrdineServlet extends HttpServlet {
             try {
                 int idOrdine = Integer.parseInt(idOrdineStr);
                 OrdineDAO dao = new OrdineDAO();
-                dao.updateOrderStatus(idOrdine, "Archiviato");
-                success = true;
-                message = "Ordine archiviato con successo";
+                success = dao.deleteOrder(idOrdine);
+                
+                if (success) {
+                    message = "Ordine rimosso con successo";
+                } else {
+                    message = "Errore durante la rimozione dell'ordine";
+                }
             } catch (NumberFormatException e) {
                 message = "ID ordine non valido";
             } catch (Exception e) {
-                message = "Errore durante l'archiviazione: " + e.getMessage();
+                message = "Errore durante la rimozione: " + e.getMessage();
             }
         } else {
             message = "ID ordine mancante";

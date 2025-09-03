@@ -253,5 +253,60 @@ public class OrdineDAO {
         return prodotti;
     }
 
+    public boolean deleteOrder(int idOrdine) {
+        Connection conn = null;
+        PreparedStatement dettagliStmt = null;
+        PreparedStatement mangaStmt = null;
+        PreparedStatement funkoStmt = null;
+        PreparedStatement ordineStmt = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            conn.setAutoCommit(false);
+            
+            // Prima rimuovo i dettagli dell'ordine
+            String sqlDettagli = "DELETE FROM ordine_dettagli WHERE id_ordine = ?";
+            dettagliStmt = conn.prepareStatement(sqlDettagli);
+            dettagliStmt.setInt(1, idOrdine);
+            dettagliStmt.executeUpdate();
+            
+            // Rimuovo i manga dell'ordine
+            String sqlManga = "DELETE FROM ordine_include_manga WHERE id_ordine = ?";
+            mangaStmt = conn.prepareStatement(sqlManga);
+            mangaStmt.setInt(1, idOrdine);
+            mangaStmt.executeUpdate();
+            
+            // Rimuovo i funko dell'ordine
+            String sqlFunko = "DELETE FROM ordine_include_funko WHERE id_ordine = ?";
+            funkoStmt = conn.prepareStatement(sqlFunko);
+            funkoStmt.setInt(1, idOrdine);
+            funkoStmt.executeUpdate();
+            
+            // Infine rimuovo l'ordine principale
+            String sqlOrdine = "DELETE FROM ordini WHERE id_ordine = ?";
+            ordineStmt = conn.prepareStatement(sqlOrdine);
+            ordineStmt.setInt(1, idOrdine);
+            int rowsAffected = ordineStmt.executeUpdate();
+            
+            conn.commit();
+            
+            return rowsAffected > 0;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            try { 
+                if (conn != null) conn.rollback(); 
+            } catch (SQLException ignore) {}
+            return false;
+        } finally {
+            try {
+                if (dettagliStmt != null) dettagliStmt.close();
+                if (mangaStmt != null) mangaStmt.close();
+                if (funkoStmt != null) funkoStmt.close();
+                if (ordineStmt != null) ordineStmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ignore) {}
+        }
+    }
 
 }
