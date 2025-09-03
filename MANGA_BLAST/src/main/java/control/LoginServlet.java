@@ -32,12 +32,22 @@ public class LoginServlet extends HttpServlet {
         } else if (dao.isUser(email, password)) {
             session.setAttribute("user", email);
 
-            List<ItemCarrello> carrelloAnonimo = (List<ItemCarrello>) session.getAttribute("carrello");
-            if (carrelloAnonimo != null && !carrelloAnonimo.isEmpty()) {
+            // Gestisci migrazione carrello guest -> database
+            List<ItemCarrello> carrelloGuest = (List<ItemCarrello>) session.getAttribute("carrello");
+            if (carrelloGuest != null && !carrelloGuest.isEmpty()) {
                 CarrelloDAO carrelloDAO = new CarrelloDAO();
-                for (ItemCarrello item : carrelloAnonimo) {
+                for (ItemCarrello item : carrelloGuest) {
                     carrelloDAO.aggiungiItem(email, item.getTipo(), item.getIdProdotto(), item.getQuantita());
                 }
+            }
+            
+            // Carica carrello dal database e sostituisci quello in sessione
+            CarrelloDAO carrelloDAO = new CarrelloDAO();
+            List<ItemCarrello> carrelloDB = carrelloDAO.getCarrelloUtente(email);
+            if (carrelloDB != null && !carrelloDB.isEmpty()) {
+                session.setAttribute("carrello", carrelloDB);
+            } else {
+                // Se non c'è carrello nel DB, rimuovi quello guest
                 session.removeAttribute("carrello");
             }
 

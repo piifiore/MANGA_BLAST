@@ -1,19 +1,27 @@
 package control;
 
 import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 
 
-@SuppressWarnings("/Logout")
+@WebServlet("/LogoutUserServlet")
 public class LogoutUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false); // Evita di crearne una nuova
         if (session != null) {
-            session.invalidate(); // Elimina la sessione
+            // Mantieni carrello e preferiti per utenti registrati: rimuovi solo i dati di autenticazione
+            session.removeAttribute("user");
+            session.removeAttribute("admin");
+            // eventuali altri attributi legati all'autenticazione possono essere rimossi qui
         }
+
+        // Opzionale: invalida eventuali cookie di sessione auth se presenti (non rimuove dati in sessione)
+        // response.addCookie(new Cookie("auth", "") {{ setMaxAge(0); setPath("/"); }});
+
         response.sendRedirect("login.jsp"); // Torna alla pagina di login
     }
 }

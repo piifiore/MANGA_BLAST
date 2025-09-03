@@ -23,12 +23,12 @@
     <a href="preferiti.jsp">Preferiti</a>
     <a href="area-profilo.jsp">Profilo</a>
     <a href="ordini-utente.jsp">Ordini</a>
-    <a href="logout.jsp">Logout</a>
+    <a href="LogoutUserServlet">Logout</a>
 
     <% } else if (isAdmin) { %>
     <a href="OrderManagementServlet">Ordini</a>
     <a href="admin-prodotti.jsp">Prodotti</a>
-    <a href="logout.jsp">Logout</a>
+    <a href="LogoutUserServlet">Logout</a>
 
     <% } else { %>
     <a href="index.jsp">Home</a>
