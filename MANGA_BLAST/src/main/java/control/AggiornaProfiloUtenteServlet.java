@@ -15,12 +15,14 @@ public class AggiornaProfiloUtenteServlet extends HttpServlet {
 
         // Parametri inviati dal form
         String nuovaPassword = request.getParameter("password");
-        String nuovoIndirizzo = request.getParameter("indirizzo");
+        String via = request.getParameter("via");
+        String numeroCivico = request.getParameter("numeroCivico");
+        String cap = request.getParameter("cap");
 
         // Esegui aggiornamento solo se email presente
-        if (email != null && nuovoIndirizzo != null) {
+        if (email != null) {
             UserDAO dao = new UserDAO();
-            dao.updateProfilo(email, nuovaPassword, nuovoIndirizzo);
+            dao.updateProfilo(email, nuovaPassword, via, numeroCivico, cap);
         }
 
         // Torna alla pagina profilo

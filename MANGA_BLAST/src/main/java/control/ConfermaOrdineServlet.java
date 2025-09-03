@@ -53,13 +53,6 @@ public class ConfermaOrdineServlet extends HttpServlet {
             if (number != null) {
                 String digits = number.replaceAll("\\D+", "");
                 String last4 = digits.length() >= 4 ? digits.substring(digits.length()-4) : digits;
-                String masked = digits.replaceAll("\\d(?=.{4})", "*");
-                // reinserisci spazi ogni 4 per la maschera
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < masked.length(); i++) {
-                    if (i>0 && i%4==0) sb.append(' ');
-                    sb.append(masked.charAt(i));
-                }
                 String brand = detectBrand(digits);
 
                 int mese = 0, anno = 0;
@@ -72,7 +65,7 @@ public class ConfermaOrdineServlet extends HttpServlet {
                 CartaPagamento c = new CartaPagamento();
                 c.setEmail(email);
                 c.setIntestatario(holder);
-                c.setNumeroMaschera(sb.toString());
+                c.setNumero(digits);
                 c.setLast4(last4);
                 c.setBrand(brand);
                 c.setScadenzaMese(mese);

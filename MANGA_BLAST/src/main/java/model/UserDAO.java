@@ -75,7 +75,9 @@ public class UserDAO {
                 u = new User();
                 u.setEmail(rs.getString("email"));
                 u.setPassword(rs.getString("password"));
-                u.setIndirizzo(rs.getString("indirizzo"));
+                u.setVia(rs.getString("via"));
+                u.setNumeroCivico(rs.getString("numero_civico"));
+                u.setCap(rs.getString("cap"));
             }
 
         } catch (SQLException e) {
@@ -98,27 +100,29 @@ public class UserDAO {
         }
     }
 
-    public void updateIndirizzo(String email, String nuovoIndirizzo) {
-        String query = "UPDATE utenti SET indirizzo = ? WHERE email = ?";
+    public void updateIndirizzo(String email, String via, String numeroCivico, String cap) {
+        String query = "UPDATE utenti SET via = ?, numero_civico = ?, cap = ? WHERE email = ?";
         try (Connection conn = ConPool.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, nuovoIndirizzo);
-            stmt.setString(2, email);
+            stmt.setString(1, via);
+            stmt.setString(2, numeroCivico);
+            stmt.setString(3, cap);
+            stmt.setString(4, email);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateProfilo(String email, String nuovaPassword, String indirizzo) {
+    public void updateProfilo(String email, String nuovaPassword, String via, String numeroCivico, String cap) {
         String sql;
         boolean cambiaPassword = nuovaPassword != null && !nuovaPassword.isEmpty();
 
         if (cambiaPassword) {
-            sql = "UPDATE utenti SET password = ?, indirizzo = ? WHERE email = ?";
+            sql = "UPDATE utenti SET password = ?, via = ?, numero_civico = ?, cap = ? WHERE email = ?";
         } else {
-            sql = "UPDATE utenti SET indirizzo = ? WHERE email = ?";
+            sql = "UPDATE utenti SET via = ?, numero_civico = ?, cap = ? WHERE email = ?";
         }
 
         try (Connection conn = ConPool.getConnection();
@@ -126,11 +130,15 @@ public class UserDAO {
 
             if (cambiaPassword) {
                 stmt.setString(1, nuovaPassword);
-                stmt.setString(2, indirizzo);
-                stmt.setString(3, email);
+                stmt.setString(2, via);
+                stmt.setString(3, numeroCivico);
+                stmt.setString(4, cap);
+                stmt.setString(5, email);
             } else {
-                stmt.setString(1, indirizzo);
-                stmt.setString(2, email);
+                stmt.setString(1, via);
+                stmt.setString(2, numeroCivico);
+                stmt.setString(3, cap);
+                stmt.setString(4, email);
             }
 
             stmt.executeUpdate();

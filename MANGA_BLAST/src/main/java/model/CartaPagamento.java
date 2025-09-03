@@ -4,7 +4,7 @@ public class CartaPagamento {
 
 	private String email;
 	private String intestatario;
-	private String numeroMaschera;
+	private String numero;
 	private String last4;
 	private String brand;
 	private int scadenzaMese;
@@ -26,12 +26,12 @@ public class CartaPagamento {
 		this.intestatario = intestatario;
 	}
 
-	public String getNumeroMaschera() {
-		return numeroMaschera;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setNumeroMaschera(String numeroMaschera) {
-		this.numeroMaschera = numeroMaschera;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	public String getLast4() {

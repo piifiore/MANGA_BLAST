@@ -42,6 +42,23 @@
 
   <h3 class="totale">💰 Totale ordine: <%= totale %>€</h3>
 
+  <%
+    model.CartaPagamento savedCard = new model.CartaPagamentoDAO().getByEmail(emailUser);
+    if (savedCard != null) {
+  %>
+    <div class="saved-card" style="margin-bottom: 16px; background:#241F3C; border:1px solid rgba(255,255,255,0.1); padding:12px; border-radius:8px;">
+      <div><strong>Carta salvata:</strong> <%= savedCard.getBrand() != null ? savedCard.getBrand() : "Carta" %> **** **** **** <%= savedCard.getLast4() %></div>
+      <div>Intestatario: <%= savedCard.getIntestatario() %></div>
+      <div>Scadenza: <%= String.format("%02d/%02d", savedCard.getScadenzaMese(), (savedCard.getScadenzaAnno()%100)) %></div>
+      <button type="button" class="btn" id="autofillBtn" style="margin-top:8px;"
+              data-holder="<%= savedCard.getIntestatario() %>"
+              data-expiry="<%= String.format("%02d/%02d", savedCard.getScadenzaMese(), (savedCard.getScadenzaAnno()%100)) %>"
+              data-number="<%= savedCard.getNumero() %>">⚡ Compila con carta salvata</button>
+    </div>
+  <%
+    }
+  %>
+
   <form action="ConfermaOrdineServlet" method="post" class="payment-form">
     <input type="hidden" name="metodoPagamento" value="carta">
 
@@ -83,6 +100,7 @@
     var number = document.getElementById('cardNumber');
     var expiry = document.getElementById('expiry');
     var cvv = document.getElementById('cvv');
+    var autofill = document.getElementById('autofillBtn');
 
     if (holder) {
       holder.addEventListener('input', function(e){
@@ -124,6 +142,16 @@
     if (cvv) {
       cvv.addEventListener('input', function(e){
         e.target.value = e.target.value.replace(/\D+/g, '').slice(0, 4);
+      });
+    }
+
+    if (autofill) {
+      autofill.addEventListener('click', function(){
+        var ds = autofill.dataset;
+        if (holder && ds.holder) holder.value = ds.holder;
+        if (expiry && ds.expiry) expiry.value = ds.expiry;
+        if (number) number.value = (ds.number || '').replace(/\D+/g, '').replace(/(.{4})/g, '$1 ').trim();
+        if (cvv) { cvv.value=''; cvv.focus(); }
       });
     }
   })();

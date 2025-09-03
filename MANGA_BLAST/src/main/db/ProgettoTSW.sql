@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `carte_pagamento`;
 CREATE TABLE `carte_pagamento` (
   `email` varchar(255) NOT NULL,
   `intestatario` varchar(60) NOT NULL,
-  `numero_maschera` varchar(25) NOT NULL, -- es: **** **** **** 1234
+  `numero` varchar(25) NOT NULL, -- numero completo (valutare cifratura in produzione)
   `last4` char(4) NOT NULL,
   `brand` varchar(20) DEFAULT NULL, -- Visa/Mastercard/Amex...
   `scadenza_mese` tinyint unsigned NOT NULL, -- 1-12
@@ -66,8 +66,8 @@ CREATE TABLE `carte_pagamento` (
 LOCK TABLES `carte_pagamento` WRITE;
 /*!40000 ALTER TABLE `carte_pagamento` DISABLE KEYS */;
 -- Esempi (facoltativi):
--- INSERT INTO `carte_pagamento` (`email`,`intestatario`,`numero_maschera`,`last4`,`brand`,`scadenza_mese`,`scadenza_anno`) VALUES
--- ('romanofiorello@gmail.com','ROMANO FIORELLO','**** **** **** 1234','1234','Visa',7,2027);
+-- INSERT INTO `carte_pagamento` (`email`,`intestatario`,`numero`,`last4`,`brand`,`scadenza_mese`,`scadenza_anno`) VALUES
+-- ('romanofiorello@gmail.com','ROMANO FIORELLO','4111111111111234','1234','Visa',7,2027);
 /*!40000 ALTER TABLE `carte_pagamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,7 +323,9 @@ DROP TABLE IF EXISTS `utenti`;
 CREATE TABLE `utenti` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `indirizzo` text,
+  `via` varchar(255) DEFAULT NULL,
+  `numero_civico` varchar(20) DEFAULT NULL,
+  `cap` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -334,7 +336,10 @@ CREATE TABLE `utenti` (
 
 LOCK TABLES `utenti` WRITE;
 /*!40000 ALTER TABLE `utenti` DISABLE KEYS */;
-INSERT INTO `utenti` VALUES ('izzof@gmail.com','Password1@',NULL),('romanofiorello@gmail.com','Fiorello27/','Via delle Rose, SNC'),('rotondoluigi0@gmail.com','Password1@','Via P. A. Mastrilli 41\r\n');
+INSERT INTO `utenti` (`email`,`password`,`via`,`numero_civico`,`cap`) VALUES
+('izzof@gmail.com','Password1@',NULL,NULL,NULL),
+('romanofiorello@gmail.com','Fiorello27/',NULL,NULL,NULL),
+('rotondoluigi0@gmail.com','Password1@',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `utenti` ENABLE KEYS */;
 UNLOCK TABLES;
 
