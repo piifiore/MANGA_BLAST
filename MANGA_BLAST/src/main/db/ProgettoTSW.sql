@@ -40,6 +40,38 @@ INSERT INTO `admin` VALUES ('admin1@mangablast.it','admin'),('admin2@mangablast.
 UNLOCK TABLES;
 
 --
+-- Table structure for table `carte_pagamento`
+--
+
+DROP TABLE IF EXISTS `carte_pagamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `carte_pagamento` (
+  `email` varchar(255) NOT NULL,
+  `intestatario` varchar(60) NOT NULL,
+  `numero_maschera` varchar(25) NOT NULL, -- es: **** **** **** 1234
+  `last4` char(4) NOT NULL,
+  `brand` varchar(20) DEFAULT NULL, -- Visa/Mastercard/Amex...
+  `scadenza_mese` tinyint unsigned NOT NULL, -- 1-12
+  `scadenza_anno` smallint unsigned NOT NULL, -- es: 2027
+  PRIMARY KEY (`email`),
+  CONSTRAINT `carte_pagamento_ibfk_1` FOREIGN KEY (`email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `carte_pagamento`
+--
+
+LOCK TABLES `carte_pagamento` WRITE;
+/*!40000 ALTER TABLE `carte_pagamento` DISABLE KEYS */;
+-- Esempi (facoltativi):
+-- INSERT INTO `carte_pagamento` (`email`,`intestatario`,`numero_maschera`,`last4`,`brand`,`scadenza_mese`,`scadenza_anno`) VALUES
+-- ('romanofiorello@gmail.com','ROMANO FIORELLO','**** **** **** 1234','1234','Visa',7,2027);
+/*!40000 ALTER TABLE `carte_pagamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `carrelli`
 --
 

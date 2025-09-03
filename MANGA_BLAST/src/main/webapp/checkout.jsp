@@ -65,7 +65,7 @@
 
   <h3 class="totale">💰 Totale ordine: <%= totale %>€</h3>
 
-  <form action="ConfermaOrdineServlet" method="post">
+  <form action="metodo-pagamento.jsp" method="get">
     <button type="submit" class="btn confirm">📬 Conferma Ordine</button>
   </form>
   <% } %>
