@@ -10,6 +10,30 @@ window.addEventListener("DOMContentLoaded", () => {
         special: document.getElementById("special")
     };
 
+    // Funzione per mostrare messaggi di errore nel DOM
+    function showErrorMessage(message, isError = true) {
+        // Rimuovi messaggi precedenti
+        const existingMessage = document.querySelector('.form-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+
+        // Crea nuovo messaggio
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `form-message ${isError ? 'error' : 'success'}`;
+        messageDiv.textContent = message;
+
+        // Inserisci il messaggio prima del form
+        form.parentNode.insertBefore(messageDiv, form);
+
+        // Rimuovi il messaggio dopo 5 secondi
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.remove();
+            }
+        }, 5000);
+    }
+
     const checkPasswordRequirements = () => {
         const password = passwordField.value;
 
@@ -42,7 +66,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         if (!allValid) {
             e.preventDefault();
-            alert("La password non soddisfa tutti i requisiti.");
+            showErrorMessage("La password non soddisfa tutti i requisiti.");
         }
     });
 });

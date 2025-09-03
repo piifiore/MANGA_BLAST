@@ -11,6 +11,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>💳 Metodo di pagamento</title>
   <link rel="stylesheet" href="style/checkout.css?v=<%= System.currentTimeMillis() %>">
+  <link rel="stylesheet" href="style/form-messages.css?v=<%= System.currentTimeMillis() %>">
+  <script src="scripts/payment-validation.js"></script>
 </head>
 <body>
 
@@ -94,68 +96,6 @@
   <%
     }
   %>
-<script>
-  (function(){
-    var holder = document.getElementById('cardHolder');
-    var number = document.getElementById('cardNumber');
-    var expiry = document.getElementById('expiry');
-    var cvv = document.getElementById('cvv');
-    var autofill = document.getElementById('autofillBtn');
-
-    if (holder) {
-      holder.addEventListener('input', function(e){
-        var v = e.target.value;
-        v = v.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ' ]+/g, '');
-        v = v.replace(/\s{2,}/g, ' ');
-        e.target.value = v;
-      });
-    }
-
-    if (number) {
-      number.addEventListener('input', function(e){
-        var v = e.target.value.replace(/\D+/g, '').slice(0, 19);
-        var parts = [];
-        for (var i = 0; i < v.length; i += 4) parts.push(v.substring(i, i+4));
-        e.target.value = parts.join(' ');
-      });
-    }
-
-    if (expiry) {
-      expiry.addEventListener('input', function(e){
-        var v = e.target.value.replace(/\D+/g, '').slice(0, 4);
-        if (v.length >= 1) {
-          var mm = v.substring(0, Math.min(2, v.length));
-          if (mm.length === 1 && mm > '1') { mm = '0' + mm; }
-          if (mm.length === 2) {
-            var n = parseInt(mm, 10);
-            if (n === 0) mm = '01';
-            if (n > 12) mm = '12';
-          }
-          var yy = v.substring(2);
-          e.target.value = yy ? (mm + '/' + yy) : mm;
-        } else {
-          e.target.value = v;
-        }
-      });
-    }
-
-    if (cvv) {
-      cvv.addEventListener('input', function(e){
-        e.target.value = e.target.value.replace(/\D+/g, '').slice(0, 4);
-      });
-    }
-
-    if (autofill) {
-      autofill.addEventListener('click', function(){
-        var ds = autofill.dataset;
-        if (holder && ds.holder) holder.value = ds.holder;
-        if (expiry && ds.expiry) expiry.value = ds.expiry;
-        if (number) number.value = (ds.number || '').replace(/\D+/g, '').replace(/(.{4})/g, '$1 ').trim();
-        if (cvv) { cvv.value=''; cvv.focus(); }
-      });
-    }
-  })();
-</script>
 
 </div>
 

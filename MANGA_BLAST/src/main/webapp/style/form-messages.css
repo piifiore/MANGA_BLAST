@@ -1,0 +1,90 @@
+/* Stili per i messaggi dei form */
+.form-message {
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-message.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 2px solid #ef5350;
+    border-left: 6px solid #d32f2f;
+}
+
+.form-message.success {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+    border: 2px solid #66bb6a;
+    border-left: 6px solid #388e3c;
+}
+
+.form-message::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: currentColor;
+    opacity: 0.3;
+}
+
+.form-message.error::before {
+    background-color: #d32f2f;
+}
+
+.form-message.success::before {
+    background-color: #388e3c;
+}
+
+/* Animazione di entrata */
+.form-message {
+    animation: slideInDown 0.3s ease-out;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .form-message {
+        margin: 12px 8px;
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}
+
+/* Hover effects */
+.form-message:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Icone per i messaggi */
+.form-message.error::after {
+    content: '⚠️';
+    margin-left: 8px;
+    font-size: 16px;
+}
+
+.form-message.success::after {
+    content: '✅';
+    margin-left: 8px;
+    font-size: 16px;
+}

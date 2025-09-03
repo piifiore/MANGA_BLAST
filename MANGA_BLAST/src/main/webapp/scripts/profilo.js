@@ -7,14 +7,35 @@ document.addEventListener("DOMContentLoaded", () => {
     let isDisabled = false;
     // Rimosso toggle carta: la sezione è sempre visibile
 
+    // Funzione per mostrare messaggi di errore nel DOM
+    function showErrorMessage(message, isError = true) {
+        // Rimuovi messaggi precedenti
+        const existingMessage = document.querySelector('.form-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
 
+        // Crea nuovo messaggio
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `form-message ${isError ? 'error' : 'success'}`;
+        messageDiv.textContent = message;
 
+        // Inserisci il messaggio prima del form
+        form.parentNode.insertBefore(messageDiv, form);
+
+        // Rimuovi il messaggio dopo 5 secondi
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.remove();
+            }
+        }, 5000);
+    }
 
     form.addEventListener("submit", (e) => {
         const password = passwordInput.value.trim();
         if (password && password.length < 6) {
             e.preventDefault();
-            alert("La nuova password deve contenere almeno 6 caratteri.");
+            showErrorMessage("La nuova password deve contenere almeno 6 caratteri.");
         }
 
         // Validazioni base indirizzo
@@ -22,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const cap = capInput.value.trim();
             if (!/^\d{5}$/.test(cap)) {
                 e.preventDefault();
-                alert("Inserisci un CAP valido a 5 cifre.");
+                showErrorMessage("Inserisci un CAP valido a 5 cifre.");
                 return;
             }
         }
