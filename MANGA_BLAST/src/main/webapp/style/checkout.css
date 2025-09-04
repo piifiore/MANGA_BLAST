@@ -1,38 +1,90 @@
+/* Importazione font Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Reset e variabili CSS */
+:root {
+    --primary-bg: #0f0f23;
+    --secondary-bg: #1a1a2e;
+    --card-bg: #16213e;
+    --accent-purple: #9c27b0;
+    --accent-pink: #e91e63;
+    --accent-blue: #2196f3;
+    --accent-orange: #ff9800;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --shadow-light: rgba(156, 39, 176, 0.2);
+    --shadow-medium: rgba(156, 39, 176, 0.4);
+    --shadow-heavy: rgba(156, 39, 176, 0.6);
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
+    padding: 0;
+    background: var(--primary-bg);
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(156, 39, 176, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(33, 150, 243, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(233, 30, 99, 0.05) 0%, transparent 50%);
     font-family: 'Poppins', sans-serif;
-    background-color: #1E1B2E;
-    color: #f5f5f5;
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
 .checkout-wrapper {
     max-width: 800px;
     margin: 4rem auto;
     padding: 2rem;
-    background-color: #2E294E;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(239, 83, 80, 0.3);
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px var(--shadow-light);
+    border: 1px solid rgba(156, 39, 176, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    animation: slideInUp 0.8s ease-out;
+}
+
+.checkout-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-accent);
 }
 
 h1 {
     text-align: center;
-    color: #EF5350;
+    color: var(--accent-pink);
     margin-bottom: 2rem;
+    font-weight: 600;
+    font-size: 2.2rem;
 }
 
 .empty-msg {
     text-align: center;
     font-size: 1.2rem;
-    color: #FFC107;
+    color: var(--accent-orange);
 }
 
 .riepilogo-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 1.5rem;
-    background-color: #1E1B2E;
-    border-radius: 6px;
+    background: var(--secondary-bg);
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 8px 20px var(--shadow-light);
 }
 
 .riepilogo-table th,
@@ -43,40 +95,61 @@ h1 {
 }
 
 .riepilogo-table th {
-    background-color: #9C27B0;
-    color: #fff;
+    background: var(--gradient-primary);
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 .riepilogo-table td {
-    background-color: #2E294E;
+    background: var(--card-bg);
 }
 
 .totale {
     text-align: right;
     font-size: 1.2rem;
     margin-bottom: 2rem;
-    color: #4CAF50;
+    color: var(--accent-orange);
+    font-weight: 600;
 }
 
 .btn {
     display: inline-block;
-    padding: 0.8rem 1.5rem;
-    background-color: #EF5350;
-    color: white;
+    padding: 1rem 2rem;
+    background: var(--gradient-secondary);
+    color: var(--text-primary);
     border: none;
-    border-radius: 8px;
-    font-weight: bold;
+    border-radius: 12px;
+    font-weight: 600;
     cursor: pointer;
     text-decoration: none;
-    transition: transform 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn:hover {
-    transform: scale(1.05);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
 }
 
 .btn.secondary {
-    background-color: #444;
+    background: var(--gradient-primary);
 }
 
 .link-area {
@@ -147,11 +220,57 @@ h1 {
     }
 }
 
+/* 🌊 Animazioni di entrata */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 🎨 Scrollbar personalizzata */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--secondary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gradient-secondary);
+}
+
+/* 🔧 Selezione testo personalizzata */
+::selection {
+    background: var(--accent-purple);
+    color: var(--text-primary);
+}
+
+::-moz-selection {
+    background: var(--accent-purple);
+    color: var(--text-primary);
+}
+
 /* 📱 Responsive */
 @media screen and (max-width: 480px) {
     .checkout-wrapper {
         margin: 2rem 1rem;
         padding: 1.5rem;
+        border-radius: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
     }
 
     .riepilogo-table th, .riepilogo-table td {
@@ -162,5 +281,10 @@ h1 {
     .totale {
         font-size: 1rem;
         text-align: center;
+    }
+    
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
     }
 }

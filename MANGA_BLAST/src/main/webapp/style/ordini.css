@@ -1,45 +1,103 @@
+/* Importazione font Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Reset e variabili CSS */
+:root {
+    --primary-bg: #0f0f23;
+    --secondary-bg: #1a1a2e;
+    --card-bg: #16213e;
+    --accent-purple: #9c27b0;
+    --accent-pink: #e91e63;
+    --accent-blue: #2196f3;
+    --accent-orange: #ff9800;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --shadow-light: rgba(156, 39, 176, 0.2);
+    --shadow-medium: rgba(156, 39, 176, 0.4);
+    --shadow-heavy: rgba(156, 39, 176, 0.6);
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
+    padding: 0;
+    background: var(--primary-bg);
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(156, 39, 176, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(33, 150, 243, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(233, 30, 99, 0.05) 0%, transparent 50%);
     font-family: 'Poppins', sans-serif;
-    background-color: #1E1B2E;
-    color: #f5f5f5;
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
 h1 {
     text-align: center;
     margin-top: 3rem;
     margin-bottom: 2rem;
-    color: #EF5350;
-    font-size: 2.2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 p {
     text-align: center;
     font-size: 1.1rem;
+    color: var(--text-secondary);
 }
 
 .ordine-box {
     max-width: 700px;
     margin: 2rem auto;
     padding: 1.5rem;
-    background-color: #2E294E;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(156, 39, 176, 0.3);
-    transition: transform 0.3s;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px var(--shadow-light);
+    border: 1px solid rgba(156, 39, 176, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    animation: slideInUp 0.8s ease-out;
+}
+
+.ordine-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-accent);
 }
 
 .ordine-box:hover {
-    transform: translateY(-4px);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px var(--shadow-medium);
+    border-color: rgba(156, 39, 176, 0.3);
 }
 
 .ordine-box h3 {
     margin-bottom: 1rem;
-    color: #9C27B0;
+    color: var(--accent-purple);
     font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .ordine-box strong {
-    color: #4CAF50;
+    color: var(--accent-orange);
 }
 
 .ordine-box ul {
@@ -61,7 +119,7 @@ p {
 p.empty-msg {
     font-size: 1.2rem;
     margin-top: 3rem;
-    color: #FFC107;
+    color: var(--accent-orange);
 }
 
 /* 📱 Small screens (max 480px) */
@@ -133,4 +191,45 @@ p.empty-msg {
     p.empty-msg {
         font-size: 1.3rem;
     }
+}
+
+/* 🌊 Animazioni di entrata */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 🎨 Scrollbar personalizzata */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--secondary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gradient-secondary);
+}
+
+/* 🔧 Selezione testo personalizzata */
+::selection {
+    background: var(--accent-purple);
+    color: var(--text-primary);
+}
+
+::-moz-selection {
+    background: var(--accent-purple);
+    color: var(--text-primary);
 }

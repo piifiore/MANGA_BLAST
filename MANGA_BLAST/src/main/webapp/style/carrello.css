@@ -1,8 +1,42 @@
+/* Importazione font Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Reset e variabili CSS */
+:root {
+    --primary-bg: #0f0f23;
+    --secondary-bg: #1a1a2e;
+    --card-bg: #16213e;
+    --accent-purple: #9c27b0;
+    --accent-pink: #e91e63;
+    --accent-blue: #2196f3;
+    --accent-orange: #ff9800;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --shadow-light: rgba(156, 39, 176, 0.2);
+    --shadow-medium: rgba(156, 39, 176, 0.4);
+    --shadow-heavy: rgba(156, 39, 176, 0.6);
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
+    padding: 0;
+    background: var(--primary-bg);
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(156, 39, 176, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(33, 150, 243, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(233, 30, 99, 0.05) 0%, transparent 50%);
     font-family: 'Poppins', sans-serif;
-    background-color: #1E1B2E;
-    color: #f5f5f5;
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
 
@@ -13,37 +47,63 @@ body {
     max-width: 1200px;
     margin: 3rem auto;
     padding: 2rem;
+    animation: fadeIn 0.8s ease-out;
 }
 
 /* 🧑 Titolo */
 .cart-title {
     text-align: center;
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: #EF5350;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* 😢 Messaggio vuoto */
 .empty-cart {
     text-align: center;
     font-size: 1.3rem;
-    color: #888;
+    color: var(--text-secondary);
 }
 
 /* 🏠 Bottone "torna alla home" */
 .back-home-btn {
     display: inline-block;
-    padding: 0.6rem 1.2rem;
-    background-color: #9C27B0;
-    color: white;
+    padding: 0.8rem 1.5rem;
+    background: var(--gradient-secondary);
+    color: var(--text-primary);
     text-decoration: none;
-    font-weight: bold;
-    border-radius: 6px;
+    font-weight: 600;
+    border-radius: 12px;
     margin-top: 1rem;
-    transition: transform 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+    position: relative;
+    overflow: hidden;
 }
+
+.back-home-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.back-home-btn:hover::before {
+    left: 100%;
+}
+
 .back-home-btn:hover {
-    transform: scale(1.05);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
 }
 
 /* 🧱 Tabella */
@@ -53,47 +113,53 @@ body {
 .cart-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #2E294E;
-    border-radius: 12px;
+    background: var(--card-bg);
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(156, 39, 176, 0.3);
+    box-shadow: 0 15px 35px var(--shadow-light);
+    border: 1px solid rgba(156, 39, 176, 0.2);
+    backdrop-filter: blur(10px);
 }
 .cart-table thead {
-    background-color: #12101C;
+    background: var(--gradient-primary);
 }
 .cart-table th,
 .cart-table td {
     padding: 1rem;
     text-align: center;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .cart-table th {
-    color: #EF5350;
-    font-weight: bold;
+    color: var(--text-primary);
+    font-weight: 600;
 }
 .cart-table td a {
     text-decoration: none;
-    color:  #F78BDE;
+    color: var(--accent-pink);
+    transition: all 0.3s ease;
 }
 .cart-table td a:hover {
-    text-decoration: underline;
+    color: var(--accent-purple);
+    text-shadow: 0 0 8px rgba(156, 39, 176, 0.5);
 }
 
 /* ➕➖ Pulsanti quantità */
 .quantita-controls button {
-    padding: 6px 12px;
+    padding: 8px 16px;
     margin: 0 6px;
-    background-color: #9C27B0;
-    color: white;
+    background: var(--gradient-secondary);
+    color: var(--text-primary);
     border: none;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: 8px;
+    font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(233, 30, 99, 0.3);
 }
 .quantita-controls button:hover {
-    background-color: #ba68c8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.4);
 }
 
 /* 💸 Totale */
@@ -103,55 +169,92 @@ body {
     font-size: 1.4rem;
 }
 .cart-total span {
-    color: #EF5350;
-    font-weight: bold;
+    color: var(--accent-orange);
+    font-weight: 600;
 }
 
 /* ✅ Bottone checkout */
 .checkout-btn {
     margin-top: 1.5rem;
-    padding: 0.8rem 1.5rem;
-    background-color: #EF5350;
-    color: white;
-    font-weight: bold;
+    padding: 1rem 2rem;
+    background: var(--gradient-secondary);
+    color: var(--text-primary);
+    font-weight: 600;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(239, 83, 80, 0.3);
-    transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
+
+.checkout-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.checkout-btn:hover::before {
+    left: 100%;
+}
+
 .checkout-btn:hover {
-    transform: scale(1.05);
-    background-color: #f44336;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
 }
 
 /* ✨ Glow temporaneo riga */
 .row-highlight {
-    background-color: rgba(239, 83, 80, 0.2);
-    box-shadow: inset 0 0 12px rgba(239, 83, 80, 0.4);
+    background-color: rgba(233, 30, 99, 0.2);
+    box-shadow: inset 0 0 12px rgba(233, 30, 99, 0.4);
     transition: background-color 0.3s;
 }
 
 /* 🔔 Banner feedback */
 .floating-banner {
     position: fixed;
-    top: 15px;
-    right: 15px;
-    background-color: #F44336;
-    color: white;
-    padding: 12px 24px;
-    font-weight: bold;
-    border-radius: 8px;
+    top: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gradient-secondary);
+    color: var(--text-primary);
+    padding: 1.2rem 2.5rem;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
     z-index: 9999;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    animation: fadeInOut 2.5s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: bannerSlideIn 0.5s ease-out;
 }
-@keyframes fadeInOut {
-    0% { opacity: 0; transform: translateY(-10px); }
-    20% { opacity: 1; transform: translateY(0); }
-    80% { opacity: 1; }
-    100% { opacity: 0; transform: translateY(-10px); }
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes bannerSlideIn {
+    0% { 
+        opacity: 0; 
+        transform: translateX(-50%) translateY(-30px);
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
 /* 📱 Tablet e smartphone medio-piccoli */
@@ -229,8 +332,42 @@ body {
     }
 
     .floating-banner {
-        padding: 10px 16px;
-        font-size: 0.9rem;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        top: 1rem;
+        left: 1rem;
+        right: 1rem;
+        transform: none;
+        width: auto;
     }
+}
+
+/* 🎨 Scrollbar personalizzata */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--secondary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gradient-secondary);
+}
+
+/* 🔧 Selezione testo personalizzata */
+::selection {
+    background: var(--accent-purple);
+    color: var(--text-primary);
+}
+
+::-moz-selection {
+    background: var(--accent-purple);
+    color: var(--text-primary);
 }
 
