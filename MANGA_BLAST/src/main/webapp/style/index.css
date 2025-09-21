@@ -102,15 +102,27 @@ a:hover {
     animation: slideInUp 0.8s ease-out 0.2s both;
 }
 
-.search-box form {
-    display: flex;
-    flex-wrap: wrap;
+.search-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
-    justify-content: center;
-    align-items: center;
+    align-items: end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: var(--accent-purple);
+    font-size: 0.9rem;
 }
 
 .search-box input[type="text"],
+.search-box input[type="number"],
 .search-box select {
     padding: 1rem 1.5rem;
     font-size: 1rem;
@@ -124,6 +136,7 @@ a:hover {
 }
 
 .search-box input[type="text"]:focus,
+.search-box input[type="number"]:focus,
 .search-box select:focus {
     outline: none;
     border-color: var(--accent-purple);
@@ -131,7 +144,8 @@ a:hover {
     transform: translateY(-2px);
 }
 
-.search-box input[type="text"]::placeholder {
+.search-box input[type="text"]::placeholder,
+.search-box input[type="number"]::placeholder {
     color: var(--text-secondary);
 }
 
@@ -422,14 +436,14 @@ h2 {
         border-radius: 15px;
     }
     
-    .search-box form {
-        flex-direction: column;
+    .search-filters {
+        grid-template-columns: 1fr;
         gap: 1rem;
     }
     
     .search-box input[type="text"],
-    .search-box select,
-    .search-box input[type="submit"] {
+    .search-box input[type="number"],
+    .search-box select {
         font-size: 1rem;
         width: 100%;
         min-width: auto;
@@ -470,8 +484,8 @@ h2 {
     }
 
     .search-box input[type="text"],
-    .search-box select,
-    .search-box input[type="submit"] {
+    .search-box input[type="number"],
+    .search-box select {
         font-size: 0.95rem;
         width: 100%;
         padding: 0.8rem 1rem;
