@@ -1,0 +1,170 @@
+/* 🔄 Loading States e Spinner */
+
+/* Spinner principale */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(156, 39, 176, 0.3);
+    border-radius: 50%;
+    border-top-color: #9c27b0;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Spinner grande per caricamenti principali */
+.spinner-large {
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+}
+
+/* Overlay di caricamento */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 15, 35, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+.loading-overlay .spinner {
+    width: 60px;
+    height: 60px;
+    border-width: 6px;
+}
+
+/* Loading per bottoni */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Loading per card prodotti */
+.product-card.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.product-card.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(156, 39, 176, 0.3);
+    border-top-color: #9c27b0;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Skeleton loading per prodotti */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-text {
+    height: 1rem;
+    margin: 0.5rem 0;
+}
+
+.skeleton-title {
+    height: 1.5rem;
+    width: 70%;
+    margin-bottom: 1rem;
+}
+
+.skeleton-image {
+    height: 200px;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Loading per ricerca */
+.search-loading {
+    position: relative;
+}
+
+.search-loading::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(156, 39, 176, 0.3);
+    border-top-color: #9c27b0;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Pulse effect per elementi in caricamento */
+.pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+}
+
+/* Fade in animation */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Shimmer effect */
+.shimmer {
+    background: linear-gradient(90deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.2) 20%, 
+        rgba(255,255,255,0.5) 60%, 
+        rgba(255,255,255,0) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}

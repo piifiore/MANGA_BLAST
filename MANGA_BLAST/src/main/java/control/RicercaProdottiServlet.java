@@ -23,6 +23,7 @@ public class RicercaProdottiServlet extends HttpServlet {
         String tipo = request.getParameter("tipo");
         String prezzoMinStr = request.getParameter("prezzoMin");
         String prezzoMaxStr = request.getParameter("prezzoMax");
+        String sortBy = request.getParameter("sortBy");
 
         BigDecimal prezzoMin = null;
         BigDecimal prezzoMax = null;
@@ -113,6 +114,11 @@ public class RicercaProdottiServlet extends HttpServlet {
                 }
             }
 
+            // Applica ordinamento se specificato
+            if (sortBy != null && !sortBy.equals("default")) {
+                sortProducts(listaManga, listaFunko, sortBy);
+            }
+
             request.setAttribute("listaManga", listaManga);
             request.setAttribute("listaFunko", listaFunko);
             request.setAttribute("emailUser", request.getSession().getAttribute("user"));
@@ -126,6 +132,27 @@ public class RicercaProdottiServlet extends HttpServlet {
         } catch (Exception e) {
             response.setContentType("text/plain");
             e.printStackTrace(response.getWriter());
+        }
+    }
+    
+    private void sortProducts(List<Manga> mangaList, List<Funko> funkoList, String sortBy) {
+        switch (sortBy) {
+            case "prezzo-asc":
+                mangaList.sort(Comparator.comparing(Manga::getPrezzo, Comparator.nullsLast(Comparator.naturalOrder())));
+                funkoList.sort(Comparator.comparing(Funko::getPrezzo, Comparator.nullsLast(Comparator.naturalOrder())));
+                break;
+            case "prezzo-desc":
+                mangaList.sort(Comparator.comparing(Manga::getPrezzo, Comparator.nullsLast(Comparator.reverseOrder())));
+                funkoList.sort(Comparator.comparing(Funko::getPrezzo, Comparator.nullsLast(Comparator.reverseOrder())));
+                break;
+            case "nome-asc":
+                mangaList.sort(Comparator.comparing(Manga::getNome, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)));
+                funkoList.sort(Comparator.comparing(Funko::getNome, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)));
+                break;
+            case "nome-desc":
+                mangaList.sort(Comparator.comparing(Manga::getNome, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER.reversed())));
+                funkoList.sort(Comparator.comparing(Funko::getNome, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER.reversed())));
+                break;
         }
     }
 }

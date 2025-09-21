@@ -88,13 +88,13 @@ a:hover {
 }
 
 .welcome-message strong {
-    color: var(--text-primary);
+    color: #EF5350;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* 🔍 Box di ricerca */
+/* Box di ricerca */
 .search-box {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 3rem auto;
     padding: 2rem;
     background: var(--secondary-bg);
@@ -107,11 +107,11 @@ a:hover {
 
 .search-filters {
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
-    gap: 1.2rem;
+    grid-template-columns: 1fr 1fr 2fr 1fr;
+    gap: 1.5rem;
     align-items: end;
     justify-content: center;
-    max-width: 800px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -128,9 +128,6 @@ a:hover {
 }
 
 /* Stili per il range di prezzo */
-.price-range-group {
-    /* Rimuovo grid-column: span 2 per evitare spazio vuoto */
-}
 
 .price-inputs {
     display: flex;
@@ -456,29 +453,33 @@ h2 {
     }
     
     .search-box {
-        max-width: 1200px;
+        max-width: 1400px;
     }
     
     .search-filters {
-        grid-template-columns: 1fr 1fr 2fr;
-        gap: 1.8rem;
-        max-width: 900px;
+        grid-template-columns: 1fr 1fr 2fr 1fr;
+        gap: 2rem;
+        max-width: 1200px;
     }
 }
 
 @media screen and (min-width: 901px) and (max-width: 1200px) {
     .search-filters {
-        grid-template-columns: 1fr 1fr 2fr;
-        gap: 1.2rem;
-        max-width: 800px;
+        grid-template-columns: 1fr 1fr 2fr 1fr;
+        gap: 1.5rem;
+        max-width: 1100px;
     }
 }
 
 @media screen and (min-width: 769px) and (max-width: 900px) {
     .search-filters {
-        grid-template-columns: 1fr 1fr 2fr;
-        gap: 1rem;
-        max-width: 700px;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+        max-width: 900px;
+    }
+    
+    .price-range-group {
+        grid-column: span 2;
     }
 }
 
@@ -505,9 +506,6 @@ h2 {
         gap: 1rem;
     }
     
-    .price-range-group {
-        /* Rimuovo grid-column per evitare spazio vuoto */
-    }
     
     .search-box input[type="text"],
     .search-box input[type="number"],

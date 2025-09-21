@@ -14,13 +14,19 @@
 
 
 <header class="main-header">
-  <div class="logo" onclick="location.href='index.jsp'">🎌 MangaBlast</div>
+  <div class="logo" onclick="location.href='index.jsp'">MangaBlast</div>
 
   <nav class="navbar">
     <% if (isUser) { %>
     <a href="index.jsp">Home</a>
-    <a href="carrello.jsp">Carrello</a>
-    <a href="preferiti.jsp">Preferiti</a>
+    <a href="carrello.jsp" class="nav-item-with-badge">
+      Carrello
+      <span class="badge" id="cart-badge">0</span>
+    </a>
+    <a href="preferiti.jsp" class="nav-item-with-badge">
+      Preferiti
+      <span class="badge" id="favorites-badge">0</span>
+    </a>
     <a href="area-profilo.jsp">Profilo</a>
     <a href="ordini-utente.jsp">Ordini</a>
     <a href="LogoutUserServlet">Logout</a>
@@ -32,12 +38,15 @@
 
     <% } else { %>
     <a href="index.jsp">Home</a>
-    <a href="carrello.jsp">Carrello</a>
+    <a href="carrello.jsp" class="nav-item-with-badge">
+      Carrello
+      <span class="badge" id="cart-badge">0</span>
+    </a>
     <a href="login.jsp">Login</a>
     <a href="signup.jsp">Sign Up</a>
     <% } %>
   </nav>
 
-  <!-- 🍔 Hamburger per mobile -->
+  <!-- Hamburger per mobile -->
   <div class="hamburger" onclick="toggleMenu()">☰</div>
 </header>
