@@ -73,14 +73,14 @@
 <% } %>
 
 <div class="search-box">
-  <form method="get" action="index.jsp">
+  <form method="get" action="index.jsp" id="filterForm">
     <input type="text" name="query" placeholder="Cerca per nome o codice..." value="<%= query != null ? query : "" %>" />
-    <select name="tipo">
+    <select name="tipo" onchange="document.getElementById('filterForm').submit()">
       <option value="">Tutti</option>
       <option value="manga" <%= "manga".equals(tipo) ? "selected" : "" %>>Manga</option>
       <option value="funko" <%= "funko".equals(tipo) ? "selected" : "" %>>Funko</option>
     </select>
-    <select name="prezzo">
+    <select name="prezzo" onchange="document.getElementById('filterForm').submit()">
       <option value="">Prezzo</option>
       <option value="low" <%= "low".equals(prezzo) ? "selected" : "" %>>Fino a 10€</option>
       <option value="medium" <%= "medium".equals(prezzo) ? "selected" : "" %>>10€ - 25€</option>

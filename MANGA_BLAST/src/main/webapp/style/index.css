@@ -142,6 +142,13 @@ a:hover {
     background-repeat: no-repeat;
     background-size: 1.5em 1.5em;
     padding-right: 2.5rem;
+    /* Rimuove la freccia di default del browser */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Supporto per Internet Explorer */
+    text-indent: 0.01px;
+    text-overflow: '';
 }
 
 .search-box input[type="submit"] {

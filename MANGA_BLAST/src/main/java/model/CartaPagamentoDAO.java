@@ -41,7 +41,10 @@ public class CartaPagamentoDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            // Log dell'errore e ritorna null invece di lanciare eccezione
+            System.err.println("Errore nel recupero carta pagamento per email: " + email);
+            e.printStackTrace();
+            return null;
         }
         return null;
     }
