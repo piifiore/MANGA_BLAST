@@ -55,7 +55,10 @@ a:hover {
 /* 📱 Contenuto principale */
 .homepage-content {
     padding: 2rem;
+    padding-right: 3rem; /* Spazio extra per evitare sovrapposizioni */
     min-height: 100vh;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* 🎉 Messaggio di benvenuto */
@@ -91,7 +94,7 @@ a:hover {
 
 /* 🔍 Box di ricerca */
 .search-box {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 3rem auto;
     padding: 2rem;
     background: var(--secondary-bg);
@@ -104,9 +107,12 @@ a:hover {
 
 .search-filters {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 1.2rem;
     align-items: end;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .filter-group {
@@ -123,18 +129,20 @@ a:hover {
 
 /* Stili per il range di prezzo */
 .price-range-group {
-    grid-column: span 2;
+    /* Rimuovo grid-column: span 2 per evitare spazio vuoto */
 }
 
 .price-inputs {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-wrap: nowrap;
 }
 
 .price-inputs input[type="number"] {
     flex: 1;
-    min-width: 80px;
+    min-width: 70px;
+    max-width: 100px;
     text-align: center;
 }
 
@@ -442,7 +450,39 @@ h2 {
 }
 
 /* 📱 Responsive Design Migliorato */
-@media screen and (min-width: 481px) and (max-width: 900px) {
+@media screen and (min-width: 1400px) {
+    .homepage-content {
+        padding-right: 4rem;
+    }
+    
+    .search-box {
+        max-width: 1200px;
+    }
+    
+    .search-filters {
+        grid-template-columns: 1fr 1fr 2fr;
+        gap: 1.8rem;
+        max-width: 900px;
+    }
+}
+
+@media screen and (min-width: 901px) and (max-width: 1200px) {
+    .search-filters {
+        grid-template-columns: 1fr 1fr 2fr;
+        gap: 1.2rem;
+        max-width: 800px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 900px) {
+    .search-filters {
+        grid-template-columns: 1fr 1fr 2fr;
+        gap: 1rem;
+        max-width: 700px;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
     .homepage-content {
         padding: 1.5rem;
     }
@@ -466,7 +506,7 @@ h2 {
     }
     
     .price-range-group {
-        grid-column: span 1;
+        /* Rimuovo grid-column per evitare spazio vuoto */
     }
     
     .search-box input[type="text"],
@@ -496,6 +536,7 @@ h2 {
 @media screen and (max-width: 480px) {
     .homepage-content {
         padding: 1rem;
+        padding-right: 1.5rem; /* Spazio extra per evitare sovrapposizioni */
     }
 
     .welcome-message {
@@ -509,6 +550,30 @@ h2 {
         padding: 1.5rem 1rem;
         margin: 1.5rem 1rem;
         border-radius: 15px;
+        overflow-x: hidden; /* Previene overflow orizzontale */
+    }
+    
+    .search-filters {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .filter-group {
+        width: 100%;
+        min-width: 0; /* Permette al flex item di ridursi */
+    }
+    
+    .price-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+    
+    .price-separator {
+        display: none; /* Nasconde il separatore su mobile */
     }
 
     .search-box input[type="text"],
@@ -516,6 +581,9 @@ h2 {
     .search-box select {
         font-size: 0.95rem;
         width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
         padding: 0.8rem 1rem;
     }
 
@@ -552,6 +620,36 @@ h2 {
         right: 1rem;
         transform: none;
         width: auto;
+    }
+}
+
+/* 📱 Media query per schermi molto piccoli */
+@media screen and (max-width: 320px) {
+    .homepage-content {
+        padding: 0.5rem;
+        padding-right: 1rem;
+    }
+    
+    .search-box {
+        padding: 1rem 0.8rem;
+        margin: 1rem 0.5rem;
+    }
+    
+    .search-filters {
+        gap: 0.6rem;
+    }
+    
+    .search-box input[type="text"],
+    .search-box input[type="number"],
+    .search-box select {
+        font-size: 0.9rem;
+        padding: 0.7rem 0.8rem;
+    }
+    
+    .welcome-message {
+        font-size: 0.9rem;
+        padding: 1rem 0.8rem;
+        margin: 0.8rem;
     }
 }
 
