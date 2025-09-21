@@ -101,4 +101,48 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById(id).addEventListener('change', validateFunkoForm);
         });
     }
+
+    // AJAX per filtri Manga
+    const mangaSearchForm = document.querySelector('form input[name="tipo"][value="manga"]').closest('form');
+    if (mangaSearchForm) {
+        mangaSearchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const params = new URLSearchParams();
+            for (let [key, value] of formData.entries()) {
+                params.append(key, value);
+            }
+            fetch('CercaProdottiServlet?' + params.toString(), {
+                method: 'GET',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(res => res.text())
+            .then(html => {
+                const grid = document.getElementById('ajax-manga-grid');
+                if (grid) grid.innerHTML = html;
+            });
+        });
+    }
+
+    // AJAX per filtri Funko
+    const funkoSearchForm = document.querySelector('form input[name="tipo"][value="funko"]').closest('form');
+    if (funkoSearchForm) {
+        funkoSearchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const params = new URLSearchParams();
+            for (let [key, value] of formData.entries()) {
+                params.append(key, value);
+            }
+            fetch('CercaProdottiServlet?' + params.toString(), {
+                method: 'GET',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(res => res.text())
+            .then(html => {
+                const grid = document.getElementById('ajax-funko-grid');
+                if (grid) grid.innerHTML = html;
+            });
+        });
+    }
 });

@@ -11,6 +11,14 @@ import java.util.*;
 @WebServlet("/CercaProdottiServlet")
 public class CercaProdottiServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        processRequest(request, response);
+    }
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        processRequest(request, response);
+    }
+    
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         String admin = (session != null) ? (String) session.getAttribute("admin") : null;
         if (admin == null) {
@@ -43,7 +51,7 @@ public class CercaProdottiServlet extends HttpServlet {
             if ("manga".equals(tipo)) {
                 MangaDAO dao = new MangaDAO();
                 List<Manga> risultati = (query != null && !query.isBlank())
-                        ? dao.searchByQuery(query)
+                        ? dao.searchManga(query, null)
                         : dao.getAllManga();
 
                 risultati.removeIf(m -> m.getPrezzo() == null ||
@@ -70,7 +78,7 @@ public class CercaProdottiServlet extends HttpServlet {
             } else if ("funko".equals(tipo)) {
                 FunkoDAO dao = new FunkoDAO();
                 List<Funko> risultati = (query != null && !query.isBlank())
-                        ? dao.searchByQuery(query)
+                        ? dao.searchFunko(query, null)
                         : dao.getAllFunko();
 
                 risultati.removeIf(f -> f.getPrezzo() == null ||

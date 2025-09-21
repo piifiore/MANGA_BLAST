@@ -33,8 +33,16 @@
     listaManga = mangaDAO.searchManga(query, prezzo);
     listaFunko = java.util.Collections.emptyList();
   } else {
-    listaManga = (query != null || prezzo != null) ? mangaDAO.searchManga(query, prezzo) : mangaDAO.getAllManga();
-    listaFunko = (query != null || prezzo != null) ? funkoDAO.searchFunko(query, prezzo) : funkoDAO.getAllFunko();
+    // Se non è specificato un tipo, mostra entrambi
+    if ((query != null && !query.trim().isEmpty()) || (prezzo != null && !prezzo.trim().isEmpty())) {
+      // Se c'è una query o un filtro prezzo, cerca in entrambi
+      listaManga = mangaDAO.searchManga(query, prezzo);
+      listaFunko = funkoDAO.searchFunko(query, prezzo);
+    } else {
+      // Nessun filtro, mostra tutto
+      listaManga = mangaDAO.getAllManga();
+      listaFunko = funkoDAO.getAllFunko();
+    }
   }
 %>
 
@@ -47,7 +55,6 @@
   <meta charset="UTF-8">
   <title>MangaBlast</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css?v=<%= System.currentTimeMillis() %>">
-  <script src="scripts/index.js" defer></script>
   <script src="scripts/scheda-prodotto.js" defer></script>
   <script src="scripts/preferiti.js" defer></script>
   <script src="/scripts/carrello.js"></script>
@@ -130,5 +137,38 @@
 <% } %>
 
 <jsp:include page="footer.jsp" />
+
+<script>
+function aggiungiCarrello(id, tipo, titolo, prezzo) {
+    fetch('AggiungiAlCarrelloServlet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ id, tipo, titolo, prezzo })
+    })
+    .then(res => res.text())
+    .then(text => {
+        if (text.trim() === "aggiunto") {
+            alert("✅ Aggiunto al carrello!");
+        }
+    });
+}
+
+function aggiungiPreferiti(idProdotto, tipo) {
+    fetch('AggiungiPreferitoServlet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ idProdotto, tipo })
+    })
+    .then(res => res.text())
+    .then(text => {
+        if (text.trim() === "aggiunto") {
+            alert("❤️ Aggiunto ai preferiti!");
+        } else if (text.trim() === "esiste") {
+            alert("⚠️ Già presente nei preferiti!");
+        }
+    });
+}
+</script>
+
 </body>
 </html>

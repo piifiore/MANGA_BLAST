@@ -15,7 +15,7 @@ public class OrdineDAO {
         PreparedStatement dettagliStmt = null;
 
         try {
-            conn = DBConnection.getConnection();
+            conn = ConPool.getConnection();
             conn.setAutoCommit(false);
 
             String sqlOrdine = "INSERT INTO ordini (email, totale, data, stato) VALUES (?, ?, ?, ?)";
@@ -106,7 +106,7 @@ public class OrdineDAO {
 
         String sqlOrdini = "SELECT * FROM ordini WHERE email = ? ORDER BY data DESC";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = ConPool.getConnection();
              PreparedStatement ps = conn.prepareStatement(sqlOrdini)) {
 
             ps.setString(1, email);
@@ -134,7 +134,7 @@ public class OrdineDAO {
     public void updateOrderStatus(int idOrdine, String nuovoStato) {
         String sql = "UPDATE ordini SET stato = ? WHERE id_ordine = ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = ConPool.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, nuovoStato);
@@ -179,7 +179,7 @@ public class OrdineDAO {
             query.append(" ORDER BY id_ordine DESC");
         }
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = ConPool.getConnection();
              PreparedStatement ps = conn.prepareStatement(query.toString())) {
 
             for (int i = 0; i < parametri.size(); i++) {
@@ -211,7 +211,7 @@ public class OrdineDAO {
 
         String sqlOrdini = "SELECT * FROM ordini ORDER BY data DESC";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = ConPool.getConnection();
              PreparedStatement ps = conn.prepareStatement(sqlOrdini)) {
 
             ResultSet rs = ps.executeQuery();
@@ -261,7 +261,7 @@ public class OrdineDAO {
         PreparedStatement ordineStmt = null;
         
         try {
-            conn = DBConnection.getConnection();
+            conn = ConPool.getConnection();
             conn.setAutoCommit(false);
             
             // Prima rimuovo i dettagli dell'ordine

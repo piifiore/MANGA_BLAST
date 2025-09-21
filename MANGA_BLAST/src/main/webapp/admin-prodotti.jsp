@@ -86,7 +86,9 @@
         </p>
         <h2>Elenco Manga</h2>
         <p><strong><%= risultatiManga.size() %> manga disponibili</strong></p>
-        <jsp:include page="risultati-manga.jsp" />
+        <div id="ajax-manga-grid">
+            <jsp:include page="risultati-manga.jsp" />
+        </div>
 
         <h3>Aggiungi Manga</h3>
         <form action="AggiungiMangaServlet" method="post" enctype="multipart/form-data">
@@ -153,7 +155,9 @@
         </p>
         <h2>Elenco Funko</h2>
         <p><strong><%= risultatiFunko.size() %> funko disponibili</strong></p>
-        <jsp:include page="risultati-funko.jsp" />
+        <div id="ajax-funko-grid">
+            <jsp:include page="risultati-funko.jsp" />
+        </div>
 
         <h3>Aggiungi Funko</h3>
         <form action="AggiungiFunkoServlet" method="post" enctype="multipart/form-data">

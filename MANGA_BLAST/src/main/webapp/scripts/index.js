@@ -58,20 +58,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// AJAX ricerca/filtri prodotti
-const searchForm = document.querySelector('.search-box form');
-if (searchForm) {
-    searchForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-        fetch('CercaProdottiServlet', {
-            method: 'POST',
-            body: formData
-        })
-        .then(res => res.text())
-        .then(html => {
-            const grid = document.getElementById('ajax-product-grid');
-            if (grid) grid.innerHTML = html;
-        });
-    });
-}
+// I filtri nell'index funzionano con il submit normale del form
+// Non serve JavaScript per il redirect - il form si comporta normalmente
