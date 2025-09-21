@@ -1,10 +1,28 @@
 package model;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.YearMonth;
 
 public class CartaPagamentoDAO {
 
+	/**
+	 * Verifica se una carta di pagamento è scaduta
+	 * @param carta la carta da verificare
+	 * @return true se la carta è scaduta, false altrimenti
+	 */
+	public boolean isCartaScaduta(CartaPagamento carta) {
+		YearMonth scadenzaCarta = YearMonth.of(carta.getScadenzaAnno(), carta.getScadenzaMese());
+		YearMonth oggi = YearMonth.now();
+		return scadenzaCarta.isBefore(oggi);
+	}
+
 	public void upsertCarta(CartaPagamento carta) {
+		// Verifica se la carta è scaduta prima di salvarla
+		if (isCartaScaduta(carta)) {
+			throw new IllegalArgumentException("Non è possibile salvare una carta di pagamento scaduta");
+		}
+		
 		String sql = "INSERT INTO carte_pagamento (email,intestatario,numero,last4,brand,scadenza_mese,scadenza_anno) " +
 					"VALUES (?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE intestatario=VALUES(intestatario), numero=VALUES(numero), last4=VALUES(last4), brand=VALUES(brand), scadenza_mese=VALUES(scadenza_mese), scadenza_anno=VALUES(scadenza_anno)";
 		try (Connection conn = DBConnection.getConnection();
@@ -37,6 +55,13 @@ public class CartaPagamentoDAO {
                     c.setBrand(rs.getString("brand"));
                     c.setScadenzaMese(rs.getInt("scadenza_mese"));
                     c.setScadenzaAnno(rs.getInt("scadenza_anno"));
+                    
+                    // Verifica se la carta è scaduta
+                    if (isCartaScaduta(c)) {
+                        System.out.println("Carta scaduta trovata per email: " + email + " - non restituita");
+                        return null;
+                    }
+                    
                     return c;
                 }
             }

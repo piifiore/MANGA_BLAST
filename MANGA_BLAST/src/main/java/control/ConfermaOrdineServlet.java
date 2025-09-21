@@ -70,7 +70,14 @@ public class ConfermaOrdineServlet extends HttpServlet {
                 c.setBrand(brand);
                 c.setScadenzaMese(mese);
                 c.setScadenzaAnno(anno);
-                new CartaPagamentoDAO().upsertCarta(c);
+                
+                try {
+                    new CartaPagamentoDAO().upsertCarta(c);
+                } catch (IllegalArgumentException e) {
+                    // Carta scaduta - reindirizza alla pagina di pagamento con messaggio di errore
+                    response.sendRedirect("metodo-pagamento.jsp?error=carta_scaduta");
+                    return;
+                }
             }
         }
 

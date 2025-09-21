@@ -16,8 +16,24 @@
 </head>
 <body>
 
+<%
+  // Gestione messaggi di errore
+  String error = request.getParameter("error");
+%>
+
 <div class="checkout-wrapper">
   <h1>💳 Seleziona un metodo di pagamento</h1>
+
+  <%
+    // Mostra messaggio di errore se presente
+    if ("carta_scaduta".equals(error)) {
+  %>
+  <div class="error-message" style="background: #ff4444; color: white; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center; font-weight: bold;">
+    ⚠️ Errore: La carta di pagamento inserita è scaduta. Inserisci una carta valida per procedere con l'acquisto.
+  </div>
+  <%
+    }
+  %>
 
   <%
     String emailUser = (String) session.getAttribute("user");
