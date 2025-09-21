@@ -3,6 +3,7 @@ package control;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import model.ItemCarrello;
+import model.CarrelloDAO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,35 +25,67 @@ public class AggiornaQuantitaCarrelloServlet extends HttpServlet {
         }
 
         HttpSession session = request.getSession();
-        List<ItemCarrello> carrello = (List<ItemCarrello>) session.getAttribute("carrello");
-
-        if (carrello == null) {
-            carrello = new ArrayList<>();
-        }
-
+        String emailUser = (String) session.getAttribute("user");
+        
         boolean rimosso = false;
         int nuovaQuantita = 0;
-
-        Iterator<ItemCarrello> iterator = carrello.iterator();
-        while (iterator.hasNext()) {
-            ItemCarrello item = iterator.next();
-
-            if (item.getTipo().equals(tipo) && item.getIdProdotto().equals(id)) {
-                int quantitaAttuale = item.getQuantita();
-                nuovaQuantita = quantitaAttuale + delta;
-
-                if (nuovaQuantita <= 0) {
-                    iterator.remove();
-                    rimosso = true;
-                } else {
-                    item.setQuantita(nuovaQuantita);
+        
+        if (emailUser != null) {
+            // 👤 Utente loggato: aggiorna nel database
+            CarrelloDAO carrelloDAO = new CarrelloDAO();
+            List<ItemCarrello> carrello = carrelloDAO.getCarrelloUtente(emailUser);
+            
+            // Trova l'item e calcola la nuova quantità
+            for (ItemCarrello item : carrello) {
+                if (item.getTipo().equals(tipo) && item.getIdProdotto().equals(id)) {
+                    int quantitaAttuale = item.getQuantita();
+                    nuovaQuantita = quantitaAttuale + delta;
+                    
+                    if (nuovaQuantita <= 0) {
+                        // Rimuovi dal database
+                        carrelloDAO.rimuoviItem(emailUser, tipo, id);
+                        rimosso = true;
+                    } else {
+                        // Aggiorna nel database
+                        carrelloDAO.aggiornaQuantita(emailUser, tipo, id, nuovaQuantita);
+                    }
+                    break;
                 }
-
-                break;
             }
-        }
+            
+            // Aggiorna il carrello in sessione
+            List<ItemCarrello> carrelloAggiornato = carrelloDAO.getCarrelloUtente(emailUser);
+            session.setAttribute("carrello", carrelloAggiornato);
+            
+        } else {
+            // 👻 Guest: aggiorna solo in sessione
+            List<ItemCarrello> carrello = (List<ItemCarrello>) session.getAttribute("carrello");
 
-        session.setAttribute("carrello", carrello);
+            if (carrello == null) {
+                carrello = new ArrayList<>();
+            }
+
+            Iterator<ItemCarrello> iterator = carrello.iterator();
+            while (iterator.hasNext()) {
+                ItemCarrello item = iterator.next();
+
+                if (item.getTipo().equals(tipo) && item.getIdProdotto().equals(id)) {
+                    int quantitaAttuale = item.getQuantita();
+                    nuovaQuantita = quantitaAttuale + delta;
+
+                    if (nuovaQuantita <= 0) {
+                        iterator.remove();
+                        rimosso = true;
+                    } else {
+                        item.setQuantita(nuovaQuantita);
+                    }
+
+                    break;
+                }
+            }
+
+            session.setAttribute("carrello", carrello);
+        }
 
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();

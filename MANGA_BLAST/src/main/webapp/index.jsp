@@ -53,14 +53,13 @@
       </select>
     </div>
     
-    <div class="filter-group">
-      <label for="prezzoMin">💰 Prezzo minimo (€):</label>
-      <input type="number" id="prezzoMin" placeholder="0.00" step="0.01" min="0" />
-    </div>
-    
-    <div class="filter-group">
-      <label for="prezzoMax">💰 Prezzo massimo (€):</label>
-      <input type="number" id="prezzoMax" placeholder="999.99" step="0.01" min="0" />
+    <div class="filter-group price-range-group">
+      <label>💰 Range di prezzo (€):</label>
+      <div class="price-inputs">
+        <input type="number" id="prezzoMin" placeholder="0.00" step="0.01" min="0" max="200" />
+        <span class="price-separator">-</span>
+        <input type="number" id="prezzoMax" placeholder="200.00" step="0.01" min="0" max="200" />
+      </div>
     </div>
   </div>
 </div>

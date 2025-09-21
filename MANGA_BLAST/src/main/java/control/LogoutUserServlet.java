@@ -13,10 +13,8 @@ public class LogoutUserServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false); // Evita di crearne una nuova
         if (session != null) {
-            // Mantieni carrello e preferiti per utenti registrati: rimuovi solo i dati di autenticazione
-            session.removeAttribute("user");
-            session.removeAttribute("admin");
-            // eventuali altri attributi legati all'autenticazione possono essere rimossi qui
+            // Pulisci completamente la sessione per evitare problemi di duplicazione
+            session.invalidate();
         }
 
         // Opzionale: invalida eventuali cookie di sessione auth se presenti (non rimuove dati in sessione)

@@ -40,7 +40,7 @@ function aggiungiCarrello(id, tipo, titolo, prezzo) {
     .then(res => res.text())
     .then(text => {
         if (text.trim() === "aggiunto") {
-            alert("✅ Aggiunto al carrello!");
+            mostraBanner("✅ Aggiunto al carrello!");
         }
     });
 }
@@ -54,15 +54,58 @@ function aggiungiPreferiti(idProdotto, tipo) {
     .then(res => res.text())
     .then(text => {
         if (text.trim() === "aggiunto") {
-            alert("❤️ Aggiunto ai preferiti!");
+            mostraBanner("❤️ Aggiunto ai preferiti!");
         } else if (text.trim() === "esiste") {
-            alert("⚠️ Già presente nei preferiti!");
+            mostraBanner("⚠️ Già presente nei preferiti!");
         }
     });
 }
 
+// 🔔 Banner visivo (stesso sistema del carrello)
+function mostraBanner(msg) {
+    const banner = document.createElement("div");
+    banner.textContent = msg;
+    banner.className = "floating-banner";
+    document.body.appendChild(banner);
+    setTimeout(() => banner.remove(), 2500);
+}
+
+// Funzioni per gestire la validazione del range di prezzo
+function inizializzaValidazionePrezzo() {
+    const prezzoMinInput = document.getElementById("prezzoMin");
+    const prezzoMaxInput = document.getElementById("prezzoMax");
+    
+    if (!prezzoMinInput || !prezzoMaxInput) return;
+    
+    // Validazione per il prezzo minimo
+    prezzoMinInput.addEventListener("input", function() {
+        const value = parseFloat(this.value) || 0;
+        const maxValue = parseFloat(prezzoMaxInput.value) || 200;
+        
+        // Se il minimo supera il massimo, scambia i valori
+        if (value > maxValue) {
+            prezzoMaxInput.value = value.toFixed(2);
+        }
+        
+        caricaProdotti();
+    });
+    
+    // Validazione per il prezzo massimo
+    prezzoMaxInput.addEventListener("input", function() {
+        const value = parseFloat(this.value) || 200;
+        const minValue = parseFloat(prezzoMinInput.value) || 0;
+        
+        // Se il massimo è inferiore al minimo, scambia i valori
+        if (value < minValue) {
+            prezzoMinInput.value = value.toFixed(2);
+        }
+        
+        caricaProdotti();
+    });
+}
+
 // Event listeners per la ricerca in tempo reale
-["searchQuery", "filterTipo", "prezzoMin", "prezzoMax"].forEach(id => {
+["searchQuery", "filterTipo"].forEach(id => {
     const element = document.getElementById(id);
     if (element) {
         element.addEventListener("input", caricaProdotti);
@@ -71,5 +114,6 @@ function aggiungiPreferiti(idProdotto, tipo) {
 
 // Carica i prodotti all'avvio della pagina
 window.addEventListener("load", function() {
+    inizializzaValidazionePrezzo();
     caricaProdotti();
 });

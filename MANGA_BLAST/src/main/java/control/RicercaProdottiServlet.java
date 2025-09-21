@@ -30,9 +30,15 @@ public class RicercaProdottiServlet extends HttpServlet {
         try {
             if (prezzoMinStr != null && !prezzoMinStr.trim().isEmpty()) {
                 prezzoMin = new BigDecimal(prezzoMinStr);
+                // Limita il range a 0-200
+                if (prezzoMin.compareTo(BigDecimal.ZERO) < 0) prezzoMin = BigDecimal.ZERO;
+                if (prezzoMin.compareTo(new BigDecimal("200")) > 0) prezzoMin = new BigDecimal("200");
             }
             if (prezzoMaxStr != null && !prezzoMaxStr.trim().isEmpty()) {
                 prezzoMax = new BigDecimal(prezzoMaxStr);
+                // Limita il range a 0-200
+                if (prezzoMax.compareTo(BigDecimal.ZERO) < 0) prezzoMax = BigDecimal.ZERO;
+                if (prezzoMax.compareTo(new BigDecimal("200")) > 0) prezzoMax = new BigDecimal("200");
             }
         } catch (NumberFormatException e) {
             // Ignora valori non validi

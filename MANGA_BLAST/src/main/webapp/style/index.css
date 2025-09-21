@@ -121,6 +121,30 @@ a:hover {
     font-size: 0.9rem;
 }
 
+/* Stili per il range di prezzo */
+.price-range-group {
+    grid-column: span 2;
+}
+
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.price-inputs input[type="number"] {
+    flex: 1;
+    min-width: 80px;
+    text-align: center;
+}
+
+.price-separator {
+    color: var(--text-secondary);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+
 .search-box input[type="text"],
 .search-box input[type="number"],
 .search-box select {
@@ -439,6 +463,10 @@ h2 {
     .search-filters {
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+    
+    .price-range-group {
+        grid-column: span 1;
     }
     
     .search-box input[type="text"],

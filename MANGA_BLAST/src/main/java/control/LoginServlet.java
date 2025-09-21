@@ -34,15 +34,19 @@ public class LoginServlet extends HttpServlet {
 
             // Gestisci migrazione carrello guest -> database
             List<ItemCarrello> carrelloGuest = (List<ItemCarrello>) session.getAttribute("carrello");
+            CarrelloDAO carrelloDAO = new CarrelloDAO();
+            
+            // Crea il carrello dell'utente se non esiste
+            carrelloDAO.creaCarrelloUtente(email);
+            
             if (carrelloGuest != null && !carrelloGuest.isEmpty()) {
-                CarrelloDAO carrelloDAO = new CarrelloDAO();
+                // Migra il carrello guest nel database (somma le quantità se esistono già)
                 for (ItemCarrello item : carrelloGuest) {
                     carrelloDAO.aggiungiItem(email, item.getTipo(), item.getIdProdotto(), item.getQuantita());
                 }
             }
             
             // Carica carrello dal database e sostituisci quello in sessione
-            CarrelloDAO carrelloDAO = new CarrelloDAO();
             List<ItemCarrello> carrelloDB = carrelloDAO.getCarrelloUtente(email);
             if (carrelloDB != null && !carrelloDB.isEmpty()) {
                 session.setAttribute("carrello", carrelloDB);

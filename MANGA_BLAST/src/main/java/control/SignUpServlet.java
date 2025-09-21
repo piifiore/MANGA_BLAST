@@ -37,6 +37,11 @@ public class SignUpServlet extends HttpServlet {
             List<ItemCarrello> carrelloGuest = (List<ItemCarrello>) session.getAttribute("carrello");
             if (carrelloGuest != null && !carrelloGuest.isEmpty()) {
                 CarrelloDAO carrelloDAO = new CarrelloDAO();
+                
+                // Crea il carrello dell'utente
+                carrelloDAO.creaCarrelloUtente(email);
+                
+                // Migra il carrello guest nel database
                 for (ItemCarrello item : carrelloGuest) {
                     carrelloDAO.aggiungiItem(email, item.getTipo(), item.getIdProdotto(), item.getQuantita());
                 }
