@@ -27,7 +27,7 @@ CREATE TABLE `admin` (
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `admin`
@@ -51,7 +51,7 @@ CREATE TABLE `carrelli` (
   PRIMARY KEY (`email`),
   CONSTRAINT `carrelli_ibfk_1` FOREIGN KEY (`email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `carrelli`
@@ -78,7 +78,7 @@ CREATE TABLE `carrello_contiene_funko` (
   CONSTRAINT `carrello_contiene_funko_ibfk_1` FOREIGN KEY (`email`) REFERENCES `carrelli` (`email`) ON DELETE CASCADE,
   CONSTRAINT `carrello_contiene_funko_ibfk_2` FOREIGN KEY (`NumeroSerie`) REFERENCES `funko` (`NumeroSerie`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `carrello_contiene_funko`
@@ -105,7 +105,7 @@ CREATE TABLE `carrello_contiene_manga` (
   CONSTRAINT `carrello_contiene_manga_ibfk_1` FOREIGN KEY (`email`) REFERENCES `carrelli` (`email`) ON DELETE CASCADE,
   CONSTRAINT `carrello_contiene_manga_ibfk_2` FOREIGN KEY (`ISBN`) REFERENCES `manga` (`ISBN`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `carrello_contiene_manga`
@@ -134,7 +134,7 @@ CREATE TABLE `carte_pagamento` (
   PRIMARY KEY (`email`),
   CONSTRAINT `carte_pagamento_ibfk_1` FOREIGN KEY (`email`) REFERENCES `utenti` (`email`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `carte_pagamento`
@@ -160,7 +160,7 @@ CREATE TABLE `funko` (
   `descrizione` text,
   PRIMARY KEY (`NumeroSerie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `funko`
@@ -168,7 +168,6 @@ CREATE TABLE `funko` (
 
 LOCK TABLES `funko` WRITE;
 /*!40000 ALTER TABLE `funko` DISABLE KEYS */;
-INSERT INTO `funko` VALUES ('11',12.90,'images/12cea184-19c2-427b-add5-fb6ea739b343_piccolo.jpg','Piccolo','Piccolo'),('1621',35.84,'images/956f7f39-30ca-447d-95c9-ef138cb3bfb9_gear 5.jpg','Luffy Gear 5','Gear 5'),('1694',25.90,'images/89e72dce-3349-415c-b7a9-ea5dba00b743_goku ui.jpg','Goku UI','troppo forte');
 /*!40000 ALTER TABLE `funko` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +186,7 @@ CREATE TABLE `manga` (
   `descrizione` text,
   PRIMARY KEY (`ISBN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `manga`
@@ -195,7 +194,6 @@ CREATE TABLE `manga` (
 
 LOCK TABLES `manga` WRITE;
 /*!40000 ALTER TABLE `manga` DISABLE KEYS */;
-INSERT INTO `manga` VALUES (5346568645,4.20,'images/3e3c6717-253b-44e4-9048-3409704db661_One_Piece_vol_1.jpg','One Piece: Volume 1','non il miglior manga'),(53895739085,5.90,'images/3d36d218-e8a1-43fb-894d-2a60bb6d97b1_DB.jpg','Dragon Ball Evergreen: Volume 1','Il miglior manga'),(4923874789534,52.90,'images/7c7596f3-71ae-4a1d-a2b6-80f21ae63462_bre.jpg','Berserk Ominbus','Berserk');
 /*!40000 ALTER TABLE `manga` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,7 +214,7 @@ CREATE TABLE `ordine_dettagli` (
   PRIMARY KEY (`id_ordine`,`tipo`,`id_prodotto`),
   KEY `idx_ordine` (`id_ordine`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `ordine_dettagli`
@@ -243,7 +241,7 @@ CREATE TABLE `ordine_include_funko` (
   CONSTRAINT `ordine_include_funko_ibfk_1` FOREIGN KEY (`id_ordine`) REFERENCES `ordini` (`id_ordine`) ON DELETE CASCADE,
   CONSTRAINT `ordine_include_funko_ibfk_2` FOREIGN KEY (`NumeroSerie`) REFERENCES `funko` (`NumeroSerie`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `ordine_include_funko`
@@ -270,7 +268,7 @@ CREATE TABLE `ordine_include_manga` (
   CONSTRAINT `ordine_include_manga_ibfk_1` FOREIGN KEY (`id_ordine`) REFERENCES `ordini` (`id_ordine`) ON DELETE CASCADE,
   CONSTRAINT `ordine_include_manga_ibfk_2` FOREIGN KEY (`ISBN`) REFERENCES `manga` (`ISBN`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `ordine_include_manga`
@@ -278,7 +276,6 @@ CREATE TABLE `ordine_include_manga` (
 
 LOCK TABLES `ordine_include_manga` WRITE;
 /*!40000 ALTER TABLE `ordine_include_manga` DISABLE KEYS */;
-INSERT INTO `ordine_include_manga` VALUES (10,53895739085,1);
 /*!40000 ALTER TABLE `ordine_include_manga` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -296,8 +293,8 @@ CREATE TABLE `ordini` (
   `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `stato` varchar(45) NOT NULL,
   PRIMARY KEY (`id_ordine`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `ordini`
@@ -305,7 +302,6 @@ CREATE TABLE `ordini` (
 
 LOCK TABLES `ordini` WRITE;
 /*!40000 ALTER TABLE `ordini` DISABLE KEYS */;
-INSERT INTO `ordini` VALUES (9,'romanofiorello@gmail.com',72.80,'2025-07-20 17:59:25','Archiviato'),(10,'romanofiorello@gmail.com',5.90,'2025-07-20 22:13:31','Archiviato');
 /*!40000 ALTER TABLE `ordini` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,7 +322,7 @@ CREATE TABLE `preferiti` (
   KEY `idx_id` (`id_prodotto`),
   CONSTRAINT `preferiti_ibfk_1` FOREIGN KEY (`email_utente`) REFERENCES `utenti` (`email`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `preferiti`
@@ -334,7 +330,6 @@ CREATE TABLE `preferiti` (
 
 LOCK TABLES `preferiti` WRITE;
 /*!40000 ALTER TABLE `preferiti` DISABLE KEYS */;
-INSERT INTO `preferiti` VALUES ('rotondoluigi0@gmail.com','funko','47'),('rotondoluigi0@gmail.com','funko','69'),('romanofiorello@gmail.com','manga','6666666'),('rotondoluigi0@gmail.com','manga','456'),('rotondoluigi0@gmail.com','manga','53625643'),('rotondoluigi0@gmail.com','manga','6666666'),('rotondoluigi0@gmail.com','manga','9788864201795');
 /*!40000 ALTER TABLE `preferiti` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,7 +348,7 @@ CREATE TABLE `utenti` (
   `cap` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 set character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `utenti`
