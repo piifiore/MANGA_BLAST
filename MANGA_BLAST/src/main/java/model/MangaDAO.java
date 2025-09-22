@@ -154,6 +154,57 @@ public class MangaDAO {
 
         return risultati;
     }
+    
+    public List<Manga> searchMangaWithCategories(String query, List<Integer> categoriaIds) {
+        List<Manga> risultati = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT m.*, c.nome as categoria_nome, c.colore as categoria_colore FROM manga m ");
+        sql.append("LEFT JOIN categorie c ON m.id_categoria = c.id WHERE 1=1");
+        
+        List<Object> params = new ArrayList<>();
+        
+        if (query != null && !query.trim().isEmpty()) {
+            sql.append(" AND (LOWER(m.nome) LIKE ? OR LOWER(m.descrizione) LIKE ? OR CAST(m.ISBN AS CHAR) LIKE ?)");
+            String like = "%" + query.toLowerCase() + "%";
+            params.add(like);
+            params.add(like);
+            params.add(like);
+        }
+        
+        if (categoriaIds != null && !categoriaIds.isEmpty()) {
+            sql.append(" AND m.id_categoria IN (");
+            for (int i = 0; i < categoriaIds.size(); i++) {
+                if (i > 0) sql.append(",");
+                sql.append("?");
+                params.add(categoriaIds.get(i));
+            }
+            sql.append(")");
+        }
+        
+        sql.append(" ORDER BY m.nome");
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Manga m = new Manga();
+                m.setISBN(rs.getLong("ISBN"));
+                m.setNome(rs.getString("nome"));
+                m.setDescrizione(rs.getString("descrizione"));
+                m.setPrezzo(rs.getBigDecimal("prezzo"));
+                m.setImmagine(rs.getString("immagine"));
+                risultati.add(m);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return risultati;
+    }
 
     public Manga doRetrieveByISBN(long isbn) {
         Manga manga = null;

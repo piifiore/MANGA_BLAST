@@ -411,3 +411,74 @@
         transform: translateY(0);
     }
 }
+
+/* =============================================
+   PULSANTI ADMIN
+   ============================================= */
+
+.admin-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.btn-admin {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.btn-admin:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
+
+.btn-approve {
+    background: #28a745;
+    color: white;
+}
+
+.btn-approve:hover {
+    background: #218838;
+}
+
+.btn-reject {
+    background: #ffc107;
+    color: #212529;
+}
+
+.btn-reject:hover {
+    background: #e0a800;
+}
+
+/* Responsive per pulsanti admin */
+@media (max-width: 768px) {
+    .admin-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn-admin {
+        width: 100%;
+        justify-content: center;
+    }
+}

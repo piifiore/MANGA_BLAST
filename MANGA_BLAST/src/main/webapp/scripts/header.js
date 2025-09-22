@@ -5,7 +5,6 @@ function toggleMenu() {
     }
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
     const links = document.querySelectorAll(".navbar a");
     const navbar = document.querySelector(".navbar");

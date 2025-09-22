@@ -23,11 +23,6 @@ public class GestioneCategorieServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         String admin = (session != null) ? (String) session.getAttribute("admin") : null;
         
-        if (admin == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-        
         String action = request.getParameter("action");
         String requestedWith = request.getHeader("X-Requested-With");
         String contentType = request.getHeader("Content-Type");
@@ -36,33 +31,59 @@ public class GestioneCategorieServlet extends HttpServlet {
         
         try {
             if (action == null) {
-                // Se non c'è action, carica la pagina di gestione
+                // Se non c'è action, carica la pagina di gestione (solo per admin)
+                if (admin == null) {
+                    response.sendRedirect("login.jsp");
+                    return;
+                }
                 loadGestioneCategoriePage(request, response);
                 return;
             }
             
             switch (action) {
                 case "getCategorie":
+                    // getCategorie è accessibile a tutti gli utenti
                     getCategorie(request, response, isAjax);
                     break;
                 case "addCategoria":
-                    addCategoria(request, response, isAjax);
-                    break;
                 case "updateCategoria":
-                    updateCategoria(request, response, isAjax);
-                    break;
                 case "deleteCategoria":
-                    deleteCategoria(request, response, isAjax);
+                    // Le operazioni di modifica richiedono privilegi admin
+                    if (admin == null) {
+                        if (isAjax) {
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"success\": false, \"error\": \"Accesso negato\"}");
+                        } else {
+                            response.sendRedirect("login.jsp");
+                        }
+                        return;
+                    }
+                    if (action.equals("addCategoria")) {
+                        addCategoria(request, response, isAjax);
+                    } else if (action.equals("updateCategoria")) {
+                        updateCategoria(request, response, isAjax);
+                    } else if (action.equals("deleteCategoria")) {
+                        deleteCategoria(request, response, isAjax);
+                    }
                     break;
                 default:
-                    // Azione non riconosciuta, carica la pagina di gestione categorie
+                    // Azione non riconosciuta
+                    if (admin == null) {
+                        response.sendRedirect("login.jsp");
+                        return;
+                    }
                     loadGestioneCategoriePage(request, response);
                     break;
             }
         } catch (Exception e) {
-            // Per le operazioni POST, restituisci sempre JSON anche in caso di errore
-            response.setContentType("application/json");
-            response.getWriter().write("{\"success\": false, \"error\": \"" + e.getMessage().replace("\"", "\\\"") + "\"}");
+            // Per le operazioni AJAX, restituisci sempre JSON anche in caso di errore
+            if (isAjax) {
+                response.setContentType("application/json");
+                response.getWriter().write("{\"success\": false, \"error\": \"" + e.getMessage().replace("\"", "\\\"") + "\"}");
+            } else {
+                e.printStackTrace();
+                response.sendRedirect("login.jsp");
+            }
         }
     }
     

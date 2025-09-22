@@ -30,9 +30,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const productType = document.querySelector('input[name="tipo"]')?.value || 
                        new URLSearchParams(window.location.search).get('tipo');
     
+    console.log('scheda-prodotto.js - DOMContentLoaded');
+    console.log('scheda-prodotto.js - productId:', productId);
+    console.log('scheda-prodotto.js - productType:', productType);
+    
     if (productId && productType) {
-        // Inizializza il sistema recensioni
-        initProductReviews(productId, productType);
+        // Aspetta che reviews.js sia caricato
+        setTimeout(() => {
+            if (typeof initProductReviews === 'function') {
+                console.log('scheda-prodotto.js - Chiamata initProductReviews');
+                initProductReviews(productId, productType);
+            } else {
+                console.error('scheda-prodotto.js - initProductReviews non disponibile');
+            }
+        }, 100);
     }
 });
 

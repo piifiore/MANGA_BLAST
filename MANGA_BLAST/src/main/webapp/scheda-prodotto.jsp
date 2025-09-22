@@ -93,8 +93,8 @@
             </div>
         </div>
         
-        <!-- Pulsante per aggiungere recensione (solo per utenti loggati) -->
-        <% if (emailUser != null) { %>
+        <!-- Pulsante per aggiungere recensione (solo per utenti loggati, NON admin) -->
+        <% if (emailUser != null && emailAdmin == null) { %>
         <button id="addReviewBtn" class="btn-review btn-review-primary" onclick="showReviewForm()">
             Lascia una recensione
         </button>
@@ -140,10 +140,15 @@
                 </button>
             </div>
         </form>
-        <% } else { %>
+        <% } else if (emailAdmin == null) { %>
         <div class="review-message info">
             <p>Devi essere loggato per lasciare una recensione. <a href="login.jsp">Accedi</a> o <a href="signup.jsp">registrati</a>.</p>
         </div>
+        <% } %>
+        
+        <!-- Campo nascosto per admin (sempre disponibile) -->
+        <% if (emailAdmin != null) { %>
+        <input type="hidden" id="isAdmin" value="true">
         <% } %>
         
         <!-- Lista recensioni -->

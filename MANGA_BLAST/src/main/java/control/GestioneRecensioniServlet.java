@@ -67,6 +67,15 @@ public class GestioneRecensioniServlet extends HttpServlet {
                 case "test":
                     testConnection(request, response);
                     break;
+                case "moderateReview":
+                    moderateReview(request, response);
+                    break;
+                case "deleteReview":
+                    deleteReviewAdmin(request, response);
+                    break;
+                case "getStatistiche":
+                    getStatistiche(request, response);
+                    break;
                 default:
                     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Azione non riconosciuta");
                     break;
@@ -159,14 +168,23 @@ public class GestioneRecensioniServlet extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         String emailUtente = (session != null) ? (String) session.getAttribute("user") : null;
+        String emailAdmin = (session != null) ? (String) session.getAttribute("admin") : null;
         
         System.out.println("addRecensione - emailUtente: " + emailUtente);
+        System.out.println("addRecensione - emailAdmin: " + emailAdmin);
         System.out.println("addRecensione - Session: " + session);
         System.out.println("addRecensione - Session attributes: " + (session != null ? session.getAttributeNames() : "null"));
         
+        // Solo utenti normali possono lasciare recensioni, NON admin
         if (emailUtente == null) {
             System.out.println("addRecensione - Utente non autenticato");
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Utente non autenticato");
+            return;
+        }
+        
+        if (emailAdmin != null) {
+            System.out.println("addRecensione - Admin non può lasciare recensioni");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Gli admin non possono lasciare recensioni");
             return;
         }
         
@@ -242,10 +260,13 @@ public class GestioneRecensioniServlet extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         String emailUtente = (session != null) ? (String) session.getAttribute("user") : null;
+        String emailAdmin = (session != null) ? (String) session.getAttribute("admin") : null;
         
         System.out.println("getRecensioniUtente - emailUtente: " + emailUtente);
+        System.out.println("getRecensioniUtente - emailAdmin: " + emailAdmin);
         System.out.println("getRecensioniUtente - Session: " + session);
         
+        // Solo utenti normali possono vedere le loro recensioni
         if (emailUtente == null) {
             System.out.println("getRecensioniUtente - Utente non autenticato");
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Utente non autenticato");
@@ -289,7 +310,9 @@ public class GestioneRecensioniServlet extends HttpServlet {
     private void updateRecensione(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession(false);
         String emailUtente = (session != null) ? (String) session.getAttribute("user") : null;
+        String emailAdmin = (session != null) ? (String) session.getAttribute("admin") : null;
         
+        // Solo utenti normali possono modificare le loro recensioni
         if (emailUtente == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Utente non autenticato");
             return;
@@ -340,7 +363,9 @@ public class GestioneRecensioniServlet extends HttpServlet {
     private void deleteRecensione(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession(false);
         String emailUtente = (session != null) ? (String) session.getAttribute("user") : null;
+        String emailAdmin = (session != null) ? (String) session.getAttribute("admin") : null;
         
+        // Solo utenti normali possono eliminare le loro recensioni
         if (emailUtente == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Utente non autenticato");
             return;
@@ -424,5 +449,104 @@ public class GestioneRecensioniServlet extends HttpServlet {
             System.err.println("testConnection - Errore: " + e.getMessage());
             response.getWriter().write("{\"success\": false, \"error\": \"" + e.getMessage().replace("\"", "\\\"") + "\"}");
         }
+    }
+    
+    // Modera una recensione (per admin)
+    private void moderateReview(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession(false);
+        String emailAdmin = (session != null) ? (String) session.getAttribute("admin") : null;
+        
+        if (emailAdmin == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Accesso negato");
+            return;
+        }
+        
+        String reviewIdStr = request.getParameter("reviewId");
+        String approveStr = request.getParameter("approve");
+        
+        if (reviewIdStr == null || approveStr == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parametri mancanti");
+            return;
+        }
+        
+        int reviewId = Integer.parseInt(reviewIdStr);
+        boolean approve = Boolean.parseBoolean(approveStr);
+        
+        RecensioneDAO recensioneDAO = new RecensioneDAO();
+        boolean success = recensioneDAO.moderateRecensione(reviewId, approve);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        
+        if (success) {
+            response.getWriter().write("{\"success\": true, \"message\": \"Recensione moderata con successo\"}");
+        } else {
+            response.getWriter().write("{\"success\": false, \"message\": \"Errore nella moderazione della recensione\"}");
+        }
+    }
+    
+    // Elimina una recensione (per admin)
+    private void deleteReviewAdmin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession(false);
+        String emailAdmin = (session != null) ? (String) session.getAttribute("admin") : null;
+        
+        if (emailAdmin == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Accesso negato");
+            return;
+        }
+        
+        String reviewIdStr = request.getParameter("reviewId");
+        
+        if (reviewIdStr == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parametri mancanti");
+            return;
+        }
+        
+        int reviewId = Integer.parseInt(reviewIdStr);
+        
+        RecensioneDAO recensioneDAO = new RecensioneDAO();
+        boolean success = recensioneDAO.deleteRecensioneAdmin(reviewId);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        
+        if (success) {
+            response.getWriter().write("{\"success\": true, \"message\": \"Recensione eliminata con successo\"}");
+        } else {
+            response.getWriter().write("{\"success\": false, \"message\": \"Errore nell'eliminazione della recensione\"}");
+        }
+    }
+    
+    // Ottiene statistiche recensioni per un prodotto
+    private void getStatistiche(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String idProdotto = request.getParameter("idProdotto");
+        String tipoProdotto = request.getParameter("tipoProdotto");
+        
+        if (idProdotto == null || tipoProdotto == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parametri mancanti");
+            return;
+        }
+        
+        RecensioneDAO recensioneDAO = new RecensioneDAO();
+        Map<String, Object> stats = recensioneDAO.getStatisticheProdotto(idProdotto, tipoProdotto);
+        
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        
+        StringBuilder json = new StringBuilder();
+        json.append("{");
+        json.append("\"success\": true,");
+        json.append("\"statistiche\": {");
+        json.append("\"mediaVoti\": ").append(stats.getOrDefault("mediaVoti", 0.0)).append(",");
+        json.append("\"numeroRecensioni\": ").append(stats.getOrDefault("numeroRecensioni", 0)).append(",");
+        json.append("\"cinqueStelle\": ").append(stats.getOrDefault("cinqueStelle", 0)).append(",");
+        json.append("\"quattroStelle\": ").append(stats.getOrDefault("quattroStelle", 0)).append(",");
+        json.append("\"treStelle\": ").append(stats.getOrDefault("treStelle", 0)).append(",");
+        json.append("\"dueStelle\": ").append(stats.getOrDefault("dueStelle", 0)).append(",");
+        json.append("\"unaStella\": ").append(stats.getOrDefault("unaStella", 0));
+        json.append("}");
+        json.append("}");
+        
+        response.getWriter().write(json.toString());
     }
 }

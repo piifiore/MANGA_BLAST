@@ -117,9 +117,9 @@
     <!-- Filtro Categoria -->
     <div class="filter-section">
       <h4 class="filter-label">Categoria</h4>
-      <div class="filter-options">
+      <div class="filter-options" id="categoriaOptions">
         <label class="filter-option">
-          <input type="radio" name="filterCategoria" value="" checked>
+          <input type="checkbox" name="filterCategoria" value="" checked>
           <span>Tutte</span>
         </label>
         <% 
@@ -128,7 +128,7 @@
             for (Categoria categoria : categorie) {
         %>
         <label class="filter-option">
-          <input type="radio" name="filterCategoria" value="<%= categoria.getId() %>">
+          <input type="checkbox" name="filterCategoria" value="<%= categoria.getId() %>">
           <span style="color: <%= categoria.getColore() %>"><%= categoria.getNome() %></span>
         </label>
         <% 

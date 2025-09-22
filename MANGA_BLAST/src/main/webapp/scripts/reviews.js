@@ -5,6 +5,7 @@
 let currentProductId = null;
 let currentProductType = null;
 let userReview = null;
+let isAdmin = false; // Sarà impostato dalla JSP se l'utente è admin
 
 // Inizializzazione
 document.addEventListener('DOMContentLoaded', function() {
@@ -14,6 +15,16 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeReviews() {
     // Inizializza i rating stars
     initializeStarRatings();
+    
+    // Inizializza isAdmin se disponibile
+    const adminElement = document.getElementById('isAdmin');
+    console.log('initializeReviews - adminElement:', adminElement);
+    if (adminElement) {
+        isAdmin = adminElement.value === 'true';
+        console.log('initializeReviews - isAdmin impostato a:', isAdmin);
+    } else {
+        console.log('initializeReviews - adminElement non trovato');
+    }
     
     // Carica le recensioni se siamo in una pagina prodotto
     if (currentProductId && currentProductType) {
@@ -207,8 +218,12 @@ function submitReview() {
 // =============================================
 
 function loadReviews() {
+    console.log('loadReviews - Inizio caricamento recensioni');
+    console.log('loadReviews - currentProductId:', currentProductId);
+    console.log('loadReviews - currentProductType:', currentProductType);
+    
     if (!currentProductId || !currentProductType) {
-        console.error('ID prodotto o tipo non definiti');
+        console.error('loadReviews - ID prodotto o tipo non definiti');
         return;
     }
     
@@ -262,6 +277,9 @@ function loadReviews() {
 }
 
 function displayReviews(data) {
+    console.log('displayReviews - isAdmin:', isAdmin);
+    console.log('displayReviews - data.recensioni.length:', data.recensioni.length);
+    
     const reviewsList = document.getElementById('reviewsList');
     if (!reviewsList) return;
     
@@ -296,6 +314,16 @@ function displayReviews(data) {
             <div class="review-content">
                 ${review.commento}
             </div>
+            ${(() => {
+                console.log('Generando pulsanti per recensione', review.id, 'isAdmin:', isAdmin);
+                return isAdmin;
+            })() ? `
+            <div class="review-actions admin-actions">
+                <button class="btn-admin btn-delete" onclick="deleteReviewAdmin(${review.id})" title="Elimina recensione">
+                    🗑️ Elimina
+                </button>
+            </div>
+            ` : ''}
         </div>
     `).join('');
 }
@@ -486,8 +514,16 @@ function showMessage(message, type) {
 // =============================================
 
 function initProductReviews(productId, productType) {
+    console.log('initProductReviews - Inizializzazione recensioni prodotto');
+    console.log('initProductReviews - productId:', productId);
+    console.log('initProductReviews - productType:', productType);
+    
     currentProductId = productId;
     currentProductType = productType;
+    
+    console.log('initProductReviews - currentProductId impostato:', currentProductId);
+    console.log('initProductReviews - currentProductType impostato:', currentProductType);
+    
     loadReviews();
 }
 
@@ -597,4 +633,40 @@ async function fetchProductName(tipo, id) {
         console.error('Errore nel recupero nome prodotto:', error);
         return getProductName(tipo, id); // Fallback
     }
+}
+
+// =============================================
+// FUNZIONI ADMIN
+// =============================================
+
+function deleteReviewAdmin(reviewId) {
+    if (!confirm('Sei sicuro di voler eliminare questa recensione?')) {
+        return;
+    }
+    
+    const params = new URLSearchParams({
+        action: 'deleteReview',
+        reviewId: reviewId
+    });
+    
+    fetch('GestioneRecensioniServlet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: params
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showMessage('Recensione eliminata con successo!', 'success');
+            loadReviews(); // Ricarica le recensioni
+        } else {
+            showMessage(data.message || 'Errore nell\'eliminazione della recensione', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Errore:', error);
+        showMessage('Errore di connessione', 'error');
+    });
 }

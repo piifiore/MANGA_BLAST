@@ -19,32 +19,81 @@ public class AggiornaCartaPagamentoServlet extends HttpServlet {
 			return;
 		}
 
-		String holder = request.getParameter("cardHolder");
-		String number = request.getParameter("cardNumber");
-		String expiry = request.getParameter("expiry");
+		// Ottieni i parametri dal form
+		String numeroCarta = request.getParameter("numeroCarta");
+		String intestatario = request.getParameter("intestatario");
+		String scadenzaMeseStr = request.getParameter("scadenzaMese");
+		String scadenzaAnnoStr = request.getParameter("scadenzaAnno");
+		String cvv = request.getParameter("cvv");
 
-		if (number != null) {
-			String digits = number.replaceAll("\\D+", "");
-			String last4 = digits.length() >= 4 ? digits.substring(digits.length()-4) : digits;
-			int mese = 0, anno = 0;
-			if (expiry != null && expiry.matches("(0[1-9]|1[0-2])/\\d{2}")) {
-				mese = Integer.parseInt(expiry.substring(0,2));
-				int yy = Integer.parseInt(expiry.substring(3,5));
-				anno = 2000 + yy;
-			}
-
-			CartaPagamento c = new CartaPagamento();
-			c.setEmail(email);
-			c.setIntestatario(holder);
-			c.setNumero(digits);
-			c.setLast4(last4);
-			c.setBrand(detectBrand(digits));
-			c.setScadenzaMese(mese);
-			c.setScadenzaAnno(anno);
-			new CartaPagamentoDAO().upsertCarta(c);
+		// Validazione parametri
+		if (numeroCarta == null || intestatario == null || scadenzaMeseStr == null || 
+			scadenzaAnnoStr == null || cvv == null) {
+			response.sendRedirect("area-profilo.jsp?error=Parametri mancanti");
+			return;
 		}
 
-		response.sendRedirect("area-profilo.jsp?updateCardSuccess=1");
+		// Pulisci il numero carta
+		String digits = numeroCarta.replaceAll("\\D+", "");
+		if (digits.length() < 13 || digits.length() > 19) {
+			response.sendRedirect("area-profilo.jsp?error=Numero carta non valido");
+			return;
+		}
+
+		// Validazione scadenza
+		int mese, anno;
+		try {
+			mese = Integer.parseInt(scadenzaMeseStr);
+			anno = Integer.parseInt(scadenzaAnnoStr);
+		} catch (NumberFormatException e) {
+			response.sendRedirect("area-profilo.jsp?error=Data scadenza non valida");
+			return;
+		}
+
+		// Controlla se la carta è scaduta
+		java.time.LocalDate oggi = java.time.LocalDate.now();
+		java.time.LocalDate scadenza = java.time.LocalDate.of(anno, mese, 1).withDayOfMonth(
+			java.time.LocalDate.of(anno, mese, 1).lengthOfMonth()
+		);
+		
+		if (scadenza.isBefore(oggi)) {
+			response.sendRedirect("area-profilo.jsp?error=La carta è scaduta");
+			return;
+		}
+
+		// Validazione CVV
+		if (cvv.length() < 3 || cvv.length() > 4) {
+			response.sendRedirect("area-profilo.jsp?error=CVV non valido");
+			return;
+		}
+
+		// Validazione intestatario
+		if (intestatario.trim().length() < 2) {
+			response.sendRedirect("area-profilo.jsp?error=Intestatario non valido");
+			return;
+		}
+
+		// Crea e salva la carta
+		String last4 = digits.substring(digits.length()-4);
+		
+		CartaPagamento c = new CartaPagamento();
+		c.setEmail(email);
+		c.setIntestatario(intestatario.trim());
+		c.setNumero(digits);
+		c.setLast4(last4);
+		c.setBrand(detectBrand(digits));
+		c.setScadenzaMese(mese);
+		c.setScadenzaAnno(anno);
+		
+		// Salva nel database
+		CartaPagamentoDAO dao = new CartaPagamentoDAO();
+		boolean success = dao.upsertCarta(c);
+		
+		if (success) {
+			response.sendRedirect("area-profilo.jsp?updateCardSuccess=1");
+		} else {
+			response.sendRedirect("area-profilo.jsp?error=Errore nel salvataggio della carta");
+		}
 	}
 
 	private String detectBrand(String digits) {

@@ -1,3 +1,31 @@
+// 📑 Tab System
+function showTab(tabName) {
+    // Nascondi tutti i tab panels
+    const panels = document.querySelectorAll('.tab-panel');
+    panels.forEach(panel => panel.classList.remove('active'));
+    
+    // Rimuovi active da tutti i tab buttons
+    const buttons = document.querySelectorAll('.tab-button');
+    buttons.forEach(button => button.classList.remove('active'));
+    
+    // Mostra il tab selezionato
+    const selectedPanel = document.getElementById(`tab-${tabName}`);
+    const selectedButton = document.querySelector(`[onclick="showTab('${tabName}')"]`);
+    
+    if (selectedPanel) {
+        selectedPanel.classList.add('active');
+    }
+    
+    if (selectedButton) {
+        selectedButton.classList.add('active');
+    }
+    
+    // Se è il tab recensioni, carica le recensioni
+    if (tabName === 'recensioni') {
+        loadUserReviews();
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("profiloForm");
     const passwordInput = document.getElementById("nuovaPassword");
@@ -7,8 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let isDisabled = false;
     // Rimosso toggle carta: la sezione è sempre visibile
     
-    // Inizializza le recensioni utente
-    loadUserReviews();
+    // Inizializza le recensioni utente solo se siamo nel tab recensioni
+    if (document.getElementById('tab-recensioni').classList.contains('active')) {
+        loadUserReviews();
+    }
 
     // Funzione per mostrare messaggi di errore nel DOM
     function showErrorMessage(message, isError = true) {

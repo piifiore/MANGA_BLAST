@@ -17,10 +17,11 @@ public class CartaPagamentoDAO {
 		return scadenzaCarta.isBefore(oggi);
 	}
 
-	public void upsertCarta(CartaPagamento carta) {
+	public boolean upsertCarta(CartaPagamento carta) {
 		// Verifica se la carta è scaduta prima di salvarla
 		if (isCartaScaduta(carta)) {
-			throw new IllegalArgumentException("Non è possibile salvare una carta di pagamento scaduta");
+			System.err.println("Tentativo di salvare carta scaduta per email: " + carta.getEmail());
+			return false;
 		}
 		
 		String sql = "INSERT INTO carte_pagamento (email,intestatario,numero,last4,brand,scadenza_mese,scadenza_anno) " +
@@ -34,9 +35,14 @@ public class CartaPagamentoDAO {
 			ps.setString(5, carta.getBrand());
 			ps.setInt(6, carta.getScadenzaMese());
 			ps.setInt(7, carta.getScadenzaAnno());
-			ps.executeUpdate();
+			
+			int rowsAffected = ps.executeUpdate();
+			System.out.println("Carta salvata per email: " + carta.getEmail() + " - Righe affette: " + rowsAffected);
+			return rowsAffected > 0;
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.err.println("Errore nel salvataggio carta per email: " + carta.getEmail());
+			e.printStackTrace();
+			return false;
 		}
 	}
 

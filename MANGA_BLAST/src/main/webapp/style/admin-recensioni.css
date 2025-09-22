@@ -1,0 +1,358 @@
+/* =============================================
+   ADMIN RECENSIONI - Stili per la gestione recensioni
+   ============================================= */
+
+.admin-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: var(--bg-primary);
+    min-height: 100vh;
+}
+
+.admin-header {
+    margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+    color: var(--text-primary);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card h3 {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-number {
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    font-weight: bold;
+    display: block;
+}
+
+/* =============================================
+   FILTRI
+   ============================================= */
+
+.filters-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    align-items: end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.filter-group select {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.1);
+}
+
+/* =============================================
+   TABELLA RECENSIONI
+   ============================================= */
+
+.reviews-table-container {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reviews-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.reviews-table th {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.reviews-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    vertical-align: top;
+}
+
+.reviews-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.reviews-table tbody tr:hover {
+    background: var(--bg-hover);
+}
+
+.reviews-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* =============================================
+   RATING DISPLAY
+   ============================================= */
+
+.rating-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rating-display .star {
+    font-size: 1.2rem;
+    color: #ddd;
+    transition: color 0.2s ease;
+}
+
+.rating-display .star.filled {
+    color: #ffa500;
+}
+
+.rating-number {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-left: 0.25rem;
+}
+
+/* =============================================
+   COMMENTI
+   ============================================= */
+
+.comment-cell {
+    max-width: 300px;
+}
+
+.comment-preview {
+    color: var(--text-primary);
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+/* =============================================
+   STATUS BADGES
+   ============================================= */
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.status-badge.approved {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-badge.rejected {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* =============================================
+   PULSANTI AZIONI
+   ============================================= */
+
+.actions-cell {
+    white-space: nowrap;
+}
+
+.btn-action {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.btn-approve {
+    background: #28a745;
+    color: white;
+}
+
+.btn-approve:hover {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
+.btn-reject {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-reject:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+}
+
+.btn-delete {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 1200px) {
+    .reviews-table {
+        font-size: 0.8rem;
+    }
+    
+    .reviews-table th,
+    .reviews-table td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .comment-cell {
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 1rem;
+    }
+    
+    .admin-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .filters-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .reviews-table-container {
+        overflow-x: auto;
+    }
+    
+    .reviews-table {
+        min-width: 800px;
+    }
+    
+    .actions-cell {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .btn-action {
+        margin-right: 0;
+        width: 100%;
+    }
+}
+
+/* =============================================
+   DARK MODE
+   ============================================= */
+
+[data-theme="dark"] .stat-card {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .filters-section {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .reviews-table-container {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .reviews-table th {
+    background: var(--bg-hover);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .reviews-table td {
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .reviews-table tbody tr:hover {
+    background: var(--bg-hover);
+}

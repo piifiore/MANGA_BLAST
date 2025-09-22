@@ -6,6 +6,8 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class RecensioneDAO {
     
@@ -244,5 +246,99 @@ public class RecensioneDAO {
         
         recensione.setAttiva(rs.getBoolean("attiva"));
         return recensione;
+    }
+    
+    // Ottiene tutte le recensioni (per admin)
+    public List<Recensione> getAllRecensioni() {
+        List<Recensione> recensioni = new ArrayList<>();
+        String query = "SELECT * FROM recensioni ORDER BY data_recensione DESC";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                recensioni.add(mapResultSetToRecensione(rs));
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return recensioni;
+    }
+    
+    // Modera una recensione (approva/rifiuta)
+    public boolean moderateRecensione(int idRecensione, boolean approva) {
+        String query = "UPDATE recensioni SET attiva = ? WHERE id = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            stmt.setBoolean(1, approva);
+            stmt.setInt(2, idRecensione);
+            
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    // Elimina una recensione (per admin)
+    public boolean deleteRecensioneAdmin(int idRecensione) {
+        String query = "DELETE FROM recensioni WHERE id = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            stmt.setInt(1, idRecensione);
+            
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    // Ottiene statistiche recensioni per un prodotto
+    public Map<String, Object> getStatisticheProdotto(String idProdotto, String tipoProdotto) {
+        Map<String, Object> stats = new HashMap<>();
+        String query = "SELECT " +
+                      "AVG(rating) as media_voti, " +
+                      "COUNT(*) as numero_recensioni, " +
+                      "SUM(CASE WHEN rating = 5 THEN 1 ELSE 0 END) as cinque_stelle, " +
+                      "SUM(CASE WHEN rating = 4 THEN 1 ELSE 0 END) as quattro_stelle, " +
+                      "SUM(CASE WHEN rating = 3 THEN 1 ELSE 0 END) as tre_stelle, " +
+                      "SUM(CASE WHEN rating = 2 THEN 1 ELSE 0 END) as due_stelle, " +
+                      "SUM(CASE WHEN rating = 1 THEN 1 ELSE 0 END) as una_stella " +
+                      "FROM recensioni WHERE id_prodotto = ? AND tipo_prodotto = ? AND attiva = true";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            stmt.setString(1, idProdotto);
+            stmt.setString(2, tipoProdotto);
+            
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                stats.put("mediaVoti", rs.getDouble("media_voti"));
+                stats.put("numeroRecensioni", rs.getInt("numero_recensioni"));
+                stats.put("cinqueStelle", rs.getInt("cinque_stelle"));
+                stats.put("quattroStelle", rs.getInt("quattro_stelle"));
+                stats.put("treStelle", rs.getInt("tre_stelle"));
+                stats.put("dueStelle", rs.getInt("due_stelle"));
+                stats.put("unaStella", rs.getInt("una_stella"));
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return stats;
     }
 }

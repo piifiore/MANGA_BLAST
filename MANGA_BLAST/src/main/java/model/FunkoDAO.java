@@ -154,6 +154,57 @@ public class FunkoDAO {
 
         return risultati;
     }
+    
+    public List<Funko> searchFunkoWithCategories(String query, List<Integer> categoriaIds) {
+        List<Funko> risultati = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT f.*, c.nome as categoria_nome, c.colore as categoria_colore FROM funko f ");
+        sql.append("LEFT JOIN categorie c ON f.id_categoria = c.id WHERE 1=1");
+        
+        List<Object> params = new ArrayList<>();
+        
+        if (query != null && !query.trim().isEmpty()) {
+            sql.append(" AND (LOWER(f.nome) LIKE ? OR LOWER(f.descrizione) LIKE ? OR LOWER(f.numeroSerie) LIKE ?)");
+            String like = "%" + query.toLowerCase() + "%";
+            params.add(like);
+            params.add(like);
+            params.add(like);
+        }
+        
+        if (categoriaIds != null && !categoriaIds.isEmpty()) {
+            sql.append(" AND f.id_categoria IN (");
+            for (int i = 0; i < categoriaIds.size(); i++) {
+                if (i > 0) sql.append(",");
+                sql.append("?");
+                params.add(categoriaIds.get(i));
+            }
+            sql.append(")");
+        }
+        
+        sql.append(" ORDER BY f.nome");
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Funko f = new Funko();
+                f.setNumeroSerie(rs.getString("numeroSerie"));
+                f.setNome(rs.getString("nome"));
+                f.setDescrizione(rs.getString("descrizione"));
+                f.setPrezzo(rs.getBigDecimal("prezzo"));
+                f.setImmagine(rs.getString("immagine"));
+                risultati.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return risultati;
+    }
 
     public Funko doRetrieveByNumeroSerie(String numeroSerie) {
         Funko funko = null;

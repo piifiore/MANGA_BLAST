@@ -25,7 +25,7 @@ public class RicercaProdottiServlet extends HttpServlet {
         String prezzoMaxStr = request.getParameter("prezzoMax");
         String sortBy = request.getParameter("sortBy");
         String limitStr = request.getParameter("limit");
-        String categoriaStr = request.getParameter("categoria");
+        String[] categoriaParams = request.getParameterValues("categoria");
         
         int limit = 0;
         if (limitStr != null && !limitStr.trim().isEmpty()) {
@@ -59,15 +59,19 @@ public class RicercaProdottiServlet extends HttpServlet {
         final BigDecimal minFiltro = prezzoMin;
         final BigDecimal maxFiltro = prezzoMax;
         
-        Integer categoriaId = null;
-        if (categoriaStr != null && !categoriaStr.trim().isEmpty()) {
-            try {
-                categoriaId = Integer.parseInt(categoriaStr);
-            } catch (NumberFormatException e) {
-                // Ignora valori non validi
+        List<Integer> categoriaIds = new ArrayList<>();
+        if (categoriaParams != null) {
+            for (String categoriaStr : categoriaParams) {
+                if (categoriaStr != null && !categoriaStr.trim().isEmpty()) {
+                    try {
+                        categoriaIds.add(Integer.parseInt(categoriaStr));
+                    } catch (NumberFormatException e) {
+                        // Ignora valori non validi
+                    }
+                }
             }
         }
-        final Integer categoriaFiltro = categoriaId;
+        final List<Integer> categorieFiltro = categoriaIds;
 
         String requestedWith = request.getHeader("X-Requested-With");
         boolean isAjax = requestedWith != null && requestedWith.equals("XMLHttpRequest");
@@ -78,7 +82,11 @@ public class RicercaProdottiServlet extends HttpServlet {
 
             if ("funko".equalsIgnoreCase(tipo)) {
                 FunkoDAO funkoDAO = new FunkoDAO();
-                listaFunko = funkoDAO.searchFunkoWithCategory(query, categoriaFiltro);
+                if (categorieFiltro.isEmpty()) {
+                    listaFunko = funkoDAO.searchFunko(query, null);
+                } else {
+                    listaFunko = funkoDAO.searchFunkoWithCategories(query, categorieFiltro);
+                }
                 
                 // Filtra per prezzo se specificato
                 if (minFiltro != null || maxFiltro != null) {
@@ -91,7 +99,11 @@ public class RicercaProdottiServlet extends HttpServlet {
                 }
             } else if ("manga".equalsIgnoreCase(tipo)) {
                 MangaDAO mangaDAO = new MangaDAO();
-                listaManga = mangaDAO.searchMangaWithCategory(query, categoriaFiltro);
+                if (categorieFiltro.isEmpty()) {
+                    listaManga = mangaDAO.searchManga(query, null);
+                } else {
+                    listaManga = mangaDAO.searchMangaWithCategories(query, categorieFiltro);
+                }
                 
                 // Filtra per prezzo se specificato
                 if (minFiltro != null || maxFiltro != null) {
@@ -107,10 +119,15 @@ public class RicercaProdottiServlet extends HttpServlet {
                 MangaDAO mangaDAO = new MangaDAO();
                 FunkoDAO funkoDAO = new FunkoDAO();
                 
-                if ((query != null && !query.trim().isEmpty()) || minFiltro != null || maxFiltro != null || categoriaFiltro != null) {
+                if ((query != null && !query.trim().isEmpty()) || minFiltro != null || maxFiltro != null || !categorieFiltro.isEmpty()) {
                     // Se c'è una query o un filtro, cerca in entrambi
-                    listaManga = mangaDAO.searchMangaWithCategory(query, categoriaFiltro);
-                    listaFunko = funkoDAO.searchFunkoWithCategory(query, categoriaFiltro);
+                    if (categorieFiltro.isEmpty()) {
+                        listaManga = mangaDAO.searchManga(query, null);
+                        listaFunko = funkoDAO.searchFunko(query, null);
+                    } else {
+                        listaManga = mangaDAO.searchMangaWithCategories(query, categorieFiltro);
+                        listaFunko = funkoDAO.searchFunkoWithCategories(query, categorieFiltro);
+                    }
                 } else {
                     // Nessun filtro, mostra tutto
                     listaManga = mangaDAO.getAllManga();

@@ -1,7 +1,7 @@
 function caricaProdotti() {
     const query = document.getElementById("searchQuery").value;
     const tipo = getFilterTipo();
-    const categoria = getFilterCategoria();
+    const categorie = getFilterCategorie();
     const prezzoMin = document.getElementById("prezzoMin").value;
     const prezzoMax = document.getElementById("prezzoMax").value;
     const sortBy = document.getElementById("sortBy").value;
@@ -19,7 +19,9 @@ function caricaProdotti() {
     
     if (query) params.append("query", query);
     if (tipo) params.append("tipo", tipo);
-    if (categoria) params.append("categoria", categoria);
+    if (categorie && categorie.length > 0) {
+        categorie.forEach(cat => params.append("categoria", cat));
+    }
     if (prezzoMin) params.append("prezzoMin", prezzoMin);
     if (prezzoMax) params.append("prezzoMax", prezzoMax);
     if (sortBy && sortBy !== "default") params.append("sortBy", sortBy);
@@ -243,45 +245,78 @@ window.addEventListener("load", function() {
 // Funzione per caricare le categorie se non sono presenti
 function caricaCategorie() {
     const categoriaOptions = document.querySelectorAll('input[name="filterCategoria"]');
-    if (categoriaOptions.length <= 1) {
-        fetch('GestioneCategorieServlet?action=getCategorie')
-            .then(response => response.json())
-            .then(data => {
-                if (data.success && data.categorie) {
-                    const filterOptions = document.querySelector('.filter-section:nth-child(3) .filter-options');
-                    if (filterOptions) {
-                        // Pulisci le opzioni esistenti (mantieni solo "Tutte")
-                        const allOption = filterOptions.querySelector('input[value=""]').parentElement;
-                        filterOptions.innerHTML = '';
-                        filterOptions.appendChild(allOption);
+    // Controlla se ci sono solo le opzioni di base (Tutte + Caricamento...)
+    if (categoriaOptions.length <= 2) {
+        fetch('CategorieServlet', {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success && data.categorie) {
+                const filterOptions = document.getElementById('categoriaOptions');
+                if (filterOptions) {
+                    // Pulisci le opzioni esistenti (mantieni solo "Tutte")
+                    const allOption = filterOptions.querySelector('input[value=""]').parentElement;
+                    filterOptions.innerHTML = '';
+                    filterOptions.appendChild(allOption);
+                    
+                    // Aggiungi le categorie
+                    data.categorie.forEach(categoria => {
+                        const label = document.createElement('label');
+                        label.className = 'filter-option';
                         
-                        // Aggiungi le categorie
-                        data.categorie.forEach(categoria => {
-                            const label = document.createElement('label');
-                            label.className = 'filter-option';
-                            
-                            const input = document.createElement('input');
-                            input.type = 'radio';
-                            input.name = 'filterCategoria';
-                            input.value = categoria.id;
-                            
-                            const span = document.createElement('span');
-                            span.textContent = categoria.nome;
-                            span.style.color = categoria.colore;
-                            
-                            label.appendChild(input);
-                            label.appendChild(span);
-                            filterOptions.appendChild(label);
-                            
-                            // Aggiungi event listener
-                            input.addEventListener('change', caricaProdotti);
+                        const input = document.createElement('input');
+                        input.type = 'checkbox';
+                        input.name = 'filterCategoria';
+                        input.value = categoria.id;
+                        
+                        const span = document.createElement('span');
+                        span.textContent = categoria.nome;
+                        span.style.color = categoria.colore;
+                        
+                        label.appendChild(input);
+                        label.appendChild(span);
+                        filterOptions.appendChild(label);
+                        
+                        // Aggiungi event listener
+                        input.addEventListener('change', function() {
+                            // Se viene selezionata una categoria specifica, deseleziona "Tutte"
+                            if (this.value !== '' && this.checked) {
+                                const allCheckbox = filterOptions.querySelector('input[value=""]');
+                                if (allCheckbox) allCheckbox.checked = false;
+                            }
+                            // Se viene selezionata "Tutte", deseleziona tutte le altre
+                            if (this.value === '' && this.checked) {
+                                const otherCheckboxes = filterOptions.querySelectorAll('input[name="filterCategoria"]:not([value=""])');
+                                otherCheckboxes.forEach(cb => cb.checked = false);
+                            }
+                            caricaProdotti();
                         });
-                    }
+                    });
                 }
-            })
-            .catch(error => {
-                console.error('Errore nel caricamento categorie:', error);
-            });
+            }
+        })
+        .catch(error => {
+            console.error('Errore nel caricamento categorie:', error);
+            // In caso di errore, mostra un messaggio di fallback
+            const filterOptions = document.getElementById('categoriaOptions');
+            if (filterOptions) {
+                const loadingLabel = filterOptions.querySelector('span');
+                if (loadingLabel && loadingLabel.textContent === 'Caricamento...') {
+                    loadingLabel.textContent = 'Errore nel caricamento';
+                    loadingLabel.style.color = '#EF5350';
+                }
+            }
+        });
     }
 }
 
@@ -291,24 +326,41 @@ function getFilterTipo() {
     return selected ? selected.value : '';
 }
 
-// Funzione per ottenere il valore del filtro categoria (radio buttons)
-function getFilterCategoria() {
-    const selected = document.querySelector('input[name="filterCategoria"]:checked');
-    return selected ? selected.value : '';
+// Funzione per ottenere i valori del filtro categoria (checkbox)
+function getFilterCategorie() {
+    const selected = document.querySelectorAll('input[name="filterCategoria"]:checked');
+    const values = Array.from(selected).map(cb => cb.value);
+    // Se "Tutte" è selezionata, non filtrare per categoria
+    if (values.includes('')) {
+        return [];
+    }
+    return values;
 }
 
-// Event listeners per i filtri radio
+// Event listeners per i filtri
 document.addEventListener('DOMContentLoaded', function() {
-    // Event listeners per i radio buttons
+    // Event listeners per i radio buttons del tipo
     const filterTipoRadios = document.querySelectorAll('input[name="filterTipo"]');
-    const filterCategoriaRadios = document.querySelectorAll('input[name="filterCategoria"]');
-    
     filterTipoRadios.forEach(radio => {
         radio.addEventListener('change', caricaProdotti);
     });
     
-    filterCategoriaRadios.forEach(radio => {
-        radio.addEventListener('change', caricaProdotti);
+    // Event listeners per le checkbox delle categorie
+    const filterCategoriaCheckboxes = document.querySelectorAll('input[name="filterCategoria"]');
+    filterCategoriaCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            // Se viene selezionata una categoria specifica, deseleziona "Tutte"
+            if (this.value !== '' && this.checked) {
+                const allCheckbox = document.querySelector('input[name="filterCategoria"][value=""]');
+                if (allCheckbox) allCheckbox.checked = false;
+            }
+            // Se viene selezionata "Tutte", deseleziona tutte le altre
+            if (this.value === '' && this.checked) {
+                const otherCheckboxes = document.querySelectorAll('input[name="filterCategoria"]:not([value=""])');
+                otherCheckboxes.forEach(cb => cb.checked = false);
+            }
+            caricaProdotti();
+        });
     });
     
     // Carica categorie se non presenti
