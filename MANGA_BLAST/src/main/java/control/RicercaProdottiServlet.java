@@ -24,6 +24,17 @@ public class RicercaProdottiServlet extends HttpServlet {
         String prezzoMinStr = request.getParameter("prezzoMin");
         String prezzoMaxStr = request.getParameter("prezzoMax");
         String sortBy = request.getParameter("sortBy");
+        String limitStr = request.getParameter("limit");
+        String categoriaStr = request.getParameter("categoria");
+        
+        int limit = 0;
+        if (limitStr != null && !limitStr.trim().isEmpty()) {
+            try {
+                limit = Integer.parseInt(limitStr);
+            } catch (NumberFormatException e) {
+                limit = 0;
+            }
+        }
 
         BigDecimal prezzoMin = null;
         BigDecimal prezzoMax = null;
@@ -47,6 +58,16 @@ public class RicercaProdottiServlet extends HttpServlet {
 
         final BigDecimal minFiltro = prezzoMin;
         final BigDecimal maxFiltro = prezzoMax;
+        
+        Integer categoriaId = null;
+        if (categoriaStr != null && !categoriaStr.trim().isEmpty()) {
+            try {
+                categoriaId = Integer.parseInt(categoriaStr);
+            } catch (NumberFormatException e) {
+                // Ignora valori non validi
+            }
+        }
+        final Integer categoriaFiltro = categoriaId;
 
         String requestedWith = request.getHeader("X-Requested-With");
         boolean isAjax = requestedWith != null && requestedWith.equals("XMLHttpRequest");
@@ -57,7 +78,7 @@ public class RicercaProdottiServlet extends HttpServlet {
 
             if ("funko".equalsIgnoreCase(tipo)) {
                 FunkoDAO funkoDAO = new FunkoDAO();
-                listaFunko = funkoDAO.searchFunko(query, null);
+                listaFunko = funkoDAO.searchFunkoWithCategory(query, categoriaFiltro);
                 
                 // Filtra per prezzo se specificato
                 if (minFiltro != null || maxFiltro != null) {
@@ -70,7 +91,7 @@ public class RicercaProdottiServlet extends HttpServlet {
                 }
             } else if ("manga".equalsIgnoreCase(tipo)) {
                 MangaDAO mangaDAO = new MangaDAO();
-                listaManga = mangaDAO.searchManga(query, null);
+                listaManga = mangaDAO.searchMangaWithCategory(query, categoriaFiltro);
                 
                 // Filtra per prezzo se specificato
                 if (minFiltro != null || maxFiltro != null) {
@@ -86,10 +107,10 @@ public class RicercaProdottiServlet extends HttpServlet {
                 MangaDAO mangaDAO = new MangaDAO();
                 FunkoDAO funkoDAO = new FunkoDAO();
                 
-                if ((query != null && !query.trim().isEmpty()) || minFiltro != null || maxFiltro != null) {
-                    // Se c'è una query o un filtro prezzo, cerca in entrambi
-                    listaManga = mangaDAO.searchManga(query, null);
-                    listaFunko = funkoDAO.searchFunko(query, null);
+                if ((query != null && !query.trim().isEmpty()) || minFiltro != null || maxFiltro != null || categoriaFiltro != null) {
+                    // Se c'è una query o un filtro, cerca in entrambi
+                    listaManga = mangaDAO.searchMangaWithCategory(query, categoriaFiltro);
+                    listaFunko = funkoDAO.searchFunkoWithCategory(query, categoriaFiltro);
                 } else {
                     // Nessun filtro, mostra tutto
                     listaManga = mangaDAO.getAllManga();
@@ -119,9 +140,23 @@ public class RicercaProdottiServlet extends HttpServlet {
                 sortProducts(listaManga, listaFunko, sortBy);
             }
 
+            // Limita i risultati se richiesto (per autocomplete)
+            if (limit > 0) {
+                if (listaManga.size() > limit) {
+                    listaManga = listaManga.subList(0, limit);
+                }
+                if (listaFunko.size() > limit) {
+                    listaFunko = listaFunko.subList(0, limit);
+                }
+            }
+
             request.setAttribute("listaManga", listaManga);
             request.setAttribute("listaFunko", listaFunko);
             request.setAttribute("emailUser", request.getSession().getAttribute("user"));
+            
+            // Carica le categorie per i filtri
+            CategoriaDAO categoriaDAO = new CategoriaDAO();
+            request.setAttribute("categorie", categoriaDAO.getAllCategorie());
 
             if (isAjax) {
                 request.getRequestDispatcher("risultati-prodotti.jsp").forward(request, response);

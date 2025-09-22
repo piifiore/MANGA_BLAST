@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Categoria" %>
 
 <%
   String emailUser = (String) session.getAttribute("user");
@@ -46,10 +48,16 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="<%= request.getRequestURL() %>">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/index.css?v=<%= System.currentTimeMillis() %>">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/style/ecommerce-layout.css?v=<%= System.currentTimeMillis() %>">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/loading.css?v=<%= System.currentTimeMillis() %>">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/toast.css?v=<%= System.currentTimeMillis() %>">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/style/theme.css?v=<%= System.currentTimeMillis() %>">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/style/autocomplete.css?v=<%= System.currentTimeMillis() %>">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/style/animations.css?v=<%= System.currentTimeMillis() %>">
   <script src="scripts/toast.js" defer></script>
   <script src="scripts/loading.js" defer></script>
+  <script src="scripts/theme.js" defer></script>
+  <script src="scripts/autocomplete.js" defer></script>
   <script src="scripts/ricerca-prodotti.js" defer></script>
 </head>
 
@@ -65,34 +73,91 @@
 </div>
 <% } %>
 
-<div class="search-box">
-  <div class="search-filters">
-    <div class="filter-group">
-      <label for="searchQuery">Cerca prodotti:</label>
-      <input type="text" id="searchQuery" placeholder="Nome o codice prodotto..." />
+<!-- Header con barra di ricerca -->
+<div class="search-header">
+  <div class="search-container">
+    <h1 class="page-title">Catalogo Prodotti</h1>
+    <div class="search-bar">
+      <input type="text" id="searchQuery" placeholder="Cerca manga, funko, personaggi..." class="search-input" />
+      <button type="button" class="search-btn" onclick="caricaProdotti()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </button>
     </div>
+  </div>
+</div>
+
+<!-- Layout principale con sidebar filtri -->
+<div class="main-layout">
+  <!-- Sidebar filtri -->
+  <div class="filters-sidebar">
+    <h3 class="filters-title">Filtri</h3>
     
-    <div class="filter-group">
-      <label for="filterTipo">Categoria:</label>
-      <select id="filterTipo">
-        <option value="">Tutti i prodotti</option>
-        <option value="manga">Manga</option>
-        <option value="funko">Funko</option>
-      </select>
-    </div>
-    
-    <div class="filter-group price-range-group">
-      <label>Range di prezzo (€):</label>
-      <div class="price-inputs">
-        <input type="number" id="prezzoMin" placeholder="0.00" step="0.01" min="0" max="200" />
-        <span class="price-separator">-</span>
-        <input type="number" id="prezzoMax" placeholder="200.00" step="0.01" min="0" max="200" />
+    <!-- Filtro Tipo -->
+    <div class="filter-section">
+      <h4 class="filter-label">Tipo Prodotto</h4>
+      <div class="filter-options">
+        <label class="filter-option">
+          <input type="radio" name="filterTipo" value="" checked>
+          <span>Tutti</span>
+        </label>
+        <label class="filter-option">
+          <input type="radio" name="filterTipo" value="manga">
+          <span>Manga</span>
+        </label>
+        <label class="filter-option">
+          <input type="radio" name="filterTipo" value="funko">
+          <span>Funko</span>
+        </label>
       </div>
     </div>
-    
-    <div class="filter-group">
-      <label for="sortBy">Ordina per:</label>
-      <select id="sortBy">
+
+    <!-- Filtro Categoria -->
+    <div class="filter-section">
+      <h4 class="filter-label">Categoria</h4>
+      <div class="filter-options">
+        <label class="filter-option">
+          <input type="radio" name="filterCategoria" value="" checked>
+          <span>Tutte</span>
+        </label>
+        <% 
+        List<Categoria> categorie = (List<Categoria>) request.getAttribute("categorie");
+        if (categorie != null && !categorie.isEmpty()) {
+            for (Categoria categoria : categorie) {
+        %>
+        <label class="filter-option">
+          <input type="radio" name="filterCategoria" value="<%= categoria.getId() %>">
+          <span style="color: <%= categoria.getColore() %>"><%= categoria.getNome() %></span>
+        </label>
+        <% 
+            }
+        } else {
+        %>
+        <label class="filter-option">
+          <span>Caricamento...</span>
+        </label>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Filtro Prezzo -->
+    <div class="filter-section">
+      <h4 class="filter-label">Range di Prezzo (€)</h4>
+      <div class="price-range">
+        <div class="price-inputs">
+          <input type="number" id="prezzoMin" placeholder="Min" step="0.01" min="0" max="200" />
+          <span class="price-separator">-</span>
+          <input type="number" id="prezzoMax" placeholder="Max" step="0.01" min="0" max="200" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Ordinamento -->
+    <div class="filter-section">
+      <h4 class="filter-label">Ordina per</h4>
+      <select id="sortBy" class="sort-select">
         <option value="default">Predefinito</option>
         <option value="prezzo-asc">Prezzo: Basso → Alto</option>
         <option value="prezzo-desc">Prezzo: Alto → Basso</option>
@@ -100,12 +165,19 @@
         <option value="nome-desc">Nome: Z → A</option>
       </select>
     </div>
-  </div>
-</div>
 
-<!-- Container per i risultati della ricerca -->
-<div id="prodottiContainer">
-  <!-- I prodotti verranno caricati qui via AJAX -->
+    <!-- Pulsante applica filtri -->
+    <button type="button" class="apply-filters-btn" onclick="caricaProdotti()">
+      Applica Filtri
+    </button>
+  </div>
+
+  <!-- Contenuto principale -->
+  <div class="main-content">
+    <div id="prodottiContainer">
+      <!-- I prodotti verranno caricati qui via AJAX -->
+    </div>
+  </div>
 </div>
 
 <jsp:include page="footer.jsp" />

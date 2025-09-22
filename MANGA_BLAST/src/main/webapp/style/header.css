@@ -50,38 +50,135 @@ body {
     transform: scale(1.05);
 }
 
-/* 🏷️ Badge notifiche */
-.nav-item-with-badge {
-    position: relative;
-}
-
-.badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: #EF5350;
+/* Logout button specific styling */
+.navbar a[href="LogoutUserServlet"] {
+    background-color: #dc3545;
     color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 20px;
-    animation: pulse 2s infinite;
+    border: 1px solid #dc3545;
 }
 
-.badge.hidden {
-    display: none;
+.navbar a[href="LogoutUserServlet"]:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    transform: scale(1.05);
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+/* Preferiti button specific styling */
+.navbar a[href="preferiti.jsp"] {
+    background-color: #e91e63;
+    color: white;
+    border: 1px solid #e91e63;
 }
+
+.navbar a[href="preferiti.jsp"]:hover {
+    background-color: #c2185b;
+    border-color: #ad1457;
+    transform: scale(1.05);
+}
+
+/* Carrello button specific styling */
+.navbar a[href="carrello.jsp"] {
+    background-color: #ff9800;
+    color: white;
+    border: 1px solid #ff9800;
+}
+
+.navbar a[href="carrello.jsp"]:hover {
+    background-color: #f57c00;
+    border-color: #ef6c00;
+    transform: scale(1.05);
+}
+
+/* Home button specific styling */
+.navbar a[href="index.jsp"] {
+    background-color: #2196f3;
+    color: white;
+    border: 1px solid #2196f3;
+}
+
+.navbar a[href="index.jsp"]:hover {
+    background-color: #1976d2;
+    border-color: #1565c0;
+    transform: scale(1.05);
+}
+
+/* Profilo button specific styling */
+.navbar a[href="area-profilo.jsp"] {
+    background-color: #9c27b0;
+    color: white;
+    border: 1px solid #9c27b0;
+}
+
+.navbar a[href="area-profilo.jsp"]:hover {
+    background-color: #7b1fa2;
+    border-color: #6a1b9a;
+    transform: scale(1.05);
+}
+
+/* Ordini button specific styling */
+.navbar a[href="ordini-utente.jsp"] {
+    background-color: #4caf50;
+    color: white;
+    border: 1px solid #4caf50;
+}
+
+.navbar a[href="ordini-utente.jsp"]:hover {
+    background-color: #388e3c;
+    border-color: #2e7d32;
+    transform: scale(1.05);
+}
+
+/* Login button specific styling */
+.navbar a[href="login.jsp"] {
+    background-color: #607d8b;
+    color: white;
+    border: 1px solid #607d8b;
+}
+
+.navbar a[href="login.jsp"]:hover {
+    background-color: #455a64;
+    border-color: #37474f;
+    transform: scale(1.05);
+}
+
+/* Signup button specific styling */
+.navbar a[href="signup.jsp"] {
+    background-color: #795548;
+    color: white;
+    border: 1px solid #795548;
+}
+
+.navbar a[href="signup.jsp"]:hover {
+    background-color: #5d4037;
+    border-color: #4e342e;
+    transform: scale(1.05);
+}
+
+/* Admin buttons specific styling */
+.navbar a[href="OrderManagementServlet"] {
+    background-color: #ff5722;
+    color: white;
+    border: 1px solid #ff5722;
+}
+
+.navbar a[href="OrderManagementServlet"]:hover {
+    background-color: #e64a19;
+    border-color: #d84315;
+    transform: scale(1.05);
+}
+
+.navbar a[href="admin-prodotti.jsp"] {
+    background-color: #3f51b5;
+    color: white;
+    border: 1px solid #3f51b5;
+}
+
+.navbar a[href="admin-prodotti.jsp"]:hover {
+    background-color: #303f9f;
+    border-color: #283593;
+    transform: scale(1.05);
+}
+
 
 /* 🍔 Hamburger menu */
 .hamburger {

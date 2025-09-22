@@ -8,6 +8,8 @@ function aggiungiCarrello(id, tipo, titolo, prezzo) {
         .then(text => {
             if (text.trim() === "aggiunto") {
                 mostraBanner("✅ Aggiunto al carrello!");
+            } else if (text.trim() === "admin_non_autorizzato") {
+                mostraBanner("❌ Gli admin non possono aggiungere prodotti al carrello!");
             } else {
                 mostraBanner("⚠️ Operazione non riuscita");
             }

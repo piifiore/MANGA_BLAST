@@ -107,11 +107,11 @@ a:hover {
 
 .search-filters {
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 2fr 1fr;
     gap: 1.5rem;
     align-items: end;
     justify-content: center;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -457,17 +457,17 @@ h2 {
     }
     
     .search-filters {
-        grid-template-columns: 1fr 1fr 2fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 2fr 1fr;
         gap: 2rem;
-        max-width: 1200px;
+        max-width: 1300px;
     }
 }
 
 @media screen and (min-width: 901px) and (max-width: 1200px) {
     .search-filters {
-        grid-template-columns: 1fr 1fr 2fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 2fr 1fr;
         gap: 1.5rem;
-        max-width: 1100px;
+        max-width: 1200px;
     }
 }
 

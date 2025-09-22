@@ -10,6 +10,11 @@ function modificaQuantita(id, tipo, delta) {
             if (data.rimosso) {
                 mostraBanner("🗑️ Prodotto rimosso dal carrello!");
                 evidenziaRimozione(key);
+                
+                // Aggiorna sessionStorage
+                updateSessionStorageCart(id, tipo, null, null, -1);
+                
+                
                 setTimeout(() => location.reload(), 1000);
             } else {
                 document.getElementById("qta-" + key).textContent = data.nuovaQuantita;
@@ -18,6 +23,10 @@ function modificaQuantita(id, tipo, delta) {
                 document.getElementById("subtotale-" + key).textContent = subtotale.toFixed(2) + "€";
                 aggiornaTotale();
                 evidenziaModifica(key);
+                
+                // Aggiorna sessionStorage
+                updateSessionStorageCart(id, tipo, null, null, delta);
+                
             }
         });
 }
@@ -58,3 +67,42 @@ function mostraBanner(msg) {
     document.body.appendChild(banner);
     setTimeout(() => banner.remove(), 2500);
 }
+
+// 🔄 Aggiorna sessionStorage per il carrello
+function updateSessionStorageCart(id, tipo, titolo, prezzo, delta) {
+    try {
+        const carrello = JSON.parse(sessionStorage.getItem('carrello') || '[]');
+        const existingItem = carrello.find(item => item.id === id && item.tipo === tipo);
+        
+        if (existingItem) {
+            if (delta === -1) {
+                // Rimuovi item
+                const index = carrello.indexOf(existingItem);
+                carrello.splice(index, 1);
+            } else {
+                // Aggiorna quantità
+                existingItem.quantita += delta;
+                if (existingItem.quantita <= 0) {
+                    const index = carrello.indexOf(existingItem);
+                    carrello.splice(index, 1);
+                }
+            }
+        } else if (delta > 0 && titolo && prezzo) {
+            // Aggiungi nuovo item
+            carrello.push({
+                id: id,
+                nome: titolo,
+                prezzo: parseFloat(prezzo),
+                tipo: tipo,
+                quantita: delta,
+                immagine: ''
+            });
+        }
+        
+        sessionStorage.setItem('carrello', JSON.stringify(carrello));
+        window.dispatchEvent(new CustomEvent('cartUpdated'));
+    } catch (error) {
+        console.error('Errore nell\'aggiornamento del carrello:', error);
+    }
+}
+

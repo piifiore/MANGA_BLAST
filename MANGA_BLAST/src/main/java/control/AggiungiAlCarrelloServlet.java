@@ -39,6 +39,14 @@ public class AggiungiAlCarrelloServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         String emailUser = (String) session.getAttribute("user");
+        String emailAdmin = (String) session.getAttribute("admin");
+        
+        // ❌ Impedisci agli admin di aggiungere prodotti al carrello
+        if (emailAdmin != null) {
+            response.setContentType("text/plain");
+            response.getWriter().write("admin_non_autorizzato");
+            return;
+        }
         
         if (emailUser != null) {
             // 👤 Utente loggato: salva nel database

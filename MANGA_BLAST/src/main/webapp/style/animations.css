@@ -1,0 +1,394 @@
+/* =============================================
+   MANGA BLAST - Animazioni e Effetti
+   ============================================= */
+
+/* 🎭 Animazioni Base */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(255, 107, 53, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(255, 107, 53, 0.5); }
+}
+
+/* 🌟 Effetti Hover per Prodotti */
+.product-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+    z-index: 1;
+}
+
+.product-card:hover::before {
+    left: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border-color: #FF6B35;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.1);
+    filter: brightness(1.1) contrast(1.1);
+}
+
+.product-card:hover .product-title {
+    color: #FF6B35;
+    transform: translateY(-2px);
+}
+
+.product-card:hover .product-price {
+    color: #2E7D32;
+    font-weight: bold;
+    transform: scale(1.05);
+}
+
+/* 🖼️ Immagini Prodotti */
+.product-image {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.product-image img {
+    transition: all 0.4s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 🎯 Pulsanti */
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    transform: translateZ(0);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0) scale(0.98);
+    transition: all 0.1s ease;
+}
+
+/* 🎨 Pulsanti Speciali */
+.btn-primary:hover {
+    background: linear-gradient(135deg, #FF6B35, #FF8A65);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #F44336, #EF5350);
+    box-shadow: 0 8px 25px rgba(244, 67, 54, 0.4);
+}
+
+/* 🔍 Filtri e Ricerca */
+.search-box {
+    transition: all 0.3s ease;
+}
+
+.search-box:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: #FF6B35;
+}
+
+.filter-group {
+    transition: all 0.3s ease;
+}
+
+.filter-group:hover {
+    transform: translateY(-1px);
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+}
+
+/* 📱 Header e Navigazione */
+.navbar a {
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #FF6B35;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+.navbar a:hover {
+    transform: translateY(-2px);
+    color: #FF6B35;
+}
+
+/* 🎪 Loading Animations */
+.loading-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* 🌈 Effetti Speciali */
+.glow-effect {
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.bounce-effect {
+    animation: bounce 1s ease-in-out;
+}
+
+.shake-effect {
+    animation: shake 0.5s ease-in-out;
+}
+
+.pulse-effect {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* 📊 Rating Stars */
+.rating-stars {
+    display: flex;
+    gap: 2px;
+    margin: 8px 0;
+}
+
+.star {
+    font-size: 18px;
+    color: #ddd;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.star:hover,
+.star.active {
+    color: #FFD700;
+    transform: scale(1.2);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+.star:hover ~ .star {
+    color: #ddd;
+}
+
+/* 🎭 Modal e Overlay */
+.modal {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-backdrop {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    animation: scaleIn 0.3s ease-out;
+}
+
+/* 📱 Responsive Animations */
+@media (max-width: 768px) {
+    .product-card:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+    
+    .btn:hover {
+        transform: translateY(-1px) scale(1.02);
+    }
+    
+    .navbar a:hover {
+        transform: translateY(-1px);
+    }
+}
+
+/* 🎨 Dark Mode Animations */
+[data-theme="dark"] .product-card:hover {
+    box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .btn:hover {
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .search-box:focus-within {
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+}
+
+/* 🚀 Performance Optimizations */
+.product-card,
+.btn,
+.navbar a {
+    will-change: transform;
+}
+
+.product-image img {
+    will-change: transform, filter;
+}
+
+/* 🎪 Utility Classes */
+.animate-fadeIn {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slideInLeft {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slideInRight {
+    animation: slideInRight 0.6s ease-out;
+}
+
+.animate-scaleIn {
+    animation: scaleIn 0.4s ease-out;
+}
+
+.animate-bounce {
+    animation: bounce 1s ease-in-out;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* 🎯 Hover States */
+.hover-lift:hover {
+    transform: translateY(-4px);
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.6);
+    transition: box-shadow 0.3s ease;
+}
+
+.hover-rotate:hover {
+    transform: rotate(5deg);
+    transition: transform 0.3s ease;
+}
+
+/* 🎨 Gradient Animations */
+.gradient-animation {
+    background: linear-gradient(-45deg, #FF6B35, #FF8A65, #FFAB91, #FFCCBC);
+    background-size: 400% 400%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

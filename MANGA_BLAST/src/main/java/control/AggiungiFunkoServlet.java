@@ -58,12 +58,36 @@ public class AggiungiFunkoServlet extends HttpServlet {
                 filePart.write(uploadPath + File.separator + nuovoNome.substring("images/".length()));
             }
 
+            // Gestione categorie
+            Integer idCategoria = null;
+            Integer idSottocategoria = null;
+            
+            String categoriaStr = request.getParameter("id_categoria");
+            if (categoriaStr != null && !categoriaStr.trim().isEmpty()) {
+                try {
+                    idCategoria = Integer.parseInt(categoriaStr);
+                } catch (NumberFormatException e) {
+                    // Ignora valori non validi
+                }
+            }
+            
+            String sottocategoriaStr = request.getParameter("id_sottocategoria");
+            if (sottocategoriaStr != null && !sottocategoriaStr.trim().isEmpty()) {
+                try {
+                    idSottocategoria = Integer.parseInt(sottocategoriaStr);
+                } catch (NumberFormatException e) {
+                    // Ignora valori non validi
+                }
+            }
+
             Funko funko = new Funko();
             funko.setNumeroSerie(numeroSerie);
             funko.setNome(nome);
             funko.setDescrizione(descrizione);
             funko.setPrezzo(prezzo);
             funko.setImmagine(nuovoNome);
+            funko.setIdCategoria(idCategoria);
+            funko.setIdSottocategoria(idSottocategoria);
 
             new FunkoDAO().addFunko(funko);
 

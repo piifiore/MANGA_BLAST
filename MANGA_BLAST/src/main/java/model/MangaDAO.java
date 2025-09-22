@@ -60,7 +60,7 @@ public class MangaDAO {
     }
 
     public void addManga(Manga manga) {
-        String query = "INSERT INTO manga (ISBN, nome, descrizione, prezzo, immagine) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO manga (ISBN, nome, descrizione, prezzo, immagine, id_categoria, id_sottocategoria) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -70,6 +70,8 @@ public class MangaDAO {
             stmt.setString(3, manga.getDescrizione());
             stmt.setBigDecimal(4, manga.getPrezzo());
             stmt.setString(5, manga.getImmagine());
+            stmt.setObject(6, manga.getIdCategoria());
+            stmt.setObject(7, manga.getIdSottocategoria());
 
             stmt.executeUpdate();
         } catch (Exception e) {
@@ -106,6 +108,52 @@ public class MangaDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public List<Manga> searchMangaWithCategory(String query, Integer categoriaId) {
+        List<Manga> risultati = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT m.*, c.nome as categoria_nome, c.colore as categoria_colore FROM manga m ");
+        sql.append("LEFT JOIN categorie c ON m.id_categoria = c.id WHERE 1=1");
+        
+        List<Object> params = new ArrayList<>();
+        
+        if (query != null && !query.trim().isEmpty()) {
+            sql.append(" AND (LOWER(m.nome) LIKE ? OR LOWER(m.descrizione) LIKE ? OR CAST(m.ISBN AS CHAR) LIKE ?)");
+            String like = "%" + query.toLowerCase() + "%";
+            params.add(like);
+            params.add(like);
+            params.add(like);
+        }
+        
+        if (categoriaId != null) {
+            sql.append(" AND m.id_categoria = ?");
+            params.add(categoriaId);
+        }
+        
+        sql.append(" ORDER BY m.nome");
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Manga m = new Manga();
+                m.setISBN(rs.getLong("ISBN"));
+                m.setNome(rs.getString("nome"));
+                m.setDescrizione(rs.getString("descrizione"));
+                m.setPrezzo(rs.getBigDecimal("prezzo"));
+                m.setImmagine(rs.getString("immagine"));
+                risultati.add(m);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return risultati;
     }
 
     public Manga doRetrieveByISBN(long isbn) {

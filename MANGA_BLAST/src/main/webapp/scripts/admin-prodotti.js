@@ -145,4 +145,48 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
+    
+    // GESTIONE CATEGORIE E SOTTOCATEGORIE
+    function loadSubcategories(categoriaId, subcategorySelectId) {
+        const subcategorySelect = document.getElementById(subcategorySelectId);
+        if (!subcategorySelect) return;
+        
+        // Pulisci le opzioni esistenti
+        subcategorySelect.innerHTML = '<option value="">Seleziona sottocategoria</option>';
+        
+        if (!categoriaId) return;
+        
+        // Carica le sottocategorie via AJAX
+        fetch(`GestioneCategorieServlet?action=getSottocategorie&categoriaId=${categoriaId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.sottocategorie) {
+                    data.sottocategorie.forEach(subcategory => {
+                        const option = document.createElement('option');
+                        option.value = subcategory.id;
+                        option.textContent = subcategory.nome;
+                        subcategorySelect.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Errore nel caricamento sottocategorie:', error);
+            });
+    }
+    
+    // Event listeners per le categorie
+    const categoriaManga = document.getElementById('categoriaManga');
+    const categoriaFunko = document.getElementById('categoriaFunko');
+    
+    if (categoriaManga) {
+        categoriaManga.addEventListener('change', (e) => {
+            loadSubcategories(e.target.value, 'sottocategoriaManga');
+        });
+    }
+    
+    if (categoriaFunko) {
+        categoriaFunko.addEventListener('change', (e) => {
+            loadSubcategories(e.target.value, 'sottocategoriaFunko');
+        });
+    }
 });

@@ -9,6 +9,8 @@ public class Manga {
     private BigDecimal prezzo;
     private String immagine;
     private int quantita;
+    private Integer idCategoria;
+    private Integer idSottocategoria;
 
     // Getters & Setters
     public long getISBN() { return ISBN; }
@@ -28,4 +30,10 @@ public class Manga {
 
     public int getQuantita() { return quantita; }
     public void setQuantita(int q) { quantita = q; }
+
+    public Integer getIdCategoria() { return idCategoria; }
+    public void setIdCategoria(Integer idCategoria) { this.idCategoria = idCategoria; }
+
+    public Integer getIdSottocategoria() { return idSottocategoria; }
+    public void setIdSottocategoria(Integer idSottocategoria) { this.idSottocategoria = idSottocategoria; }
 }

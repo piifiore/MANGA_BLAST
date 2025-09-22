@@ -2,6 +2,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="model.Manga, model.MangaDAO" %>
 <%@ page import="model.Funko, model.FunkoDAO" %>
+<%@ page import="model.Categoria, model.CategoriaDAO" %>
 
 <jsp:include page="header.jsp" />
 
@@ -21,6 +22,11 @@
         request.setAttribute("risultatiFunko", risultatiFunko);
     }
 
+    // Carica le categorie per i form
+    CategoriaDAO categoriaDAO = new CategoriaDAO();
+    List<Categoria> categorie = categoriaDAO.getAllCategorie();
+    request.setAttribute("categorie", categorie);
+
     String aggiunto = request.getParameter("aggiunto");
     String errorePrezzo = request.getParameter("errorePrezzo");
     String erroreInserimento = request.getParameter("erroreInserimento");
@@ -39,7 +45,14 @@
 
 <div class="admin-prodotti-wrapper">
 
-    <h1>🛒 Gestione Prodotti</h1>
+    <div class="admin-navigation">
+        <h1>🛒 Gestione Prodotti</h1>
+        <div class="admin-links">
+            <a href="admin-prodotti.jsp" class="admin-link active">📦 Prodotti</a>
+            <a href="GestioneCategorieServlet" class="admin-link">🏷️ Categorie</a>
+            <a href="admin-ordini.jsp" class="admin-link">📋 Ordini</a>
+        </div>
+    </div>
 
     <% if (aggiunto != null) { %>
     <div class="success-msg">✔ <%= aggiunto.equals("manga") ? "Manga" : "Funko" %> aggiunto correttamente!</div>
@@ -112,6 +125,31 @@
                 <label for="imgManga">Immagine:</label>
                 <input type="file" name="immagine" id="imgManga">
             </div>
+            <div class="form-group">
+                <label for="categoriaManga">Categoria:</label>
+                <select name="id_categoria" id="categoriaManga">
+                    <option value="">Seleziona categoria</option>
+                    <% 
+                    List<Categoria> categorieManga = (List<Categoria>) request.getAttribute("categorie");
+                    if (categorieManga != null) {
+                        for (Categoria categoria : categorieManga) {
+                            // Mostra tutte le categorie (Horror, Fantasy, Romance)
+                    %>
+                    <option value="<%= categoria.getId() %>" style="color: <%= categoria.getColore() %>">
+                        <%= categoria.getNome() %>
+                    </option>
+                    <% 
+                        }
+                    }
+                    %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sottocategoriaManga">Sottocategoria:</label>
+                <select name="id_sottocategoria" id="sottocategoriaManga">
+                    <option value="">Seleziona sottocategoria</option>
+                </select>
+            </div>
             <button type="submit">Aggiungi Manga</button>
         </form>
     </section>
@@ -180,6 +218,31 @@
             <div class="form-group">
                 <label for="imgFunko">Immagine:</label>
                 <input type="file" name="immagine" id="imgFunko">
+            </div>
+            <div class="form-group">
+                <label for="categoriaFunko">Categoria:</label>
+                <select name="id_categoria" id="categoriaFunko">
+                    <option value="">Seleziona categoria</option>
+                    <% 
+                    List<Categoria> categorieFunko = (List<Categoria>) request.getAttribute("categorie");
+                    if (categorieFunko != null) {
+                        for (Categoria categoria : categorieFunko) {
+                            // Mostra tutte le categorie (Horror, Fantasy, Romance)
+                    %>
+                    <option value="<%= categoria.getId() %>" style="color: <%= categoria.getColore() %>">
+                        <%= categoria.getNome() %>
+                    </option>
+                    <% 
+                        }
+                    }
+                    %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sottocategoriaFunko">Sottocategoria:</label>
+                <select name="id_sottocategoria" id="sottocategoriaFunko">
+                    <option value="">Seleziona sottocategoria</option>
+                </select>
             </div>
             <button type="submit">Aggiungi Funko</button>
         </form>

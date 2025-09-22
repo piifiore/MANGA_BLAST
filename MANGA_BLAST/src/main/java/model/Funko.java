@@ -9,6 +9,8 @@ public class Funko {
     private BigDecimal prezzo;
     private String immagine;
     private int quantita;
+    private Integer idCategoria;
+    private Integer idSottocategoria;
 
     public String getNumeroSerie() { return numeroSerie; }
     public void setNumeroSerie(String numeroSerie) { this.numeroSerie = numeroSerie; }
@@ -27,4 +29,10 @@ public class Funko {
 
     public int getQuantita() { return quantita; }
     public void setQuantita(int quantita) { this.quantita = quantita; }
+
+    public Integer getIdCategoria() { return idCategoria; }
+    public void setIdCategoria(Integer idCategoria) { this.idCategoria = idCategoria; }
+
+    public Integer getIdSottocategoria() { return idSottocategoria; }
+    public void setIdSottocategoria(Integer idSottocategoria) { this.idSottocategoria = idSottocategoria; }
 }

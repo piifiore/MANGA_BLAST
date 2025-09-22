@@ -60,7 +60,7 @@ public class FunkoDAO {
     }
 
     public void addFunko(Funko f) {
-        String query = "INSERT INTO funko (numeroSerie, nome, descrizione, prezzo, immagine) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO funko (numeroSerie, nome, descrizione, prezzo, immagine, id_categoria, id_sottocategoria) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -70,6 +70,8 @@ public class FunkoDAO {
             stmt.setString(3, f.getDescrizione());
             stmt.setBigDecimal(4, f.getPrezzo());
             stmt.setString(5, f.getImmagine());
+            stmt.setObject(6, f.getIdCategoria());
+            stmt.setObject(7, f.getIdSottocategoria());
 
             stmt.executeUpdate();
         } catch (Exception e) {
@@ -106,6 +108,52 @@ public class FunkoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public List<Funko> searchFunkoWithCategory(String query, Integer categoriaId) {
+        List<Funko> risultati = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT f.*, c.nome as categoria_nome, c.colore as categoria_colore FROM funko f ");
+        sql.append("LEFT JOIN categorie c ON f.id_categoria = c.id WHERE 1=1");
+        
+        List<Object> params = new ArrayList<>();
+        
+        if (query != null && !query.trim().isEmpty()) {
+            sql.append(" AND (LOWER(f.nome) LIKE ? OR LOWER(f.descrizione) LIKE ? OR LOWER(f.numeroSerie) LIKE ?)");
+            String like = "%" + query.toLowerCase() + "%";
+            params.add(like);
+            params.add(like);
+            params.add(like);
+        }
+        
+        if (categoriaId != null) {
+            sql.append(" AND f.id_categoria = ?");
+            params.add(categoriaId);
+        }
+        
+        sql.append(" ORDER BY f.nome");
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Funko f = new Funko();
+                f.setNumeroSerie(rs.getString("numeroSerie"));
+                f.setNome(rs.getString("nome"));
+                f.setDescrizione(rs.getString("descrizione"));
+                f.setPrezzo(rs.getBigDecimal("prezzo"));
+                f.setImmagine(rs.getString("immagine"));
+                risultati.add(f);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return risultati;
     }
 
     public Funko doRetrieveByNumeroSerie(String numeroSerie) {
