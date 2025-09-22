@@ -75,56 +75,82 @@
     </div>
     
     <!-- Sezione Recensioni -->
-    <div class="reviews-section" id="reviewsSection">
-        <h2>Recensioni</h2>
-        
-        <!-- Form per aggiungere recensione (solo per utenti loggati) -->
-        <% if (emailUser != null) { %>
-        <div class="review-form-container">
-            <h3>Lascia una recensione</h3>
-            <form id="reviewForm" class="review-form">
-                <input type="hidden" id="productId" value="<%= id %>">
-                <input type="hidden" id="productType" value="<%= tipo %>">
-                
-                <div class="rating-input">
-                    <label>Valutazione:</label>
-                    <div class="star-rating" id="starRating">
-                        <span class="star" data-rating="1">★</span>
-                        <span class="star" data-rating="2">★</span>
-                        <span class="star" data-rating="3">★</span>
-                        <span class="star" data-rating="4">★</span>
-                        <span class="star" data-rating="5">★</span>
+    <div class="reviews-section">
+        <div class="reviews-header">
+            <h2 class="reviews-title">Recensioni</h2>
+            <div class="reviews-stats">
+                <div class="rating-summary">
+                    <span class="rating-average" id="ratingAverage">0.0</span>
+                    <div class="rating-stars" id="ratingStars">
+                        <span class="star empty">☆</span>
+                        <span class="star empty">☆</span>
+                        <span class="star empty">☆</span>
+                        <span class="star empty">☆</span>
+                        <span class="star empty">☆</span>
                     </div>
-                    <input type="hidden" id="rating" name="rating" required>
+                    <span class="rating-count" id="ratingCount">0 recensioni</span>
                 </div>
-                
-                <div class="form-group">
-                    <label for="reviewTitle">Titolo recensione:</label>
-                    <input type="text" id="reviewTitle" name="title" maxlength="255" placeholder="Inserisci un titolo...">
-                </div>
-                
-                <div class="form-group">
-                    <label for="reviewComment">Commento:</label>
-                    <textarea id="reviewComment" name="comment" rows="4" placeholder="Condividi la tua esperienza con questo prodotto..."></textarea>
-                </div>
-                
-                <button type="submit" class="submit-review-btn">Invia Recensione</button>
-            </form>
+            </div>
         </div>
+        
+        <!-- Pulsante per aggiungere recensione (solo per utenti loggati) -->
+        <% if (emailUser != null) { %>
+        <button id="addReviewBtn" class="btn-review btn-review-primary" onclick="showReviewForm()">
+            Lascia una recensione
+        </button>
+        
+        <!-- Form per aggiungere recensione -->
+        <form id="reviewForm" class="review-form" style="display: none;">
+            <h3>Lascia una recensione</h3>
+            
+            <!-- Campi nascosti per ID e tipo prodotto -->
+            <input type="hidden" name="id" value="<%= id %>">
+            <input type="hidden" name="tipo" value="<%= tipo %>">
+            <% if (emailUser != null) { %>
+            <input type="hidden" id="loggedInUserEmail" value="<%= emailUser %>">
+            <% } %>
+            
+            <div class="form-group">
+                <label>Valutazione *</label>
+                <div class="rating-input">
+                    <div class="stars-container">
+                        <span class="star empty" onclick="setRating(1)">☆</span>
+                        <span class="star empty" onclick="setRating(2)">☆</span>
+                        <span class="star empty" onclick="setRating(3)">☆</span>
+                        <span class="star empty" onclick="setRating(4)">☆</span>
+                        <span class="star empty" onclick="setRating(5)">☆</span>
+                    </div>
+                    <input type="hidden" id="ratingInput" name="voto" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="commentInput">Commento *</label>
+                <textarea id="commentInput" name="commento" class="comment-textarea" 
+                          placeholder="Condividi la tua esperienza con questo prodotto..." 
+                          minlength="10" maxlength="1000" required></textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="btn-review btn-review-secondary" onclick="hideReviewForm()">
+                    Annulla
+                </button>
+                <button type="button" class="btn-review btn-review-primary" onclick="submitReview()">
+                    Invia Recensione
+                </button>
+            </div>
+        </form>
         <% } else { %>
-        <div class="login-prompt">
+        <div class="review-message info">
             <p>Devi essere loggato per lasciare una recensione. <a href="login.jsp">Accedi</a> o <a href="signup.jsp">registrati</a>.</p>
         </div>
         <% } %>
         
-        <!-- Statistiche recensioni -->
-        <div class="rating-stats" id="ratingStats">
-            <div class="loading-stats">Caricamento statistiche...</div>
-        </div>
-        
         <!-- Lista recensioni -->
         <div class="reviews-list" id="reviewsList">
-            <div class="loading-reviews">Caricamento recensioni...</div>
+            <div class="empty-reviews">
+                <h3>Caricamento recensioni...</h3>
+            </div>
         </div>
     </div>
     

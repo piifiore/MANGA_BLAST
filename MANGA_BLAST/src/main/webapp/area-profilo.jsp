@@ -21,8 +21,10 @@
   <title>👤 Area Profilo</title>
   <link rel="stylesheet" href="style/profilo.css?v=<%= System.currentTimeMillis() %>">
   <link rel="stylesheet" href="style/form-messages.css?v=<%= System.currentTimeMillis() %>">
+  <link rel="stylesheet" href="style/reviews.css?v=<%= System.currentTimeMillis() %>">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script src="scripts/profilo.js"></script>
+  <script src="scripts/reviews.js"></script>
 </head>
 <body>
 <jsp:include page="header.jsp" />
@@ -124,6 +126,19 @@
       </div>
     </fieldset>
   </form>
+
+  <!-- Sezione Recensioni Utente -->
+  <div class="reviews-section">
+    <div class="reviews-header">
+      <h2 class="reviews-title">Le tue recensioni</h2>
+    </div>
+    
+    <div class="reviews-list" id="userReviewsContainer">
+      <div class="empty-reviews">
+        <h3>Caricamento recensioni...</h3>
+      </div>
+    </div>
+  </div>
 
   <div class="link-area">
     <a href="ordini-utente.jsp" class="btn">📦 I miei ordini</a>

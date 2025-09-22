@@ -1,460 +1,600 @@
-/**
- * 🌟 Sistema Recensioni - MangaBlast
- * Gestisce recensioni, rating e interazioni utente
- */
+// =============================================
+// SISTEMA GESTIONE RECENSIONI
+// =============================================
 
-class ReviewsManager {
-    constructor() {
-        this.currentProductId = null;
-        this.currentProductType = null;
-        this.currentUser = null;
-        this.reviews = [];
-        this.stats = null;
-        this.init();
-    }
+let currentProductId = null;
+let currentProductType = null;
+let userReview = null;
 
-    init() {
-        console.log('🌟 ReviewsManager inizializzato');
-        this.setupEventListeners();
-        this.initializeProductData();
-    }
+// Inizializzazione
+document.addEventListener('DOMContentLoaded', function() {
+    initializeReviews();
+});
+
+function initializeReviews() {
+    // Inizializza i rating stars
+    initializeStarRatings();
     
-    initializeProductData() {
-        // Ottieni i dati del prodotto dalla pagina
-        const productIdElement = document.getElementById('productId');
-        const productTypeElement = document.getElementById('productType');
-        
-        if (productIdElement && productTypeElement) {
-            this.currentProductId = productIdElement.value;
-            this.currentProductType = productTypeElement.value;
-            
-            console.log('📦 Prodotto inizializzato:', {
-                id: this.currentProductId,
-                type: this.currentProductType
-            });
-            
-            // Carica le recensioni e statistiche per questo prodotto
-            this.loadReviews();
-            this.loadStats();
-        }
-    }
-
-    setupEventListeners() {
-        // Event listener per il pulsante aggiungi recensione
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('add-review-btn')) {
-                this.showReviewForm();
-            }
-            
-            if (e.target.classList.contains('rating-star')) {
-                this.handleStarClick(e.target);
-            }
-            
-            if (e.target.classList.contains('like-btn')) {
-                this.handleLike(e.target);
-            }
-            
-            if (e.target.classList.contains('dislike-btn')) {
-                this.handleDislike(e.target);
-            }
-            
-            if (e.target.classList.contains('edit-review-btn')) {
-                this.editReview(e.target);
-            }
-            
-            if (e.target.classList.contains('delete-review-btn')) {
-                this.deleteReview(e.target);
-            }
-        });
-
-        // Event listener per il form recensione
-        document.addEventListener('submit', (e) => {
-            if (e.target.classList.contains('review-form')) {
-                e.preventDefault();
-                this.submitReview(e.target);
-            }
-        });
-    }
-
-    // Inizializza il sistema per un prodotto
-    initForProduct(productId, productType, userEmail = null) {
-        this.currentProductId = productId;
-        this.currentProductType = productType;
-        this.currentUser = userEmail;
-        
-        console.log(`🌟 Inizializzazione recensioni per prodotto ${productId} (${productType})`);
-        
-        this.loadReviews();
-        this.loadStats();
-    }
-
-    // Carica le recensioni
-    async loadReviews() {
-        try {
-            const response = await fetch(`RecensioniServlet?action=getRecensioni&idProdotto=${this.currentProductId}&tipoProdotto=${this.currentProductType}`);
-            const data = await response.json();
-            
-            if (response.ok) {
-                this.reviews = data;
-                this.renderReviews();
-            } else {
-                console.error('Errore nel caricamento recensioni:', data.error);
-                this.showError('Errore nel caricamento delle recensioni');
-            }
-        } catch (error) {
-            console.error('Errore nella richiesta recensioni:', error);
-            this.showError('Errore di connessione');
-        }
-    }
-
-    // Carica le statistiche
-    async loadStats() {
-        try {
-            const response = await fetch(`RecensioniServlet?action=getStatistiche&idProdotto=${this.currentProductId}&tipoProdotto=${this.currentProductType}`);
-            const data = await response.json();
-            
-            if (response.ok) {
-                this.stats = data;
-                this.renderStats();
-            } else {
-                console.error('Errore nel caricamento statistiche:', data.error);
-            }
-        } catch (error) {
-            console.error('Errore nella richiesta statistiche:', error);
-        }
-    }
-
-    // Renderizza le statistiche
-    renderStats() {
-        const statsContainer = document.getElementById('ratingStats');
-        if (!statsContainer || !this.stats) return;
-
-        const ratingMedio = this.stats.ratingMedio || 0;
-        const totaleRecensioni = this.stats.totaleRecensioni || 0;
-
-        statsContainer.innerHTML = `
-            <div class="rating-overview">
-                <div class="rating-score">${ratingMedio.toFixed(1)}</div>
-                <div class="rating-stars-display">${this.generateStars(Math.round(ratingMedio))}</div>
-                <div class="rating-count">${totaleRecensioni} recensioni</div>
-            </div>
-            <div class="rating-breakdown">
-                ${this.generateRatingBars()}
-            </div>
-        `;
-    }
-
-    // Genera le barre di rating
-    generateRatingBars() {
-        const total = this.stats.totaleRecensioni || 1;
-        const ratings = [
-            { stars: 5, count: this.stats.recensioni5Stelle || 0 },
-            { stars: 4, count: this.stats.recensioni4Stelle || 0 },
-            { stars: 3, count: this.stats.recensioni3Stelle || 0 },
-            { stars: 2, count: this.stats.recensioni2Stelle || 0 },
-            { stars: 1, count: this.stats.recensioni1Stella || 0 }
-        ];
-
-        return ratings.map(rating => {
-            const percentage = (rating.count / total) * 100;
-            return `
-                <div class="rating-bar">
-                    <span class="rating-label">${rating.stars}★</span>
-                    <div class="rating-progress">
-                        <div class="rating-progress-fill" style="width: ${percentage}%"></div>
-                    </div>
-                    <span class="rating-number">${rating.count}</span>
-                </div>
-            `;
-        }).join('');
-    }
-
-    // Renderizza le recensioni
-    renderReviews() {
-        const reviewsContainer = document.getElementById('reviewsList');
-        if (!reviewsContainer) return;
-
-        if (this.reviews.length === 0) {
-            reviewsContainer.innerHTML = `
-                <div class="reviews-empty">
-                    <div class="reviews-empty-icon">⭐</div>
-                    <h3>Nessuna recensione</h3>
-                    <p>Sii il primo a lasciare una recensione per questo prodotto!</p>
-                </div>
-            `;
-            return;
-        }
-
-        reviewsContainer.innerHTML = this.reviews.map(review => this.renderReviewItem(review)).join('');
-    }
-
-    // Renderizza una singola recensione
-    renderReviewItem(review) {
-        const userInitial = review.emailUtente.charAt(0).toUpperCase();
-        const formattedDate = new Date(review.dataRecensione).toLocaleDateString('it-IT');
-        const canEdit = this.currentUser === review.emailUtente;
-        
-        return `
-            <div class="review-item" data-review-id="${review.id}">
-                <div class="review-header">
-                    <div class="review-user">
-                        <div class="user-avatar">${userInitial}</div>
-                        <div class="user-info">
-                            <h4>${this.maskEmail(review.emailUtente)}</h4>
-                            <p>${formattedDate}</p>
-                        </div>
-                    </div>
-                    <div class="review-rating">
-                        <div class="review-stars">${this.generateStars(review.rating)}</div>
-                    </div>
-                </div>
-                <div class="review-content">
-                    <h5 class="review-title">${review.titolo || 'Recensione'}</h5>
-                    <p class="review-comment">${review.commento}</p>
-                </div>
-                <div class="review-actions">
-                    <div class="review-likes">
-                        <button class="like-btn" data-review-id="${review.id}">
-                            👍 ${review.likeCount}
-                        </button>
-                        <button class="dislike-btn" data-review-id="${review.id}">
-                            👎 ${review.dislikeCount}
-                        </button>
-                    </div>
-                    ${canEdit ? `
-                        <div class="review-edit">
-                            <button class="edit-btn edit-review-btn" data-review-id="${review.id}">Modifica</button>
-                            <button class="delete-btn delete-review-btn" data-review-id="${review.id}">Elimina</button>
-                        </div>
-                    ` : ''}
-                </div>
-            </div>
-        `;
-    }
-
-    // Mostra il form recensione
-    showReviewForm() {
-        if (!this.currentUser) {
-            this.showError('Devi essere loggato per lasciare una recensione');
-            return;
-        }
-
-        const form = document.getElementById('review-form');
-        if (form) {
-            form.classList.add('active');
-            form.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-
-    // Gestisce il click sulle stelle
-    handleStarClick(starElement) {
-        const rating = parseInt(starElement.dataset.rating);
-        this.setRating(rating);
-    }
-
-    // Imposta il rating
-    setRating(rating) {
-        const stars = document.querySelectorAll('.rating-star');
-        stars.forEach((star, index) => {
-            if (index < rating) {
-                star.classList.add('active');
-            } else {
-                star.classList.remove('active');
-            }
-        });
-        
-        // Salva il rating nel form
-        const ratingInput = document.getElementById('rating-input');
-        if (ratingInput) {
-            ratingInput.value = rating;
-        }
-    }
-
-    // Invia la recensione
-    async submitReview(form) {
-        const formData = new FormData(form);
-        const rating = parseInt(formData.get('rating'));
-        const titolo = formData.get('titolo');
-        const commento = formData.get('commento');
-
-        if (!rating || rating < 1 || rating > 5) {
-            this.showError('Seleziona un rating valido');
-            return;
-        }
-
-        if (!commento.trim()) {
-            this.showError('Inserisci un commento');
-            return;
-        }
-
-        try {
-            const response = await fetch('RecensioniServlet', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({
-                    action: 'addRecensione',
-                    idProdotto: this.currentProductId,
-                    tipoProdotto: this.currentProductType,
-                    rating: rating,
-                    titolo: titolo,
-                    commento: commento
-                })
-            });
-
-            const data = await response.json();
-
-            if (response.ok && data.success) {
-                this.showSuccess('Recensione aggiunta con successo!');
-                form.reset();
-                form.classList.remove('active');
-                this.loadReviews();
-                this.loadStats();
-            } else {
-                this.showError(data.error || 'Errore nell\'aggiunta della recensione');
-            }
-        } catch (error) {
-            console.error('Errore nell\'invio recensione:', error);
-            this.showError('Errore di connessione');
-        }
-    }
-
-    // Gestisce i like
-    async handleLike(button) {
-        if (!this.currentUser) {
-            this.showError('Devi essere loggato per votare');
-            return;
-        }
-
-        const reviewId = button.dataset.reviewId;
-        await this.toggleLike(reviewId, 'like');
-    }
-
-    // Gestisce i dislike
-    async handleDislike(button) {
-        if (!this.currentUser) {
-            this.showError('Devi essere loggato per votare');
-            return;
-        }
-
-        const reviewId = button.dataset.reviewId;
-        await this.toggleLike(reviewId, 'dislike');
-    }
-
-    // Toggle like/dislike
-    async toggleLike(reviewId, tipo) {
-        try {
-            const response = await fetch('RecensioniServlet', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({
-                    action: 'likeRecensione',
-                    idRecensione: reviewId,
-                    tipo: tipo
-                })
-            });
-
-            const data = await response.json();
-
-            if (response.ok && data.success) {
-                this.loadReviews(); // Ricarica per aggiornare i contatori
-            } else {
-                this.showError(data.error || 'Errore nel voto');
-            }
-        } catch (error) {
-            console.error('Errore nel toggle like:', error);
-            this.showError('Errore di connessione');
-        }
-    }
-
-    // Modifica recensione
-    editReview(button) {
-        const reviewId = button.dataset.reviewId;
-        const review = this.reviews.find(r => r.id == reviewId);
-        
-        if (!review) return;
-
-        // Popola il form con i dati esistenti
-        const form = document.getElementById('review-form');
-        if (form) {
-            form.querySelector('[name="rating"]').value = review.rating;
-            form.querySelector('[name="titolo"]').value = review.titolo || '';
-            form.querySelector('[name="commento"]').value = review.commento;
-            
-            // Imposta le stelle
-            this.setRating(review.rating);
-            
-            // Mostra il form
-            form.classList.add('active');
-            form.scrollIntoView({ behavior: 'smooth' });
-            
-            // Aggiungi flag per modifica
-            form.dataset.editId = reviewId;
-        }
-    }
-
-    // Elimina recensione
-    async deleteReview(button) {
-        if (!confirm('Sei sicuro di voler eliminare questa recensione?')) {
-            return;
-        }
-
-        const reviewId = button.dataset.reviewId;
-
-        try {
-            const response = await fetch('RecensioniServlet', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({
-                    action: 'deleteRecensione',
-                    idRecensione: reviewId
-                })
-            });
-
-            const data = await response.json();
-
-            if (response.ok && data.success) {
-                this.showSuccess('Recensione eliminata con successo!');
-                this.loadReviews();
-                this.loadStats();
-            } else {
-                this.showError(data.error || 'Errore nell\'eliminazione della recensione');
-            }
-        } catch (error) {
-            console.error('Errore nell\'eliminazione recensione:', error);
-            this.showError('Errore di connessione');
-        }
-    }
-
-    // Utility functions
-    generateStars(rating) {
-        return '★'.repeat(rating) + '☆'.repeat(5 - rating);
-    }
-
-    maskEmail(email) {
-        const [username, domain] = email.split('@');
-        const maskedUsername = username.charAt(0) + '*'.repeat(username.length - 2) + username.charAt(username.length - 1);
-        return `${maskedUsername}@${domain}`;
-    }
-
-    showSuccess(message) {
-        if (typeof showToast === 'function') {
-            showToast(message, 'success');
-        } else {
-            alert(message);
-        }
-    }
-
-    showError(message) {
-        if (typeof showToast === 'function') {
-            showToast(message, 'error');
-        } else {
-            alert(message);
-        }
+    // Carica le recensioni se siamo in una pagina prodotto
+    if (currentProductId && currentProductType) {
+        loadReviews();
     }
 }
 
-// Inizializza il sistema recensioni
-const reviewsManager = new ReviewsManager();
+// =============================================
+// GESTIONE STELLE RATING
+// =============================================
 
-// Esponi globalmente per l'uso
-window.reviewsManager = reviewsManager;
+function initializeStarRatings() {
+    // Stelle per il form di recensione
+    const reviewStars = document.querySelectorAll('.review-form .stars-container .star');
+    reviewStars.forEach((star, index) => {
+        star.addEventListener('click', () => setRating(index + 1));
+        star.addEventListener('mouseenter', () => highlightStars(index + 1));
+    });
+    
+    const starsContainer = document.querySelector('.review-form .stars-container');
+    if (starsContainer) {
+        starsContainer.addEventListener('mouseleave', () => resetStarHighlight());
+    }
+}
+
+function setRating(rating) {
+    const stars = document.querySelectorAll('.review-form .stars-container .star');
+    const hiddenInput = document.getElementById('ratingInput');
+    
+    // Aggiorna le stelle visive
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('filled');
+            star.classList.remove('empty');
+        } else {
+            star.classList.add('empty');
+            star.classList.remove('filled');
+        }
+    });
+    
+    // Aggiorna l'input nascosto
+    if (hiddenInput) {
+        hiddenInput.value = rating;
+    }
+    
+    // Salva il rating corrente
+    window.currentRating = rating;
+}
+
+function highlightStars(rating) {
+    const stars = document.querySelectorAll('.review-form .stars-container .star');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+}
+
+function resetStarHighlight() {
+    const stars = document.querySelectorAll('.review-form .stars-container .star');
+    const currentRating = window.currentRating || 0;
+    
+    stars.forEach((star, index) => {
+        star.classList.remove('active');
+        if (index < currentRating) {
+            star.classList.add('filled');
+            star.classList.remove('empty');
+        } else {
+            star.classList.add('empty');
+            star.classList.remove('filled');
+        }
+    });
+}
+
+// =============================================
+// GESTIONE FORM RECENSIONE
+// =============================================
+
+function showReviewForm() {
+    const form = document.getElementById('reviewForm');
+    if (form) {
+        form.style.display = 'block';
+        form.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function hideReviewForm() {
+    const form = document.getElementById('reviewForm');
+    if (form) {
+        form.style.display = 'none';
+        resetReviewForm();
+    }
+}
+
+function resetReviewForm() {
+    // Reset stelle
+    const stars = document.querySelectorAll('.review-form .stars-container .star');
+    stars.forEach(star => {
+        star.classList.remove('filled', 'active');
+        star.classList.add('empty');
+    });
+    
+    // Reset form
+    const form = document.getElementById('reviewForm');
+    if (form) {
+        form.reset();
+    }
+    
+    window.currentRating = 0;
+}
+
+function submitReview() {
+    const rating = window.currentRating;
+    const comment = document.getElementById('commentInput').value.trim();
+    
+    if (!rating || rating < 1 || rating > 5) {
+        showMessage('Seleziona un voto da 1 a 5 stelle', 'error');
+        return;
+    }
+    
+    if (!comment) {
+        showMessage('Inserisci un commento', 'error');
+        return;
+    }
+    
+    if (comment.length < 10) {
+        showMessage('Il commento deve essere di almeno 10 caratteri', 'error');
+        return;
+    }
+    
+    const params = new URLSearchParams();
+    params.append('action', 'addRecensione');
+    params.append('idProdotto', currentProductId);
+    params.append('tipoProdotto', currentProductType);
+    params.append('voto', rating);
+    params.append('commento', comment);
+    
+    console.log('submitReview - Invio richiesta con parametri:');
+    console.log('  idProdotto:', currentProductId);
+    console.log('  tipoProdotto:', currentProductType);
+    console.log('  voto:', rating);
+    console.log('  commento:', comment);
+    console.log('submitReview - URLSearchParams:', params.toString());
+    
+    fetch('GestioneRecensioniServlet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: params
+    })
+    .then(response => {
+        console.log('submitReview - Response status:', response.status);
+        console.log('submitReview - Response headers:', response.headers);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            return response.text().then(text => {
+                console.error('submitReview - Expected JSON but got:', text);
+                throw new Error('Server returned non-JSON response');
+            });
+        }
+        
+        return response.json();
+    })
+    .then(data => {
+        console.log('submitReview - Response data:', data);
+        if (data.success) {
+            showMessage('Recensione aggiunta con successo!', 'success');
+            hideReviewForm();
+            loadReviews(); // Ricarica le recensioni
+        } else {
+            console.error('submitReview - Server returned error:', data.message);
+            showMessage(data.message || 'Errore nell\'aggiunta della recensione', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('submitReview - Errore:', error);
+        showMessage('Errore di connessione: ' + error.message, 'error');
+    });
+}
+
+// =============================================
+// CARICAMENTO RECENSIONI
+// =============================================
+
+function loadReviews() {
+    if (!currentProductId || !currentProductType) {
+        console.error('ID prodotto o tipo non definiti');
+        return;
+    }
+    
+    const params = new URLSearchParams({
+        action: 'getRecensioni',
+        idProdotto: currentProductId,
+        tipoProdotto: currentProductType
+    });
+    
+    fetch(`GestioneRecensioniServlet?${params}`)
+    .then(response => {
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            return response.text().then(text => {
+                console.error('Expected JSON but got:', text);
+                throw new Error('Server returned non-JSON response');
+            });
+        }
+        
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            displayReviews(data);
+            updateReviewStats(data);
+            handleUserReview(data);
+        } else {
+            console.error('Errore nel caricamento recensioni:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Errore:', error);
+        // Mostra messaggio di errore nella pagina
+        const reviewsList = document.getElementById('reviewsList');
+        if (reviewsList) {
+            reviewsList.innerHTML = `
+                <div class="empty-reviews">
+                    <h3>Errore nel caricamento</h3>
+                    <p>Impossibile caricare le recensioni. Errore: ${error.message}</p>
+                </div>
+            `;
+        }
+    });
+}
+
+function displayReviews(data) {
+    const reviewsList = document.getElementById('reviewsList');
+    if (!reviewsList) return;
+    
+    if (data.recensioni.length === 0) {
+        reviewsList.innerHTML = `
+            <div class="empty-reviews">
+                <h3>Nessuna recensione</h3>
+                <p>Sii il primo a recensire questo prodotto!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    reviewsList.innerHTML = data.recensioni.map(review => `
+        <div class="review-item">
+            <div class="review-header">
+                <div class="review-user">
+                    <div class="user-avatar">
+                        ${review.emailUtente.charAt(0).toUpperCase()}
+                    </div>
+                    <div class="user-info">
+                        <h4>${review.emailUtente}</h4>
+                        <div class="review-date">${formatDate(review.dataCreazione)}</div>
+                    </div>
+                </div>
+                <div class="review-rating">
+                    <div class="stars-container">
+                        ${generateStarsHTML(review.voto)}
+                    </div>
+                </div>
+            </div>
+            <div class="review-content">
+                ${review.commento}
+            </div>
+        </div>
+    `).join('');
+}
+
+function updateReviewStats(data) {
+    const averageElement = document.getElementById('ratingAverage');
+    const countElement = document.getElementById('ratingCount');
+    const starsElement = document.getElementById('ratingStars');
+    
+    if (averageElement) {
+        averageElement.textContent = data.mediaVoti.toFixed(1);
+    }
+    
+    if (countElement) {
+        countElement.textContent = `${data.numeroRecensioni} recensioni`;
+    }
+    
+    if (starsElement) {
+        starsElement.innerHTML = generateStarsHTML(Math.round(data.mediaVoti));
+    }
+}
+
+function handleUserReview(data) {
+    const reviewForm = document.getElementById('reviewForm');
+    const addReviewBtn = document.getElementById('addReviewBtn');
+    
+    if (data.hasReviewed && data.userReview) {
+        userReview = data.userReview;
+        
+        // Nascondi il form e il pulsante aggiungi
+        if (reviewForm) reviewForm.style.display = 'none';
+        if (addReviewBtn) addReviewBtn.style.display = 'none';
+        
+        // Mostra la recensione dell'utente
+        showUserReview(data.userReview);
+    } else {
+        // Mostra il pulsante per aggiungere recensione
+        if (addReviewBtn) addReviewBtn.style.display = 'block';
+        if (reviewForm) reviewForm.style.display = 'none';
+    }
+}
+
+function showUserReview(review) {
+    const reviewsList = document.getElementById('reviewsList');
+    if (!reviewsList) return;
+    
+    // Controlla se review è valida
+    if (!review || !review.emailUtente) {
+        console.error('showUserReview - Review o emailUtente non valida:', review);
+        return;
+    }
+    
+    const userReviewHTML = `
+        <div class="review-item" id="userReview">
+            <div class="review-header">
+                <div class="review-user">
+                    <div class="user-avatar">
+                        ${review.emailUtente.charAt(0).toUpperCase()}
+                    </div>
+                    <div class="user-info">
+                        <h4>La tua recensione</h4>
+                        <div class="review-date">${formatDate(review.dataCreazione)}</div>
+                    </div>
+                </div>
+                <div class="review-rating">
+                    <div class="stars-container">
+                        ${generateStarsHTML(review.voto)}
+                    </div>
+                </div>
+            </div>
+            <div class="review-content">
+                ${review.commento}
+            </div>
+            <div class="review-actions">
+                <button class="btn-review-action btn-edit" onclick="editUserReview(${review.id})">
+                    Modifica
+                </button>
+                <button class="btn-review-action btn-delete" onclick="deleteUserReview(${review.id})">
+                    Elimina
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // Inserisci la recensione dell'utente all'inizio
+    reviewsList.insertAdjacentHTML('afterbegin', userReviewHTML);
+}
+
+// =============================================
+// GESTIONE RECENSIONE UTENTE
+// =============================================
+
+function editUserReview(reviewId) {
+    // Implementa la modifica della recensione
+    const newRating = prompt('Nuovo voto (1-5):');
+    const newComment = prompt('Nuovo commento:');
+    
+    if (newRating && newComment) {
+        const formData = new FormData();
+        formData.append('action', 'updateRecensione');
+        formData.append('id', reviewId);
+        formData.append('voto', newRating);
+        formData.append('commento', newComment);
+        
+        fetch('GestioneRecensioniServlet', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showMessage('Recensione aggiornata con successo!', 'success');
+                loadReviews();
+            } else {
+                showMessage(data.message || 'Errore nell\'aggiornamento', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Errore:', error);
+            showMessage('Errore di connessione', 'error');
+        });
+    }
+}
+
+function deleteUserReview(reviewId) {
+    if (confirm('Sei sicuro di voler eliminare la tua recensione?')) {
+        const formData = new FormData();
+        formData.append('action', 'deleteRecensione');
+        formData.append('id', reviewId);
+        
+        fetch('GestioneRecensioniServlet', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showMessage('Recensione eliminata con successo!', 'success');
+                loadReviews();
+            } else {
+                showMessage(data.message || 'Errore nell\'eliminazione', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Errore:', error);
+            showMessage('Errore di connessione', 'error');
+        });
+    }
+}
+
+// =============================================
+// FUNZIONI UTILITY
+// =============================================
+
+function generateStarsHTML(rating) {
+    let stars = '';
+    for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+            stars += '<span class="star filled">★</span>';
+        } else {
+            stars += '<span class="star empty">☆</span>';
+        }
+    }
+    return stars;
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('it-IT', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+function showMessage(message, type) {
+    // Usa il sistema di toast esistente se disponibile
+    if (typeof showToast === 'function') {
+        showToast(message, type, { duration: 3000 });
+    } else {
+        // Fallback: alert semplice
+        alert(message);
+    }
+}
+
+// =============================================
+// FUNZIONI GLOBALI (chiamate dalle pagine)
+// =============================================
+
+function initProductReviews(productId, productType) {
+    currentProductId = productId;
+    currentProductType = productType;
+    loadReviews();
+}
+
+function loadUserReviews() {
+    console.log('loadUserReviews - Inizio caricamento recensioni utente');
+    
+    fetch('GestioneRecensioniServlet?action=getRecensioniUtente')
+    .then(response => {
+        console.log('loadUserReviews - Response status:', response.status);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('loadUserReviews - Response data:', data);
+        if (data.success && data.recensioni) {
+            displayUserReviews(data.recensioni);
+        } else {
+            console.error('loadUserReviews - Dati non validi:', data);
+            displayUserReviews([]);
+        }
+    })
+    .catch(error => {
+        console.error('loadUserReviews - Errore:', error);
+        displayUserReviews([]);
+    });
+}
+
+async function displayUserReviews(reviews) {
+    const container = document.getElementById('userReviewsContainer');
+    if (!container) return;
+    
+    if (reviews.length === 0) {
+        container.innerHTML = `
+            <div class="empty-reviews">
+                <h3>Nessuna recensione</h3>
+                <p>Non hai ancora recensito nessun prodotto.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Carica i nomi dei prodotti per tutte le recensioni
+    const reviewsWithNames = await Promise.all(
+        reviews.map(async (review) => {
+            const productName = await fetchProductName(review.tipoProdotto, review.idProdotto);
+            return { ...review, productName };
+        })
+    );
+    
+    container.innerHTML = reviewsWithNames.map(review => `
+        <div class="review-item">
+            <div class="review-header">
+                <div class="review-user">
+                    <div class="user-avatar">
+                        ${review.emailUtente ? review.emailUtente.charAt(0).toUpperCase() : 'U'}
+                    </div>
+                    <div class="user-info">
+                        <h4>${review.productName}</h4>
+                        <div class="review-date">${formatDate(review.dataCreazione)}</div>
+                    </div>
+                </div>
+                <div class="review-rating">
+                    <div class="stars-container">
+                        ${generateStarsHTML(review.voto)}
+                    </div>
+                </div>
+            </div>
+            <div class="review-content">
+                ${review.commento}
+            </div>
+            <div class="review-actions">
+                <a href="scheda-prodotto.jsp?id=${review.idProdotto}&tipo=${review.tipoProdotto}" 
+                   class="btn-review-action btn-edit">
+                    Vai al prodotto
+                </a>
+            </div>
+        </div>
+    `).join('');
+}
+
+function getProductName(tipo, id) {
+    // Questa funzione dovrebbe essere implementata per ottenere il nome del prodotto
+    // Per ora restituisce un placeholder
+    return `${tipo.charAt(0).toUpperCase() + tipo.slice(1)} #${id}`;
+}
+
+// Funzione per ottenere il nome del prodotto dal server
+async function fetchProductName(tipo, id) {
+    try {
+        const params = new URLSearchParams({
+            action: 'getProductName',
+            idProdotto: id,
+            tipoProdotto: tipo
+        });
+        
+        const response = await fetch(`GestioneRecensioniServlet?${params}`);
+        const data = await response.json();
+        
+        if (data.success) {
+            return data.nome;
+        } else {
+            return getProductName(tipo, id); // Fallback
+        }
+    } catch (error) {
+        console.error('Errore nel recupero nome prodotto:', error);
+        return getProductName(tipo, id); // Fallback
+    }
+}

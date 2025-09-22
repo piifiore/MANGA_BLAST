@@ -4,37 +4,29 @@ import java.time.LocalDateTime;
 
 public class Recensione {
     private int id;
-    private int idProdotto;
-    private String tipoProdotto;
     private String emailUtente;
-    private int rating;
-    private String titolo;
+    private String idProdotto;
+    private String tipoProdotto; // "manga" o "funko"
+    private int voto; // da 1 a 5 stelle
     private String commento;
-    private LocalDateTime dataRecensione;
-    private boolean moderata;
+    private LocalDateTime dataCreazione;
     private boolean attiva;
-    private int likeCount;
-    private int dislikeCount;
     
     // Costruttori
     public Recensione() {}
     
-    public Recensione(int idProdotto, String tipoProdotto, String emailUtente, 
-                     int rating, String titolo, String commento) {
+    public Recensione(String emailUtente, String idProdotto, String tipoProdotto, 
+                     int voto, String commento) {
+        this.emailUtente = emailUtente;
         this.idProdotto = idProdotto;
         this.tipoProdotto = tipoProdotto;
-        this.emailUtente = emailUtente;
-        this.rating = rating;
-        this.titolo = titolo;
+        this.voto = voto;
         this.commento = commento;
-        this.dataRecensione = LocalDateTime.now();
-        this.moderata = false;
+        this.dataCreazione = LocalDateTime.now();
         this.attiva = true;
-        this.likeCount = 0;
-        this.dislikeCount = 0;
     }
     
-    // Getter e Setter
+    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -43,11 +35,19 @@ public class Recensione {
         this.id = id;
     }
     
-    public int getIdProdotto() {
+    public String getEmailUtente() {
+        return emailUtente;
+    }
+    
+    public void setEmailUtente(String emailUtente) {
+        this.emailUtente = emailUtente;
+    }
+    
+    public String getIdProdotto() {
         return idProdotto;
     }
     
-    public void setIdProdotto(int idProdotto) {
+    public void setIdProdotto(String idProdotto) {
         this.idProdotto = idProdotto;
     }
     
@@ -59,28 +59,12 @@ public class Recensione {
         this.tipoProdotto = tipoProdotto;
     }
     
-    public String getEmailUtente() {
-        return emailUtente;
+    public int getVoto() {
+        return voto;
     }
     
-    public void setEmailUtente(String emailUtente) {
-        this.emailUtente = emailUtente;
-    }
-    
-    public int getRating() {
-        return rating;
-    }
-    
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-    
-    public String getTitolo() {
-        return titolo;
-    }
-    
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
+    public void setVoto(int voto) {
+        this.voto = voto;
     }
     
     public String getCommento() {
@@ -91,20 +75,12 @@ public class Recensione {
         this.commento = commento;
     }
     
-    public LocalDateTime getDataRecensione() {
-        return dataRecensione;
+    public LocalDateTime getDataCreazione() {
+        return dataCreazione;
     }
     
-    public void setDataRecensione(LocalDateTime dataRecensione) {
-        this.dataRecensione = dataRecensione;
-    }
-    
-    public boolean isModerata() {
-        return moderata;
-    }
-    
-    public void setModerata(boolean moderata) {
-        this.moderata = moderata;
+    public void setDataCreazione(LocalDateTime dataCreazione) {
+        this.dataCreazione = dataCreazione;
     }
     
     public boolean isAttiva() {
@@ -115,50 +91,25 @@ public class Recensione {
         this.attiva = attiva;
     }
     
-    public int getLikeCount() {
-        return likeCount;
-    }
-    
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
-    
-    public int getDislikeCount() {
-        return dislikeCount;
-    }
-    
-    public void setDislikeCount(int dislikeCount) {
-        this.dislikeCount = dislikeCount;
-    }
-    
-    // Metodi di utilità
-    public String getRatingStars() {
-        StringBuilder stars = new StringBuilder();
+    // Metodo per ottenere le stelle come stringa
+    public String getStelle() {
+        StringBuilder stelle = new StringBuilder();
         for (int i = 1; i <= 5; i++) {
-            if (i <= rating) {
-                stars.append("★");
+            if (i <= voto) {
+                stelle.append("★");
             } else {
-                stars.append("☆");
+                stelle.append("☆");
             }
         }
-        return stars.toString();
+        return stelle.toString();
     }
     
-    public String getFormattedDate() {
-        if (dataRecensione == null) return "";
-        return dataRecensione.toString().substring(0, 10);
-    }
-    
-    @Override
-    public String toString() {
-        return "Recensione{" +
-                "id=" + id +
-                ", idProdotto=" + idProdotto +
-                ", tipoProdotto='" + tipoProdotto + '\'' +
-                ", emailUtente='" + emailUtente + '\'' +
-                ", rating=" + rating +
-                ", titolo='" + titolo + '\'' +
-                ", dataRecensione=" + dataRecensione +
-                '}';
+    // Metodo per ottenere le stelle vuote
+    public String getStelleVuote() {
+        StringBuilder stelle = new StringBuilder();
+        for (int i = 1; i <= 5; i++) {
+            stelle.append("☆");
+        }
+        return stelle.toString();
     }
 }

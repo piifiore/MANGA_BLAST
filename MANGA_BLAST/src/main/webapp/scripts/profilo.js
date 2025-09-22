@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const capInput = document.getElementById("cap");
     let isDisabled = false;
     // Rimosso toggle carta: la sezione è sempre visibile
+    
+    // Inizializza le recensioni utente
+    loadUserReviews();
 
     // Funzione per mostrare messaggi di errore nel DOM
     function showErrorMessage(message, isError = true) {
