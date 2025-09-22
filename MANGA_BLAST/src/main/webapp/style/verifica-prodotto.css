@@ -1,4 +1,16 @@
-/* Stili per la pagina di verifica prodotto */
+/* Stili per la pagina di verifica prodotto - TEMA SCURO */
+
+/* Variabili per tema scuro */
+:root {
+    --bg-primary: #0f0f23;
+    --bg-secondary: #1a1a2e;
+    --bg-hover: rgba(156, 39, 176, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: rgba(156, 39, 176, 0.2);
+    --accent-color: #EF5350;
+    --accent-hover: #d32f2f;
+}
 .verifica-container {
     max-width: 1000px;
     margin: 2rem auto;
@@ -215,26 +227,26 @@
     }
 }
 
-/* Dark mode support */
-[data-theme="dark"] .dati-section,
-[data-theme="dark"] .validazione-section,
-[data-theme="dark"] .azioni-section {
+/* Stili per le sezioni */
+.dati-section,
+.validazione-section,
+.azioni-section {
     background: var(--bg-secondary);
     border-color: var(--border-color);
     color: var(--text-primary);
 }
 
-[data-theme="dark"] .dati-section h2,
-[data-theme="dark"] .validazione-section h2,
-[data-theme="dark"] .azioni-section h2 {
+.dati-section h2,
+.validazione-section h2,
+.azioni-section h2 {
     color: var(--text-primary);
 }
 
-[data-theme="dark"] .dato-item label {
+.dato-item label {
     color: var(--text-secondary);
 }
 
-[data-theme="dark"] .dato-value {
+.dato-value {
     background: var(--bg-primary);
     border-color: var(--border-color);
     color: var(--text-primary);

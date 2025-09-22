@@ -1,4 +1,15 @@
-/* 🌟 Hero Section con ricerca elegante - MangaBlast */
+/* 🌟 Hero Section con ricerca elegante - MangaBlast - TEMA SCURO */
+
+/* Variabili per tema scuro */
+:root {
+    --primary-bg: #0f0f23;
+    --secondary-bg: #1a1a2e;
+    --card-bg: #16213e;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --accent-color: #EF5350;
+    --accent-hover: #d32f2f;
+}
 
 /* Hero Section */
 .hero-section {

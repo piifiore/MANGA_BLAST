@@ -1,8 +1,20 @@
+/* Variabili per tema scuro */
+:root {
+    --bg-primary: #0f0f23;
+    --bg-secondary: #1a1a2e;
+    --bg-hover: rgba(156, 39, 176, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: rgba(156, 39, 176, 0.2);
+    --accent-color: #EF5350;
+    --accent-hover: #d32f2f;
+}
+
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #f5f5f5;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    color: #ffffff;
     min-height: 100vh;
 }
 
@@ -374,23 +386,23 @@ table .btn-delete:hover {
     box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
 }
 
-/* Dark mode per le tabelle */
-[data-theme="dark"] table {
+/* Stili per le tabelle */
+table {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
 }
 
-[data-theme="dark"] th {
+th {
     background: linear-gradient(135deg, #4a5568, #2d3748);
     color: var(--text-primary);
 }
 
-[data-theme="dark"] td {
+td {
     color: var(--text-primary);
     border-bottom-color: var(--border-color);
 }
 
-[data-theme="dark"] tr:hover {
+tr:hover {
     background: rgba(102, 126, 234, 0.1);
 }
 

@@ -1,4 +1,15 @@
-/* 🔍 Autocomplete Intelligente */
+/* 🔍 Autocomplete Intelligente - TEMA SCURO */
+
+/* Variabili per tema scuro */
+:root {
+    --card-bg: #16213e;
+    --border-color: rgba(156, 39, 176, 0.2);
+    --shadow-heavy: rgba(156, 39, 176, 0.6);
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --accent-color: #EF5350;
+    --accent-hover: #d32f2f;
+}
 
 /* Container dell'autocomplete */
 .autocomplete-container {

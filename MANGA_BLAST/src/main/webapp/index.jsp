@@ -51,12 +51,10 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/ecommerce-layout.css?v=<%= System.currentTimeMillis() %>">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/loading.css?v=<%= System.currentTimeMillis() %>">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/toast.css?v=<%= System.currentTimeMillis() %>">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/style/theme.css?v=<%= System.currentTimeMillis() %>">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/autocomplete.css?v=<%= System.currentTimeMillis() %>">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/style/animations.css?v=<%= System.currentTimeMillis() %>">
   <script src="scripts/toast.js" defer></script>
   <script src="scripts/loading.js" defer></script>
-  <script src="scripts/theme.js" defer></script>
   <script src="scripts/autocomplete.js" defer></script>
   <script src="scripts/ricerca-prodotti.js" defer></script>
 </head>

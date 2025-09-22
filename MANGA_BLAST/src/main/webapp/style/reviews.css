@@ -1,6 +1,18 @@
 /* =============================================
-   STILI PER SISTEMA RECENSIONI
+   STILI PER SISTEMA RECENSIONI - TEMA SCURO
    ============================================= */
+
+/* Variabili per tema scuro */
+:root {
+    --bg-primary: #0f0f23;
+    --bg-secondary: #1a1a2e;
+    --bg-hover: rgba(156, 39, 176, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: rgba(156, 39, 176, 0.2);
+    --accent-color: #EF5350;
+    --accent-hover: #d32f2f;
+}
 
 /* Container principale recensioni */
 .reviews-section {
@@ -370,20 +382,20 @@
 }
 
 /* Dark mode specifici */
-[data-theme="dark"] .review-form {
-    background: var(--bg-secondary);
+.review-form {
+  background: var(--bg-secondary);
 }
 
-[data-theme="dark"] .review-item {
-    background: var(--bg-secondary);
+.review-item {
+  background: var(--bg-secondary);
 }
 
-[data-theme="dark"] .comment-textarea {
-    background: var(--bg-primary);
+.comment-textarea {
+  background: var(--bg-primary);
 }
 
-[data-theme="dark"] .btn-review-secondary {
-    background: var(--bg-primary);
+.btn-review-secondary {
+  background: var(--bg-primary);
 }
 
 /* Animazioni */

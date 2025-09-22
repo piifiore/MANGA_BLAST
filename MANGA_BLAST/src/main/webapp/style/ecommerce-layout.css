@@ -1,6 +1,18 @@
 /* =============================================
-   LAYOUT E-COMMERCE STANDARD
+   LAYOUT E-COMMERCE STANDARD - TEMA SCURO
    ============================================= */
+
+/* Variabili per tema scuro */
+:root {
+    --bg-primary: #0f0f23;
+    --bg-secondary: #1a1a2e;
+    --bg-hover: rgba(156, 39, 176, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: rgba(156, 39, 176, 0.2);
+    --accent-color: #EF5350;
+    --accent-hover: #d32f2f;
+}
 
 /* Header con barra di ricerca */
 .search-header {
@@ -217,26 +229,14 @@
   border: none;
 }
 
-/* Fix specifico per dark mode */
-[data-theme="dark"] .sort-select {
+/* Stili per select */
+.sort-select {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   border-color: var(--border-color);
 }
 
-[data-theme="dark"] .sort-select option {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-}
-
-/* Fix per light mode */
-[data-theme="light"] .sort-select {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  border-color: var(--border-color);
-}
-
-[data-theme="light"] .sort-select option {
+.sort-select option {
   background-color: var(--bg-primary);
   color: var(--text-primary);
 }
@@ -395,18 +395,18 @@
   }
 }
 
-/* Dark mode specific adjustments */
-[data-theme="dark"] .filters-sidebar {
+/* Stili per sidebar filtri */
+.filters-sidebar {
   background: var(--bg-secondary);
   border-color: var(--border-color);
 }
 
-[data-theme="dark"] .search-bar {
+.search-bar {
   background: var(--bg-secondary);
   border-color: var(--border-color);
 }
 
-[data-theme="dark"] .filter-option:hover {
+.filter-option:hover {
   background: var(--bg-hover);
 }
 

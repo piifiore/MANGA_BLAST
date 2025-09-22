@@ -1,6 +1,18 @@
 /* =============================================
-   ADMIN RECENSIONI - Stili per la gestione recensioni
+   ADMIN RECENSIONI - Stili per la gestione recensioni - TEMA SCURO
    ============================================= */
+
+/* Variabili per tema scuro */
+:root {
+    --bg-primary: #0f0f23;
+    --bg-secondary: #1a1a2e;
+    --bg-hover: rgba(156, 39, 176, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: rgba(156, 39, 176, 0.2);
+    --accent-color: #EF5350;
+    --accent-hover: #d32f2f;
+}
 
 .admin-container {
     max-width: 1400px;
@@ -329,30 +341,30 @@
    DARK MODE
    ============================================= */
 
-[data-theme="dark"] .stat-card {
+.stat-card {
     background: var(--bg-secondary);
     border-color: var(--border-color);
 }
 
-[data-theme="dark"] .filters-section {
+.filters-section {
     background: var(--bg-secondary);
     border-color: var(--border-color);
 }
 
-[data-theme="dark"] .reviews-table-container {
+.reviews-table-container {
     background: var(--bg-secondary);
     border-color: var(--border-color);
 }
 
-[data-theme="dark"] .reviews-table th {
+.reviews-table th {
     background: var(--bg-hover);
     border-color: var(--border-color);
 }
 
-[data-theme="dark"] .reviews-table td {
+.reviews-table td {
     border-color: var(--border-color);
 }
 
-[data-theme="dark"] .reviews-table tbody tr:hover {
+.reviews-table tbody tr:hover {
     background: var(--bg-hover);
 }

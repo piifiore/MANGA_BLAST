@@ -1,6 +1,18 @@
 /* =============================================
-   MANGA BLAST - Animazioni e Effetti
+   MANGA BLAST - Animazioni e Effetti - TEMA SCURO
    ============================================= */
+
+/* Variabili per tema scuro */
+:root {
+    --bg-primary: #0f0f23;
+    --bg-secondary: #1a1a2e;
+    --bg-hover: rgba(156, 39, 176, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: rgba(156, 39, 176, 0.2);
+    --accent-color: #EF5350;
+    --accent-hover: #d32f2f;
+}
 
 /* 🎭 Animazioni Base */
 @keyframes fadeIn {
@@ -302,17 +314,17 @@
     }
 }
 
-/* 🎨 Dark Mode Animations */
-[data-theme="dark"] .product-card:hover {
-    box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+/* 🎨 Animazioni per hover */
+.product-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
 }
 
-[data-theme="dark"] .btn:hover {
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+.btn:hover {
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
 }
 
-[data-theme="dark"] .search-box:focus-within {
-    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+.search-box:focus-within {
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
 }
 
 /* 🚀 Performance Optimizations */
