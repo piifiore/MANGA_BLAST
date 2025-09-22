@@ -31,11 +31,11 @@
         <td>
             <form action="modifica-funko.jsp" method="get" style="display:inline;">
                 <input type="hidden" name="numeroSerie" value="<%= f.getNumeroSerie() %>">
-                <input type="submit" value="Modifica">
+                <input type="submit" value="✏️ Modifica" class="btn btn-edit">
             </form>
             <form action="EliminaFunkoServlet" method="post" style="display:inline;" onsubmit="return confirm('Eliminare questo Funko?');">
                 <input type="hidden" name="numeroSerie" value="<%= f.getNumeroSerie() %>">
-                <input type="submit" value="Elimina">
+                <input type="submit" value="🗑️ Elimina" class="btn btn-delete">
             </form>
         </td>
     </tr>
@@ -60,11 +60,11 @@
         <div class="funko-card-row">
             <form action="modifica-funko.jsp" method="get" style="display:inline;">
                 <input type="hidden" name="numeroSerie" value="<%= f.getNumeroSerie() %>">
-                <input type="submit" value="Modifica">
+                <input type="submit" value="✏️ Modifica" class="btn btn-edit">
             </form>
             <form action="EliminaFunkoServlet" method="post" style="display:inline;" onsubmit="return confirm('Eliminare questo Funko?');">
                 <input type="hidden" name="numeroSerie" value="<%= f.getNumeroSerie() %>">
-                <input type="submit" value="Elimina">
+                <input type="submit" value="🗑️ Elimina" class="btn btn-delete">
             </form>
         </div>
     </div>

@@ -21,6 +21,11 @@
     --input-bg: #2a2a3e;
     --input-border: rgba(156, 39, 176, 0.3);
     --hover-bg: rgba(156, 39, 176, 0.1);
+    --bg-primary: var(--primary-bg);
+    --bg-secondary: var(--secondary-bg);
+    --bg-hover: var(--hover-bg);
+    --accent-color: #EF5350;
+    --accent-hover: #d32f2f;
 }
 
 /* Variabili per tema chiaro */
@@ -44,6 +49,11 @@
     --input-bg: #ffffff;
     --input-border: rgba(0, 0, 0, 0.2);
     --hover-bg: rgba(0, 0, 0, 0.05);
+    --bg-primary: var(--primary-bg);
+    --bg-secondary: var(--secondary-bg);
+    --bg-hover: var(--hover-bg);
+    --accent-color: #EF5350;
+    --accent-hover: #d32f2f;
 }
 
 /* Toggle button per cambio tema */

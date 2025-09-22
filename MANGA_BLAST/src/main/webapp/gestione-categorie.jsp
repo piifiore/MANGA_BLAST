@@ -1,11 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
 <%@ page import="model.Categoria" %>
-<%@ page import="model.Sottocategoria" %>
 
 <%
     List<Categoria> categorie = (List<Categoria>) request.getAttribute("categorie");
-    List<Sottocategoria> sottocategorie = (List<Sottocategoria>) request.getAttribute("sottocategorie");
     String emailAdmin = (String) session.getAttribute("admin");
 %>
 
@@ -25,13 +23,12 @@
 
 <div class="admin-container">
     <div class="admin-navigation">
-        <h1>🏷️ Gestione Categorie e Sottocategorie</h1>
+        <h1>🏷️ Gestione Categorie</h1>
         <div class="admin-links">
             <a href="admin-prodotti.jsp" class="admin-link">📦 Prodotti</a>
             <a href="GestioneCategorieServlet" class="admin-link active">🏷️ Categorie</a>
-            <a href="admin-ordini.jsp" class="admin-link">📋 Ordini</a>
         </div>
-        <p>Gestisci le categorie e sottocategorie dei prodotti</p>
+        <p>Gestisci le categorie dei prodotti</p>
     </div>
 
     <% 
@@ -79,41 +76,6 @@
         </div>
     </div>
 
-    <!-- Sezione Sottocategorie -->
-    <div class="subcategories-section">
-        <div class="section-header">
-            <h2>Sottocategorie</h2>
-            <button class="btn btn-primary" onclick="showAddSubcategoryModal()">
-                ➕ Aggiungi Sottocategoria
-            </button>
-        </div>
-
-        <div class="subcategories-grid" id="subcategoriesGrid">
-            <% if (sottocategorie != null && !sottocategorie.isEmpty()) { %>
-                <% for (Sottocategoria sottocategoria : sottocategorie) { %>
-                <div class="subcategory-card" data-id="<%= sottocategoria.getId() %>">
-                    <div class="subcategory-header">
-                        <h4><%= sottocategoria.getNome() %></h4>
-                        <div class="subcategory-actions">
-                            <button class="btn btn-sm btn-delete" onclick="deleteSubcategory(<%= sottocategoria.getId() %>, '<%= sottocategoria.getNome().replace("'", "\\'") %>')">🗑️</button>
-                        </div>
-                    </div>
-                    <p class="subcategory-description"><%= sottocategoria.getDescrizione() %></p>
-                    <div class="subcategory-info">
-                        <span class="category-label">Categoria: <%= sottocategoria.getIdCategoria() %></span>
-                        <span class="status-badge <%= sottocategoria.isAttiva() ? "active" : "inactive" %>">
-                            <%= sottocategoria.isAttiva() ? "Attiva" : "Inattiva" %>
-                        </span>
-                    </div>
-                </div>
-                <% } %>
-            <% } else { %>
-                <div class="empty-state">
-                    <p>Nessuna sottocategoria trovata</p>
-                </div>
-            <% } %>
-        </div>
-    </div>
 </div>
 
 <!-- Modal Aggiungi/Modifica Categoria -->
@@ -156,52 +118,6 @@
     </div>
 </div>
 
-<!-- Modal Aggiungi/Modifica Sottocategoria -->
-<div id="subcategoryModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3>Aggiungi Sottocategoria</h3>
-            <span class="close" onclick="closeAllModals()">&times;</span>
-        </div>
-        <form id="subcategoryForm" class="modal-form">
-            
-            <div class="form-group">
-                <label for="subcategoryName">Nome Sottocategoria *</label>
-                <input type="text" id="subcategoryName" name="nome" required maxlength="100">
-            </div>
-            
-            <div class="form-group">
-                <label for="subcategoryDescription">Descrizione</label>
-                <textarea id="subcategoryDescription" name="descrizione" rows="3" maxlength="500"></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label for="subcategoryCategory">Categoria *</label>
-                <select id="subcategoryCategory" name="categoriaId" required>
-                    <option value="">Seleziona una categoria</option>
-                    <% if (categorie != null) { %>
-                        <% for (Categoria categoria : categorie) { %>
-                        <option value="<%= categoria.getId() %>"><%= categoria.getNome() %></option>
-                        <% } %>
-                    <% } %>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label class="checkbox-label">
-                    <input type="checkbox" id="subcategoryActive" name="attiva" checked>
-                    <span class="checkmark"></span>
-                    Sottocategoria attiva
-                </label>
-            </div>
-            
-            <div class="modal-actions">
-                <button type="button" class="btn btn-secondary" onclick="closeAllModals()">Annulla</button>
-                <button type="submit" class="btn btn-primary">Aggiungi</button>
-            </div>
-        </form>
-    </div>
-</div>
 
 <!-- Toast per notifiche -->
 <div id="toast" class="toast"></div>

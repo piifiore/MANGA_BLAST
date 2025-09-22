@@ -42,65 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
         input.classList.remove('input-error');
     }
 
-    function validateMangaForm(e) {
-        let valid = true;
-        const isbn = document.getElementById('isbn');
-        const nome = document.getElementById('nomeManga');
-        const descr = document.getElementById('descrizioneManga');
-        const prezzo = document.getElementById('prezzoManga');
-        clearError(isbn); clearError(nome); clearError(descr); clearError(prezzo);
-        if (!/^\d{10,13}$/.test(isbn.value.trim())) {
-            showError(isbn, 'ISBN deve essere 10-13 cifre'); valid = false;
-        }
-        if (nome.value.trim().length < 2) {
-            showError(nome, 'Nome troppo corto'); valid = false;
-        }
-        if (descr.value.trim().length < 5) {
-            showError(descr, 'Descrizione troppo corta'); valid = false;
-        }
-        if (!/^\d+(\.\d{1,2})?$/.test(prezzo.value) || parseFloat(prezzo.value) <= 0) {
-            showError(prezzo, 'Prezzo non valido'); valid = false;
-        }
-        if (!valid && e) e.preventDefault();
-        return valid;
-    }
-    function validateFunkoForm(e) {
-        let valid = true;
-        const num = document.getElementById('numeroSerie');
-        const nome = document.getElementById('nomeFunko');
-        const descr = document.getElementById('descrizioneFunko');
-        const prezzo = document.getElementById('prezzoFunko');
-        clearError(num); clearError(nome); clearError(descr); clearError(prezzo);
-        if (!/^\w{2,}$/.test(num.value.trim())) {
-            showError(num, 'Numero serie obbligatorio'); valid = false;
-        }
-        if (nome.value.trim().length < 2) {
-            showError(nome, 'Nome troppo corto'); valid = false;
-        }
-        if (descr.value.trim().length < 5) {
-            showError(descr, 'Descrizione troppo corta'); valid = false;
-        }
-        if (!/^\d+(\.\d{1,2})?$/.test(prezzo.value) || parseFloat(prezzo.value) <= 0) {
-            showError(prezzo, 'Prezzo non valido'); valid = false;
-        }
-        if (!valid && e) e.preventDefault();
-        return valid;
-    }
+    // Validazione rimossa - ora gestita nella pagina di verifica
+    // Validazione rimossa - ora gestita nella pagina di verifica
 
-    const mangaForm = document.querySelector('form[action="AggiungiMangaServlet"]');
-    if (mangaForm) {
-        mangaForm.addEventListener('submit', validateMangaForm);
-        ['isbn','nomeManga','descrizioneManga','prezzoManga'].forEach(id => {
-            document.getElementById(id).addEventListener('change', validateMangaForm);
-        });
-    }
-    const funkoForm = document.querySelector('form[action="AggiungiFunkoServlet"]');
-    if (funkoForm) {
-        funkoForm.addEventListener('submit', validateFunkoForm);
-        ['numeroSerie','nomeFunko','descrizioneFunko','prezzoFunko'].forEach(id => {
-            document.getElementById(id).addEventListener('change', validateFunkoForm);
-        });
-    }
+    // Event listeners per validazione rimossi - ora gestiti nella pagina di verifica
 
     // AJAX per filtri Manga
     const mangaSearchForm = document.querySelector('form input[name="tipo"][value="manga"]').closest('form');
@@ -147,46 +92,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     // GESTIONE CATEGORIE E SOTTOCATEGORIE
-    function loadSubcategories(categoriaId, subcategorySelectId) {
-        const subcategorySelect = document.getElementById(subcategorySelectId);
-        if (!subcategorySelect) return;
-        
-        // Pulisci le opzioni esistenti
-        subcategorySelect.innerHTML = '<option value="">Seleziona sottocategoria</option>';
-        
-        if (!categoriaId) return;
-        
-        // Carica le sottocategorie via AJAX
-        fetch(`GestioneCategorieServlet?action=getSottocategorie&categoriaId=${categoriaId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success && data.sottocategorie) {
-                    data.sottocategorie.forEach(subcategory => {
-                        const option = document.createElement('option');
-                        option.value = subcategory.id;
-                        option.textContent = subcategory.nome;
-                        subcategorySelect.appendChild(option);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Errore nel caricamento sottocategorie:', error);
-            });
-    }
-    
-    // Event listeners per le categorie
-    const categoriaManga = document.getElementById('categoriaManga');
-    const categoriaFunko = document.getElementById('categoriaFunko');
-    
-    if (categoriaManga) {
-        categoriaManga.addEventListener('change', (e) => {
-            loadSubcategories(e.target.value, 'sottocategoriaManga');
-        });
-    }
-    
-    if (categoriaFunko) {
-        categoriaFunko.addEventListener('change', (e) => {
-            loadSubcategories(e.target.value, 'sottocategoriaFunko');
-        });
-    }
+    // Sottocategorie rimosse - sistema semplificato
 });

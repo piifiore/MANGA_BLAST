@@ -302,6 +302,98 @@ hr {
     }
 }
 
+/* Stili per le tabelle */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+th {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+tr:hover {
+    background: rgba(102, 126, 234, 0.05);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Stili per i pulsanti nelle tabelle */
+table .btn {
+    padding: 0.5rem 1rem;
+    margin: 0.2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+table .btn-edit {
+    background: #ffc107;
+    color: #212529;
+}
+
+table .btn-edit:hover {
+    background: #e0a800;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+table .btn-delete {
+    background: #dc3545;
+    color: white;
+}
+
+table .btn-delete:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Dark mode per le tabelle */
+[data-theme="dark"] table {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] th {
+    background: linear-gradient(135deg, #4a5568, #2d3748);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] td {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] tr:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
 /* Card prodotti mobile/tablet */
 .manga-cards-mobile, .funko-cards-mobile { display: none; }
 @media screen and (max-width: 900px) {

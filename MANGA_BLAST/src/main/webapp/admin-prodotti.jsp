@@ -50,7 +50,6 @@
         <div class="admin-links">
             <a href="admin-prodotti.jsp" class="admin-link active">📦 Prodotti</a>
             <a href="GestioneCategorieServlet" class="admin-link">🏷️ Categorie</a>
-            <a href="admin-ordini.jsp" class="admin-link">📋 Ordini</a>
         </div>
     </div>
 
@@ -144,12 +143,6 @@
                     %>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="sottocategoriaManga">Sottocategoria:</label>
-                <select name="id_sottocategoria" id="sottocategoriaManga">
-                    <option value="">Seleziona sottocategoria</option>
-                </select>
-            </div>
             <button type="submit">Aggiungi Manga</button>
         </form>
     </section>
@@ -236,12 +229,6 @@
                         }
                     }
                     %>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="sottocategoriaFunko">Sottocategoria:</label>
-                <select name="id_sottocategoria" id="sottocategoriaFunko">
-                    <option value="">Seleziona sottocategoria</option>
                 </select>
             </div>
             <button type="submit">Aggiungi Funko</button>

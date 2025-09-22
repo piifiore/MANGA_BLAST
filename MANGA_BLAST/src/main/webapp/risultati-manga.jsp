@@ -34,11 +34,11 @@
         <td>
             <form action="modifica-manga.jsp" method="get" style="display:inline;">
                 <input type="hidden" name="ISBN" value="<%= m.getISBN() %>">
-                <input type="submit" value="Modifica">
+                <input type="submit" value="✏️ Modifica" class="btn btn-edit">
             </form>
             <form action="EliminaMangaServlet" method="post" style="display:inline;" onsubmit="return confirm('Eliminare questo manga?');">
                 <input type="hidden" name="ISBN" value="<%= m.getISBN() %>">
-                <input type="submit" value="Elimina">
+                <input type="submit" value="🗑️ Elimina" class="btn btn-delete">
             </form>
         </td>
     </tr>
@@ -63,11 +63,11 @@
         <div class="manga-card-row">
             <form action="modifica-manga.jsp" method="get" style="display:inline;">
                 <input type="hidden" name="ISBN" value="<%= m.getISBN() %>">
-                <input type="submit" value="Modifica">
+                <input type="submit" value="✏️ Modifica" class="btn btn-edit">
             </form>
             <form action="EliminaMangaServlet" method="post" style="display:inline;" onsubmit="return confirm('Eliminare questo manga?');">
                 <input type="hidden" name="ISBN" value="<%= m.getISBN() %>">
-                <input type="submit" value="Elimina">
+                <input type="submit" value="🗑️ Elimina" class="btn btn-delete">
             </form>
         </div>
     </div>

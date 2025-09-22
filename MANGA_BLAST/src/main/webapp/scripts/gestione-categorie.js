@@ -20,11 +20,7 @@ function setupEventListeners() {
         categoryForm.addEventListener('submit', handleCategorySubmit);
     }
 
-    // Form sottocategoria
-    const subcategoryForm = document.getElementById('subcategoryForm');
-    if (subcategoryForm) {
-        subcategoryForm.addEventListener('submit', handleSubcategorySubmit);
-    }
+    // Sottocategorie rimosse
 
     // Pulsanti di chiusura modal
     const closeButtons = document.querySelectorAll('.close-modal');
@@ -90,46 +86,6 @@ function handleCategorySubmit(e) {
     });
 }
 
-function handleSubcategorySubmit(e) {
-    e.preventDefault();
-    
-    const form = e.target;
-    const formData = new FormData(form);
-    
-    // Aggiungi il parametro action (sempre addSottocategoria)
-    formData.append('action', 'addSottocategoria');
-    
-    // Converti FormData in URLSearchParams
-    const params = new URLSearchParams();
-    for (let [key, value] of formData.entries()) {
-        params.append(key, value);
-    }
-    
-    fetch('GestioneCategorieServlet', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: params
-    })
-    .then(response => {
-        if (response.ok) {
-            showToast('Sottocategoria aggiunta con successo!', 'success');
-            form.reset();
-            closeAllModals();
-            // Ricarica la pagina per vedere le modifiche
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
-        } else {
-            throw new Error('Errore nel salvataggio');
-        }
-    })
-    .catch(error => {
-        console.error('Errore nel salvataggio sottocategoria:', error);
-        showToast('Errore nel salvataggio della sottocategoria', 'error');
-    });
-}
 
 // =============================================
 // FUNZIONI GLOBALI (chiamate dai pulsanti HTML)
@@ -167,37 +123,7 @@ function deleteCategory(id, nome) {
     }
 }
 
-// Funzione di modifica sottocategoria rimossa - solo aggiunta e eliminazione
-
-function deleteSubcategory(id, nome) {
-    if (confirm(`Sei sicuro di voler eliminare la sottocategoria "${nome}"?`)) {
-        const params = new URLSearchParams();
-        params.append('action', 'deleteSottocategoria');
-        params.append('id', id);
-        
-        fetch('GestioneCategorieServlet', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: params
-        })
-        .then(response => {
-            if (response.ok) {
-                showToast('Sottocategoria eliminata con successo!', 'success');
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-            } else {
-                throw new Error('Errore nell\'eliminazione');
-            }
-        })
-        .catch(error => {
-            console.error('Errore nell\'eliminazione sottocategoria:', error);
-            showToast('Errore nell\'eliminazione della sottocategoria', 'error');
-        });
-    }
-}
+// Sottocategorie rimosse
 
 function showAddCategoryModal() {
     // Pulisci il form
@@ -207,17 +133,9 @@ function showAddCategoryModal() {
     document.getElementById('categoryModal').style.display = 'block';
 }
 
-function showAddSubcategoryModal() {
-    // Pulisci il form
-    document.getElementById('subcategoryForm').reset();
-    
-    // Mostra il modal
-    document.getElementById('subcategoryModal').style.display = 'block';
-}
 
 function closeAllModals() {
     document.getElementById('categoryModal').style.display = 'none';
-    document.getElementById('subcategoryModal').style.display = 'none';
 }
 
 // =============================================

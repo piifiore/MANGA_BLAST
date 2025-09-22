@@ -10,7 +10,6 @@ public class Manga {
     private String immagine;
     private int quantita;
     private Integer idCategoria;
-    private Integer idSottocategoria;
 
     // Getters & Setters
     public long getISBN() { return ISBN; }
@@ -34,6 +33,4 @@ public class Manga {
     public Integer getIdCategoria() { return idCategoria; }
     public void setIdCategoria(Integer idCategoria) { this.idCategoria = idCategoria; }
 
-    public Integer getIdSottocategoria() { return idSottocategoria; }
-    public void setIdSottocategoria(Integer idSottocategoria) { this.idSottocategoria = idSottocategoria; }
 }

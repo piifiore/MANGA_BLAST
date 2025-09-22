@@ -1,3 +1,15 @@
+function aggiungiCarrello(id, tipo, titolo, prezzo) {
+    fetch('AggiungiAlCarrelloServlet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ id, tipo, titolo, prezzo })
+    })
+        .then(res => res.text())
+        .catch(error => {
+            console.error('Errore:', error);
+        });
+}
+
 function rimuoviPreferito(id, tipo) {
     fetch('RimuoviPreferitoServlet', {
         method: 'POST',
@@ -5,24 +17,15 @@ function rimuoviPreferito(id, tipo) {
         body: new URLSearchParams({ id, tipo })
     })
         .then(() => {
-            mostraBanner("🗑️ Rimosso dai preferiti!");
             evidenziaRimozione(id);
             
             // Aggiorna sessionStorage
             updateSessionStorageFavorites(id, tipo, true);
             
-            
             setTimeout(() => location.reload(), 1000);
         });
 }
 
-function mostraBanner(msg) {
-    const banner = document.createElement('div');
-    banner.textContent = msg;
-    banner.className = "floating-banner";
-    document.body.appendChild(banner);
-    setTimeout(() => banner.remove(), 2500);
-}
 
 function evidenziaRimozione(id) {
     const card = document.querySelector(`.product-card[data-id='${id}']`);

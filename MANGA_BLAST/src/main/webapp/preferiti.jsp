@@ -20,7 +20,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>❤️ I tuoi Preferiti</title>
   <link rel="stylesheet" href="style/preferiti.css?v=<%= System.currentTimeMillis() %>">
-  <script src="scripts/preferiti.js"></script>
+  <link rel="stylesheet" href="style/toast.css?v=<%= System.currentTimeMillis() %>">
+  <script src="scripts/toast.js" defer></script>
+  <script src="scripts/preferiti.js" defer></script>
 </head>
 <body>
 <jsp:include page="header.jsp" />
@@ -41,13 +43,7 @@
     <p><strong><%= p.getPrezzo() %>€</strong></p>
 
     <!-- Aggiunta al carrello -->
-    <form action="AggiungiAlCarrelloServlet" method="post">
-      <input type="hidden" name="id" value="<%= p.getIdProdotto() %>">
-      <input type="hidden" name="tipo" value="<%= p.getTipo() %>">
-      <input type="hidden" name="titolo" value="<%= p.getTitolo() %>">
-      <input type="hidden" name="prezzo" value="<%= p.getPrezzo() %>">
-      <button type="submit">🛒 Aggiungi al Carrello</button>
-    </form>
+    <button onclick="aggiungiCarrello('<%= p.getIdProdotto() %>', '<%= p.getTipo() %>', '<%= p.getTitolo() %>', '<%= p.getPrezzo() %>')">🛒 Aggiungi al Carrello</button>
 
     <!-- Rimozione preferito -->
     <button onclick="rimuoviPreferito('<%= p.getIdProdotto() %>', '<%= p.getTipo() %>')">🗑️ Rimuovi</button>

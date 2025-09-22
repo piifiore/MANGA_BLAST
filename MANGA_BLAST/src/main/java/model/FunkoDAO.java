@@ -60,7 +60,7 @@ public class FunkoDAO {
     }
 
     public void addFunko(Funko f) {
-        String query = "INSERT INTO funko (numeroSerie, nome, descrizione, prezzo, immagine, id_categoria, id_sottocategoria) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO funko (numeroSerie, nome, descrizione, prezzo, immagine, id_categoria) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -71,7 +71,6 @@ public class FunkoDAO {
             stmt.setBigDecimal(4, f.getPrezzo());
             stmt.setString(5, f.getImmagine());
             stmt.setObject(6, f.getIdCategoria());
-            stmt.setObject(7, f.getIdSottocategoria());
 
             stmt.executeUpdate();
         } catch (Exception e) {

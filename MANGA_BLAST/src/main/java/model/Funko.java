@@ -10,7 +10,6 @@ public class Funko {
     private String immagine;
     private int quantita;
     private Integer idCategoria;
-    private Integer idSottocategoria;
 
     public String getNumeroSerie() { return numeroSerie; }
     public void setNumeroSerie(String numeroSerie) { this.numeroSerie = numeroSerie; }
@@ -33,6 +32,4 @@ public class Funko {
     public Integer getIdCategoria() { return idCategoria; }
     public void setIdCategoria(Integer idCategoria) { this.idCategoria = idCategoria; }
 
-    public Integer getIdSottocategoria() { return idSottocategoria; }
-    public void setIdSottocategoria(Integer idSottocategoria) { this.idSottocategoria = idSottocategoria; }
 }

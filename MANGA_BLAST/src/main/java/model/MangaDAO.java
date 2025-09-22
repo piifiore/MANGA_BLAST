@@ -60,7 +60,7 @@ public class MangaDAO {
     }
 
     public void addManga(Manga manga) {
-        String query = "INSERT INTO manga (ISBN, nome, descrizione, prezzo, immagine, id_categoria, id_sottocategoria) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO manga (ISBN, nome, descrizione, prezzo, immagine, id_categoria) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -71,7 +71,6 @@ public class MangaDAO {
             stmt.setBigDecimal(4, manga.getPrezzo());
             stmt.setString(5, manga.getImmagine());
             stmt.setObject(6, manga.getIdCategoria());
-            stmt.setObject(7, manga.getIdSottocategoria());
 
             stmt.executeUpdate();
         } catch (Exception e) {

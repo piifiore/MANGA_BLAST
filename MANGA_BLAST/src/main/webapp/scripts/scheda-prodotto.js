@@ -5,14 +5,8 @@ function aggiungiCarrello(id, tipo, titolo, prezzo) {
         body: new URLSearchParams({ id, tipo, titolo, prezzo })
     })
         .then(res => res.text())
-        .then(text => {
-            if (text.trim() === "aggiunto") {
-                mostraBanner("✅ Aggiunto al carrello!");
-            } else if (text.trim() === "admin_non_autorizzato") {
-                mostraBanner("❌ Gli admin non possono aggiungere prodotti al carrello!");
-            } else {
-                mostraBanner("⚠️ Operazione non riuscita");
-            }
+        .catch(error => {
+            console.error('Errore carrello:', error);
         });
 }
 
@@ -23,21 +17,8 @@ function aggiungiPreferiti(idProdotto, tipo) {
         body: new URLSearchParams({ idProdotto, tipo })
     })
         .then(res => res.text())
-        .then(text => {
-            if (text.trim() === "aggiunto") {
-                mostraBanner("❤️ Aggiunto ai preferiti!");
-            } else if (text.trim() === "esiste") {
-                mostraBanner("⚠️ Già presente nei preferiti!");
-            } else {
-                mostraBanner("⚠️ Errore imprevisto");
-            }
+        .catch(error => {
+            console.error('Errore preferiti:', error);
         });
 }
 
-function mostraBanner(msg) {
-    const banner = document.createElement('div');
-    banner.textContent = msg;
-    banner.className = "floating-banner";
-    document.body.appendChild(banner);
-    setTimeout(() => banner.remove(), 2500);
-}

@@ -21,6 +21,7 @@
     }
 
     String emailUser = (String) session.getAttribute("user");
+    String emailAdmin = (String) session.getAttribute("admin");
 %>
 
 <!DOCTYPE html>
@@ -31,6 +32,8 @@
     <title>Scheda Prodotto</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/scheda.css?v=<%= System.currentTimeMillis() %>">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/reviews.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/toast.css?v=<%= System.currentTimeMillis() %>">
+    <script src="scripts/toast.js" defer></script>
     <script src="scripts/scheda-prodotto.js" defer></script>
     <script src="scripts/reviews.js" defer></script>
 </head>
@@ -56,10 +59,12 @@
             <p class="price-tag">💸 <strong><%= prezzo %> €</strong></p>
 
             <div class="action-buttons">
-                <!-- ✅ Bottone sempre visibile -->
+                <!-- ✅ Bottone solo per utenti normali (non admin) -->
+                <% if (emailAdmin == null) { %>
                 <button onclick="aggiungiCarrello('<%= id %>', '<%= tipo %>', '<%= nome %>', '<%= prezzo %>')">
                     Aggiungi al carrello
                 </button>
+                <% } %>
 
                 <!-- ❤️ Solo utenti registrati -->
                 <% if (emailUser != null) { %>

@@ -130,19 +130,16 @@ function aggiungiCarrello(id, tipo, titolo, prezzo) {
         console.log('Risposta server:', text);
         if (text.trim() === "aggiunto") {
             console.log('Server ha confermato aggiunta al carrello');
-            mostraBanner("Aggiunto al carrello!");
             
             // Aggiorna sessionStorage
             updateSessionStorageCart(id, tipo, titolo, prezzo);
             
         } else if (text.trim() === "admin_non_autorizzato") {
             console.log('Admin non può aggiungere al carrello');
-            mostraBanner("Gli admin non possono aggiungere prodotti al carrello!");
         }
     })
     .catch(error => {
         console.error('Errore:', error);
-        mostraBanner("Errore nell'aggiunta al carrello!");
     })
     .finally(() => {
         // Nasconde loading dal bottone
@@ -173,18 +170,16 @@ function aggiungiPreferiti(idProdotto, tipo) {
         console.log('Risposta server preferiti:', text);
         if (text.trim() === "aggiunto") {
             console.log('Server ha confermato aggiunta ai preferiti');
-            mostraBanner("Aggiunto ai preferiti!");
             
             // Aggiorna sessionStorage
             updateSessionStorageFavorites(idProdotto, tipo);
             
         } else if (text.trim() === "esiste") {
-            mostraBanner("Già presente nei preferiti!");
+            console.log('Già presente nei preferiti');
         }
     })
     .catch(error => {
         console.error('Errore:', error);
-        mostraBanner("Errore nell'aggiunta ai preferiti!");
     })
     .finally(() => {
         // Nasconde loading dal bottone
@@ -194,26 +189,6 @@ function aggiungiPreferiti(idProdotto, tipo) {
     });
 }
 
-// 🔔 Sistema notifiche migliorato
-function mostraBanner(msg) {
-    // Usa il nuovo sistema toast se disponibile, altrimenti fallback al vecchio sistema
-    if (typeof showToast !== 'undefined') {
-        // Determina il tipo di toast basato sul messaggio
-        let type = 'info';
-        if (msg.includes('Aggiunto')) type = 'success';
-        else if (msg.includes('Errore')) type = 'error';
-        else if (msg.includes('Già presente')) type = 'warning';
-        
-        showToast(msg, type, { duration: 3000 });
-    } else {
-        // Fallback al vecchio sistema
-        const banner = document.createElement("div");
-        banner.textContent = msg;
-        banner.className = "floating-banner";
-        document.body.appendChild(banner);
-        setTimeout(() => banner.remove(), 2500);
-    }
-}
 
 // Funzioni per gestire la validazione del range di prezzo
 function inizializzaValidazionePrezzo() {
